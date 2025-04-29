@@ -3,16 +3,14 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please choose a task number from the list.
 Choose an option:
 1. Robot Paths
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please enter the coordinates of the robot (column, row):
 The total number of paths the robot can take to reach home is: 4
 Choose an option:
@@ -20,8 +18,7 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please enter the weights of the cheerleaders:
 Negative weights are not supported.
 Choose an option:
@@ -29,8 +26,7 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please enter the weights of the cheerleaders:
 The total weight on each cheerleader is:
 51.18 
@@ -43,8 +39,7 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please enter a term for validation:
 The parentheses are balanced correctly.
 Choose an option:
@@ -52,8 +47,7 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please enter a term for validation:
 The parentheses are balanced correctly.
 Choose an option:
@@ -61,8 +55,7 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please enter a term for validation:
 The parentheses are not balanced correctly.
 Choose an option:
@@ -70,8 +63,7 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please enter a term for validation:
 The parentheses are not balanced correctly.
 Choose an option:
@@ -79,8 +71,7 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please enter a term for validation:
 The parentheses are balanced correctly.
 Choose an option:
@@ -88,8 +79,7 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please enter the board dimensions:
 Please enter a 10*10 puzzle board:
 Solution:
@@ -108,8 +98,7 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please enter the board dimensions:
 Please enter a 2*2 puzzle board:
 This puzzle cannot be solved.
@@ -118,38 +107,5 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
-Please enter the dimensions of the crossword grid:
-Please enter the number of slots in the crossword:
-Please enter the details for each slot (Row, Column, Length, Direction):
-Please enter the number of words in the dictionary:
-The dictionary must contain at least 4 words. Please enter a valid dictionary size:
-Please enter the words for the dictionary:
-| B | O | W | L | # | # |
-| A | # | # | # | # | # |
-| L | # | B | I | T | E |
-| L | # | I | # | # | # |
-| # | # | K | # | # | # |
-| # | # | E | # | # | # |
-Choose an option:
-1. Robot Paths
-2. The Human Pyramid
-3. Parenthesis Validation
-4. Queens Battle
-5. Crossword Generator
-6. Exit
-Please enter the dimensions of the crossword grid:
-Please enter the number of slots in the crossword:
-Please enter the details for each slot (Row, Column, Length, Direction):
-Please enter the number of words in the dictionary:
-Please enter the words for the dictionary:
-This crossword cannot be solved.
-Choose an option:
-1. Robot Paths
-2. The Human Pyramid
-3. Parenthesis Validation
-4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Goodbye!

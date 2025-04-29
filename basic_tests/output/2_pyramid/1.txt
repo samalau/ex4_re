@@ -3,8 +3,7 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please enter the weights of the cheerleaders:
 Negative weights are not supported.
 Choose an option:
@@ -12,8 +11,7 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Please enter the weights of the cheerleaders:
 The total weight on each cheerleader is:
 51.18 
@@ -26,6 +24,5 @@ Choose an option:
 2. The Human Pyramid
 3. Parenthesis Validation
 4. Queens Battle
-5. Crossword Generator
-6. Exit
+5. Exit
 Goodbye!
