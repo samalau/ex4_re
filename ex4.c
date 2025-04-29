@@ -7,6 +7,7 @@ Assignment: ex4
 #include <stdio.h>
 #include <string.h>
 
+// You can change the functions' names and prototypes as you wish, but keep the declarations at the top:
 void task1RobotPaths();
 void task2HumanPyramid();
 void task3ParenthesisValidator();
@@ -45,8 +46,8 @@ int main() {
             }
         } else {
             scanf("%*s"); // To discard the invalid input
+            printf("Please choose a task number from the list.\n");
         }
-
     } while (task != 5);
 }
 
