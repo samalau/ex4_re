@@ -151,6 +151,12 @@ distance between coodinates
 */
 int absoluteDifference(int a, int b);
 
+/*
+task 4
+TODO NOTE
+*/
+void queensRec();
+
 
 // MENU FUNCTIONS
 
@@ -283,6 +289,9 @@ void task4QueensBattle(){
 	int currentRow=0, solved=0;
 	unsigned long long colMask=0, zoneMask=0;
 	
+
+    //////////////////////////////////////////////
+
 	// CRITICAL TODO: RECURSIVE
 	while(1){
 	
@@ -322,6 +331,9 @@ void task4QueensBattle(){
 		board[currentRow]= -1;
 	
 	}
+
+    //////////////////////////////////////////////
+
 
 	if(solved){
 		printf("Solution:\n");
@@ -406,6 +418,11 @@ int absoluteDifference(int a, int b){
 	return a>b?a-b:b-a;
 }
 
+void queensRec(){
+
+
+}
+
 
 // NAVIGATE VIA MAIN
 
@@ -413,28 +430,22 @@ int main(){
 	while(selectedTask !=DONE){
 		menuSelect();
 		switch (selectedTask){
-
 			case DONE:
-				break;
-			
+                break;
 			case ROBOT_PATHS:
-				task1RobotPaths();
-				break;
-			
+                task1RobotPaths();
+                break;
 			case HUMAN_PYRAMID:
-				task2HumanPyramid();
-				break;
-			
+                task2HumanPyramid();
+                break;
 			case PARENTHESES:
-				task3ParenthesisValidator();
-				break;
-			
-			case QUEENS:
-				task4QueensBattle();
-				break;
-			
+                task3ParenthesisValidator();
+                break;
+            case QUEENS:
+                task4QueensBattle();
+                break;
 			default:
-				printf("Please choose a task number from the list.\n");
+                printf("Please choose a task number from the list.\n");
 		}
 	}
 	printf("Goodbye!\n");
