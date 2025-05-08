@@ -175,6 +175,7 @@ int computeDistanceBetweenCells(
 	int b
 );
 
+
 /*
 Task 4
 Check if the puzzle has a solution
