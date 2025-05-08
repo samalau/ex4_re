@@ -153,16 +153,43 @@ int closedAllParentheses(
 
 /*
 task 4
-distance between coodinates
+compute distance between coodinates
 */
 int absoluteDifference(int a, int b);
 
 
 /*
 task 4
-TODO NOTE
+recursively check if a cell is adjacent to any existing queens
 */
-int solveRecursive(
+int isAdjacentCell(
+	int board[20],
+	int row,
+	int col,
+	int currentRow
+);
+
+
+/*
+task 4
+recursively attempt each column in a row for legal queen placement
+*/
+int tryColForQueen(
+    int col,
+    int currentRow,
+    int dimension,
+    int board[20],
+    unsigned long long *colMask,
+    unsigned long long *zoneMask,
+    char zones[20][20]
+);
+
+
+/*
+task 4
+recursively attempt each row for legal queen placement
+*/
+int tryRowForQueen(
 	int currentRow,
 	int dimension,
 	int board[20],
@@ -300,11 +327,15 @@ void task4QueensBattle(){
 		++filled;
 	}
 	int board[20];
+
+	// URGENT TOKNOW: CAN I USE FOR LOOP FOR ARRAY INIT?
+
 	for(int i=0; i<dimension; i++){
 		board[i]= -1;
 	}
+
 	unsigned long long colMask=0, zoneMask=0;
-	if(solveRecursive(0, dimension, board, &colMask, &zoneMask, zones)){
+	if(tryRowForQueen(0, dimension, board, &colMask, &zoneMask, zones)){
 		printf("Solution:\n");
 		for(int i=0; i<dimension; i++){
 			for(int j=0; j<dimension; j++){
@@ -391,7 +422,59 @@ int absoluteDifference(int a, int b){
 }
 
 
-int solveRecursive(
+int isAdjacentCell(
+	int board[20],
+	int row,
+	int col,
+	int currentRow
+){
+	if(row==currentRow){
+		return 0;
+	}
+	int c=board[row];
+	if(
+		c>=0
+		&&absoluteDifference(c, col)<=1
+		&&absoluteDifference(row, currentRow)<=1
+	){
+		return 1;
+	}
+	return isAdjacentCell(board, row+1, col, currentRow);
+}
+
+int tryColForQueen(
+    int col,
+    int currentRow,
+    int dimension,
+    int board[20],
+    unsigned long long *colMask,
+    unsigned long long *zoneMask,
+    char zones[20][20]
+) {
+    if(col==dimension){
+		return 0;
+	}
+    int zid=zones[currentRow][col]-ASCII_MIN;
+    if((*colMask&(1ULL<<col)) ||(*zoneMask&(1ULL<<zid))){
+        return tryColForQueen(col+1, currentRow, dimension, board, colMask, zoneMask, zones);
+    }
+    if(isAdjacentCell(board, 0, col, currentRow)) {
+        return tryColForQueen(col+1, currentRow, dimension, board, colMask, zoneMask, zones);
+    }
+    board[currentRow]=col;
+    *colMask|=1ULL<<col;
+    *zoneMask|=1ULL<<zid;
+    if (tryRowForQueen(currentRow+1, dimension, board, colMask, zoneMask, zones)) {
+        return 1;
+    }
+    *colMask&=~(1ULL<<col);
+    *zoneMask&=~(1ULL<<zid);
+    board[currentRow]= -1;
+    return tryColForQueen(col+1, currentRow, dimension, board, colMask, zoneMask, zones);
+}
+
+
+int tryRowForQueen(
 	int currentRow,
 	int dimension,
 	int board[20],
@@ -402,36 +485,7 @@ int solveRecursive(
 	if(currentRow==dimension){
 		return 1;
 	}
-	for(int col=0; col<dimension; col++) {
-		int zid=zones[currentRow][col]-ASCII_MIN;
-		if((*colMask&(1ULL<<col)) ||(*zoneMask&(1ULL<<zid))){
-			continue;
-		}
-		int valid=1;
-		for(int r=0; valid &&r<currentRow; r++) {
-			int c=board[r];
-			if (
-				c>=0
-				&&absoluteDifference(c, col)<=1
-				&&absoluteDifference(r, currentRow)<=1
-			){
-				valid = 0;
-			}
-		}
-		if(!valid){
-			continue;
-		}
-		board[currentRow]=col;
-		*colMask|=1ULL<<board[currentRow];
-		*zoneMask|=1ULL<<(zones[currentRow][board[currentRow]]-ASCII_MIN);
-		if(solveRecursive(currentRow+1, dimension, board, colMask, zoneMask, zones)){
-			return 1;
-		}
-		*colMask&=~(1ULL<<board[currentRow]);
-		*zoneMask&=~(1ULL<<(zones[currentRow][board[currentRow]]-ASCII_MIN));
-		board[currentRow]=-1;
-	}
-	return 0;
+	return tryColForQueen(0, currentRow, dimension, board, colMask, zoneMask, zones);
 }
 
 
