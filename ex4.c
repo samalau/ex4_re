@@ -28,13 +28,13 @@ Task 2
 menu selection id
 Task 3
 */
-#define PARENTHESES 3
+#define PARENTHESES_VALIDATOR 3
 
 /*
 menu selection id
 Task 4
 */
-#define QUEENS 4
+#define QUEENS_BATTLE 4
 
 /*
 menu selection
@@ -72,6 +72,12 @@ Bitmask < >
 
 
 /*
+TODO: NEED?
+Compute the square of an int
+*/
+#define SQUARE(a) a, a
+
+/*
 Task 4
 Minimum legal character ASCII for zone id
 */
@@ -102,30 +108,32 @@ void displayMenu();
 /*
 Restricted to traveling only left and/or down, how many paths could a robot take from some (x, y) to (0, 0)?
 */
-void task1RobotPaths();
+void robotPaths();
 
 
 /*
 What is the total weight load of each cheerleader in a pyramid formation?
 */
-void task2HumanPyramid();
+void humanPyramid();
 
 
 /*
+Task 3
 Has every opening parenthesis been properly closed?
 Legal: ( ), [ ], { }, < >
 */
-void task3ParenthesisValidator();
+void parenthesisValidator();
 
 
 /*
+Task 4
 For a square grid of dimensions N x N and exactly N queens,
 is there a legal configuration of queens such that none of these conditions is violated:
 - exactly one queen in every row,
 - exactly one queen in every column
 - every cell adjacent to each queen is empty (row, col, diags)
 */ 
-void task4QueensBattle();
+void QueensBattle();
 
 
 /*
@@ -165,6 +173,19 @@ Compute the absolute difference between coodinates
 int computeDistanceBetweenCells(
 	int a,
 	int b
+);
+
+/*
+Task 4
+Check if the puzzle has a solution
+*/
+int isPuzzleSolvable(
+    int currentRow,
+    int dimension,
+    int board[MAX_DIMENSION],
+    unsigned long long *colMask,
+    unsigned long long *zoneMask,
+    char zones[MAX_DIMENSION][MAX_DIMENSION]
 );
 
 
@@ -213,18 +234,24 @@ int tryPlacingQueenInRow(
 
 void displayMenu(){
 	printf("Choose an option:\n"
-	"1. Robot Paths\n"
-	"2. The Human Pyramid\n"
-	"3. Parenthesis Validation\n"
-	"4. Queens Battle\n"
-	"5. Exit\n");
+			"1. Robot Paths\n"
+			"2. The Human Pyramid\n"
+			"3. Parenthesis Validation\n"
+			"4. Queens Battle\n"
+			"5. Exit\n"
+	);
 }
 
 
 void menuSelect(){
 	selectedTask=UNSELECTED;
 	int input=UNSELECTED, temp=UNSELECTED;
-	while(displayMenu(), (input=scanf(" %d",&temp)) !=1 ||temp<1 ||temp>DONE){
+	while(
+		displayMenu(),
+		(input=scanf(" %d",&temp)) !=1
+		||temp<1
+		||temp>DONE
+	){
 		if(input==EOF){
 			selectedTask=DONE;
 			return;
@@ -239,7 +266,7 @@ void menuSelect(){
 
 // TASK FUNCTIONS
 
-void task1RobotPaths(){
+void robotPaths(){
 	int input=0, x=0, y=0;
 	printf("Please enter the coordinates of the robot (column, row):\n");
 	while((input=scanf(" %d %d", &x, &y)) !=2){
@@ -252,19 +279,24 @@ void task1RobotPaths(){
 		continue;
 	}
 	printf("The total number of paths the robot can take to reach home is: %llu\n",
-		(x<0 ||y<0)?0:(!x && !y)?1:robotPathCount((unsigned long long)(x+y), (unsigned long long)x)
+		(x<0 ||y<0) ? 0
+		: (!x && !y) ? 1
+		: robotPathCount((unsigned long long)(x+y), (unsigned long long)x)
 	);
 }
 
 
-void task2HumanPyramid(){
+void humanPyramid(){
 	double dataPyramid[5][5]={0};
 	printf("Please enter the weights of the cheerleaders:\n");
 	for(int i=0; i<5; i++){
 		for(int j=0; j<=i; j++){
 			double nextWeight= -1.00;
 			int input=0;
-			if((input=scanf(" %lf", &nextWeight)) !=1 ||nextWeight<0){
+			if(
+				(input=scanf(" %lf", &nextWeight)) !=1
+				||nextWeight<0
+			){
 				if(input==EOF){
 					selectedTask=DONE;
 					return;
@@ -282,8 +314,8 @@ void task2HumanPyramid(){
 		for(int j=0; j<=i; j++){
 			float weightLoad=dataPyramid[i][j];
 			if(i>0){
-				float weightUpLeft=(j>0)?(float)dataPyramid[i-1][j-1]/2.0:0;
-				float weightUpRight=(j<i)?(float)dataPyramid[i-1][j]/2.0:0;
+				float weightUpLeft=(j>0) ? (float)dataPyramid[i-1][j-1]/2.0 : 0;
+				float weightUpRight=(j<i) ? (float)dataPyramid[i-1][j]/2.0 : 0;
 				weightLoad+=weightUpLeft+weightUpRight;
 			}
 			dataPyramid[i][j]=weightLoad;
@@ -295,20 +327,28 @@ void task2HumanPyramid(){
 }
 
 
-void task3ParenthesisValidator(){
+void parenthesisValidator(){
 	int depth=0, balance=EOF;
 	unsigned long long word=0;
 	scanf("%*c");
 	printf("Please enter a term for validation:\n");
 	balance=closedAllParentheses(depth, word);
-	balance==EOF ? selectedTask=DONE : printf("The parentheses are%sbalanced correctly.\n", balance?" ":" not ");
+	balance==EOF ? selectedTask=DONE
+	: printf("The parentheses are%sbalanced correctly.\n",
+		balance ? " "
+		: " not "
+	);
 }
 
 
-void task4QueensBattle(){
+void QueensBattle(){
 	int input=0, dimension=0;
 	printf("Please enter the board dimensions:\n");
-	while((input=scanf(" %d", &dimension)) !=1 ||dimension<=0 ||dimension>20){
+	while(
+		(input=scanf(" %d", &dimension)) !=1
+		||dimension<=0
+		||dimension>20
+	){
 		if(input==EOF){
 			selectedTask=DONE;
 			return;
@@ -319,9 +359,16 @@ void task4QueensBattle(){
 	int filled=0, row=0, col=0;
 	char zoneChar='\0';
 	char zones[20][20]={{0}};
-	printf("Please enter a %d*%d puzzle board:\n", dimension, dimension);
+	printf("Please enter a %d*%d puzzle board:\n",
+		dimension,
+		dimension
+	);
 	while(filled<dimension*dimension){
-		if((input=scanf("%c", &zoneChar)) !=1 ||zoneChar==' ' ||zoneChar=='\n' ||zoneChar=='\t'
+		if(
+			(input=scanf("%c", &zoneChar)) !=1
+			||zoneChar==' '
+			||zoneChar=='\n'
+			||zoneChar=='\t'
 		){
 			if(input==EOF){
 				selectedTask=DONE;
@@ -343,9 +390,9 @@ void task4QueensBattle(){
 	for(int i=0; i<dimension; i++){
 		board[i]= -1;
 	}
-
+	
 	unsigned long long colMask=0, zoneMask=0;
-	if(tryPlacingQueenInRow(0, dimension, board, &colMask, &zoneMask, zones)){
+	if(isPuzzleSolvable(0, dimension, board, &colMask, &zoneMask, zones)){
 		printf("Solution:\n");
 		for(int i=0; i<dimension; i++){
 			for(int j=0; j<dimension; j++){
@@ -385,10 +432,11 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k){
 
 unsigned int encodeLegalCharacters(char c){
 	switch(c){
-		case'(':case')':return BIN00;
-		case'[':case']':return BIN01;
-		case'{':case'}':return BIN10;
-		case'<':case'>':return BIN11;
+		case'(':case')': return BIN00;
+		case'[':case']': return BIN01;
+		case'{':case'}': return BIN10;
+		case'<':case'>': return BIN11;
+		default: (unsigned int)-1;
 	}
 	return (unsigned int)-1;
 }
@@ -428,8 +476,23 @@ int closedAllParentheses(int depth, unsigned long long word){
 }
 
 
+int isPuzzleSolvable(
+    int currentRow,
+    int dimension,
+    int board[MAX_DIMENSION],
+    unsigned long long *colMask,
+    unsigned long long *zoneMask,
+    char zones[MAX_DIMENSION][MAX_DIMENSION]
+){
+	if(tryPlacingQueenInRow(0, dimension, board, &colMask, &zoneMask, zones)){
+		return 1;
+	}
+	return 0;
+}
+
+
 int computeDistanceBetweenCells(int a, int b){
-	return a>b?a-b:b-a;
+	return a>b ? a-b : b-a;
 }
 
 
@@ -512,16 +575,16 @@ int main(){
 			case DONE:
                 break;
 			case ROBOT_PATHS:
-                task1RobotPaths();
+                robotPaths();
                 break;
 			case HUMAN_PYRAMID:
-                task2HumanPyramid();
+                humanPyramid();
                 break;
-			case PARENTHESES:
-                task3ParenthesisValidator();
+			case PARENTHESES_VALIDATOR:
+                parenthesisValidator();
                 break;
-            case QUEENS:
-                task4QueensBattle();
+            case QUEENS_BATTLE:
+                QueensBattle();
                 break;
 			default:
                 printf("Please choose a task number from the list.\n");
