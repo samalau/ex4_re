@@ -72,16 +72,16 @@ Bitmask < >
 #define BIN11 3
 
 /*
-TODO: NEED?
-Compute the square of an int
-*/
-#define SQUARE(a) a, a
-
-/*
 Task 4
 Minimum legal character ASCII for zone id
 */
 #define ASCII_MIN 33
+
+/*
+Task 4
+Indicates a row currently has no queen placed in any column
+*/
+#define NONE_PLACED -1
 
 /*
 Task 4
@@ -164,7 +164,7 @@ int closedAllParentheses(
 Task 4
 Prepare the queen position tracker
 */
-void initQueenTracker(int dimension, int queenTracker[MAX]);
+void initQueenTracker(int index, int dimension, int queenTracker[MAX]);
 
 /*
 Task 4
@@ -324,6 +324,7 @@ void humanPyramid(){
 void parenthesisValidator(){
 	int depth=0, balance=EOF;
 	unsigned long long word=0;
+	// clear residual newline in buffer from main menu selection
 	scanf("%*c");
 	printf("Please enter a term for validation:\n");
 	balance=closedAllParentheses(depth, word);
@@ -347,8 +348,8 @@ void QueensBattle(){
 		continue;
 	}
 	int filled=0, row=0, col=0;
-	char zoneChar='\0';
 	char zones[MAX][MAX]={{0}};
+	char zoneChar='\0';
 	printf("Please enter a %d*%d puzzle board:\n",
 		dimension,
 		dimension
@@ -378,12 +379,8 @@ void QueensBattle(){
 	- The index represents the row of a queen
 	- The stored value at that index is its column
 	*/
-	int queenTracker[MAX];
-	initQueenTracker(dimension, queenTracker);
-	
-	// URGENT TOKNOW: CAN I USE FOR LOOP FOR ARRAY INIT?
-
-
+	int queenTracker[MAX]={0};
+	initQueenTracker(0, dimension, queenTracker);
 	unsigned long long colMask=0, zoneMask=0;
 	if(isPuzzleSolvable(0, dimension, queenTracker, &colMask, &zoneMask, zones)){
 		printf("Solution:\n");
@@ -457,7 +454,10 @@ int closedAllParentheses(int depth, unsigned long long word){
 		return closedAllParentheses(++depth, (word<<2) | code);
 	}
 	if(closed){
-		if(!depth ||(word&3U)!=code){
+		if(
+			!depth
+			||(word&3U) !=code
+		){
 			scanf("%*[^\n]");
 			return 0;
 		}
@@ -466,10 +466,15 @@ int closedAllParentheses(int depth, unsigned long long word){
 	return EOF;
 }
 
-void initQueenTracker(int dimension, int queenTracker[MAX]){
-	for(int i=0; i<dimension; i++){
-		queenTracker[i]= -1;
+void initQueenTracker(int index, int dimension, int queenTracker[MAX]){
+	if(
+		index<0
+		||index>=dimension
+	){
+		return;
 	}
+	queenTracker[index]=NONE_PLACED;
+	initQueenTracker(index+1, dimension, queenTracker);
 }
 
 int isPuzzleSolvable(
@@ -534,12 +539,12 @@ int tryPlacingQueenInColumn(
     queenTracker[currentRow]=col;
     *colMask|=colBit;
     *zoneMask|=zidBit;
-    if (tryPlacingQueenInRow(currentRow+1, dimension, queenTracker, colMask, zoneMask, zones)) {
+    if(tryPlacingQueenInRow(currentRow+1, dimension, queenTracker, colMask, zoneMask, zones)){
         return 1;
     }
     *colMask&=~colBit;
     *zoneMask&=~zidBit;
-    queenTracker[currentRow]= -1;
+    queenTracker[currentRow]=NONE_PLACED;
     return tryPlacingQueenInColumn(col+1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
 }
 
