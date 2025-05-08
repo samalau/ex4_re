@@ -434,7 +434,7 @@ int closedAllParentheses(int depth, unsigned long long word){
 	int input=0, open=0, closed=0;
 	unsigned int code=(unsigned int)-1;
 	char curr=0;
-	if ((input=scanf("%c", &curr)) != 1) {
+	if ((input=scanf("%c", &curr)) !=1) {
 		return EOF;
 	}
 	if (curr=='\n'){
@@ -451,7 +451,7 @@ int closedAllParentheses(int depth, unsigned long long word){
 		return EOF;
 	}
 	if(open){
-		return closedAllParentheses(++depth, (word<<2) | code);
+		return closedAllParentheses(++depth, (word<<2)|code);
 	}
 	if(closed){
 		if(
