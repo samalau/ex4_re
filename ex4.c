@@ -291,36 +291,34 @@ void humanPyramid() {
 				printf("Negative weights are not supported.\n");
 				return;
 			}
-			
+
 			dataPyramid[i][j] = nextWeight;
 		}
 	}
 
 	printf("The total weight on each cheerleader is:\n");
+	for (int row = 0; row < 5; row++) {
+		for (int col = 0; col <= row; col++) {
+			// float weightLoad = dataPyramid[i][j];
 
-	// URGENT TODO: RECURSIVE
-
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j <= i; j++) {
-			float weightLoad = dataPyramid[i][j];
-
-			if (i > 0) {
-				float weightUpLeft = (j > 0)
-					? (float)dataPyramid[i - 1][j - 1] / 2.0
-					: 0;
-				
-				float weightUpRight = (j < i)
-					? (float)dataPyramid[i - 1][j] / 2.0
-					: 0;
-				
-				weightLoad += weightUpLeft + weightUpRight;
-			}
-			dataPyramid[i][j] = weightLoad;
-			printf("%.2f ", weightLoad);
+			if (row > 0){
+				dataPyramid[row][col] = totalWeightLoad(row, col, dataPyramid);
+			};
+			
+			printf("%.2f ", (float)dataPyramid[row][col]);
 		}
 		printf("\n");
 	}
+}
 
+float totalWeightLoad(int row, int col, double dataPyramid[5][5]) {
+	if (row == 0) {
+		return dataPyramid[row][col];
+	}
+	float weight = dataPyramid[row][col];				
+	float weightUpLeft = (col > 0) ? totalWeightLoad(row - 1, col - 1, dataPyramid) / 2.00 : 0.00;
+	float weightUpRight = (col < row) ? totalWeightLoad(row - 1, col, dataPyramid) / 2.00 : 0.00;
+	return weight + weightUpLeft + weightUpRight;
 }
 
 void parenthesisValidator() {
