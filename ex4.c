@@ -276,10 +276,8 @@ void humanPyramid() {
 	double dataPyramid[5][5] = {0};
 
 	printf("Please enter the weights of the cheerleaders:\n");
-
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j <= i; j++) {
-
 			double nextWeight = -1.00;
 			int input = 0;
 
@@ -293,6 +291,7 @@ void humanPyramid() {
 				printf("Negative weights are not supported.\n");
 				return;
 			}
+			
 			dataPyramid[i][j] = nextWeight;
 		}
 	}
@@ -303,11 +302,9 @@ void humanPyramid() {
 
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j <= i; j++) {
-
 			float weightLoad = dataPyramid[i][j];
 
 			if (i > 0) {
-
 				float weightUpLeft = (j > 0)
 					? (float)dataPyramid[i - 1][j - 1] / 2.0
 					: 0;
@@ -318,7 +315,6 @@ void humanPyramid() {
 				
 				weightLoad += weightUpLeft + weightUpRight;
 			}
-
 			dataPyramid[i][j] = weightLoad;
 			printf("%.2f ", weightLoad);
 		}
@@ -343,6 +339,7 @@ void parenthesisValidator() {
 
 void QueensBattle() {
 	int input = 0, dimension = 0;
+
 	printf("Please enter the board dimensions:\n");
 	while ((input = scanf(" %d", &dimension)) != 1 || dimension <= 0 || dimension > MAX) {
 		if (input == EOF) {
@@ -352,9 +349,11 @@ void QueensBattle() {
 		scanf("%*[^ \t\n]");
 		continue;
 	}
+
 	int filled = 0, row = 0, col = 0;
 	char zones[MAX][MAX] = {{0}};
 	char zoneChar = 0;
+
 	printf("Please enter a %d*%d puzzle board:\n", dimension, dimension);
 	while (filled < dimension*dimension) {
 		if ((input = scanf("%c", &zoneChar)) != 1 || zoneChar == ' ' || zoneChar == '\n' || zoneChar == '\t') {
@@ -381,7 +380,6 @@ void QueensBattle() {
 	initQueenTracker(0, dimension, queenTracker);
 
 	unsigned long long colMask = 0, zoneMask = 0;
-
 	if (isPuzzleSolvable(0, dimension, queenTracker, &colMask, &zoneMask, zones)) {
 		printf("Solution:\n");
 		for (int i = 0; i < dimension; i++) {
@@ -442,7 +440,6 @@ int closedAllParentheses(int depth, unsigned long long word) {
 
 	open = (curr == '(' || curr == '[' || curr == '{' || curr == '<') ? 1 : 0;
 	closed = (curr == ')' || curr == ']' || curr == '}' || curr == '>') ? 1 : 0;
-
 	if (!(open || closed)) {
 		return closedAllParentheses(depth, word);
 	}
@@ -505,8 +502,8 @@ int tryPlacingQueenInColumn(int col, int currentRow, int dimension, int queenTra
     if (col == dimension) {
 		return 0;
 	}
-	unsigned long long colBit = 1ULL << col;
 
+	unsigned long long colBit = 1ULL << col;
     int zid = zones[currentRow][col] - ASCII_MIN;
 	unsigned long long zidBit = 1ULL << zid;
 
@@ -555,29 +552,21 @@ int tryPlacingQueenInRow(int currentRow, int dimension, int queenTracker[MAX],
 
 int main() {
 	while (selectedTask != EXIT_PROGRAM) {
-		
 		menuSelect();
-
 		switch (selectedTask) {
-
 			case EXIT_PROGRAM: break;
-			
 			case ROBOT_PATHS:
                 robotPaths();
                 break;
-			
 			case HUMAN_PYRAMID:
                 humanPyramid();
                 break;
-			
 			case PARENTHESES_VALIDATOR:
                 parenthesisValidator();
                 break;
-			
             case QUEENS_BATTLE:
                 QueensBattle();
                 break;
-
 			default: printf("Please choose a task number from the list.\n");
 		}
 	}
