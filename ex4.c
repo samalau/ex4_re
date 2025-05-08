@@ -1,6 +1,6 @@
 /******************
 Name: Samantha Newmark
-ID: 
+ID:
 Assignment: ex4
 *******************/
 
@@ -128,7 +128,10 @@ void task4QueensBattle();
 task 1
 count legal paths from (x, y) to (0,0)
 */
-unsigned long long robotPathCount(unsigned long long n, unsigned long long k);
+unsigned long long robotPathCount(
+	unsigned long long n,
+	unsigned long long k
+);
 
 
 /*
@@ -142,8 +145,11 @@ unsigned int bitmaskParenthesis(char c);
 task 3
 check if all parentheses are closed
 */
-int closedAllParentheses(int depth, unsigned long long word);
-// int closedAllParentheses(int input, char curr, int *depth, unsigned int *word);
+int closedAllParentheses(
+	int depth,
+	unsigned long long word
+);
+
 
 /*
 task 4
@@ -151,11 +157,19 @@ distance between coodinates
 */
 int absoluteDifference(int a, int b);
 
+
 /*
 task 4
 TODO NOTE
 */
-void queensRec();
+int solveRecursive(
+	int currentRow,
+	int dimension,
+	int board[20],
+	unsigned long long *colMask,
+	unsigned long long *zoneMask,
+	char zones[20][20]
+);
 
 
 // MENU FUNCTIONS
@@ -168,6 +182,7 @@ void displayMenu(){
 	"4. Queens Battle\n"
 	"5. Exit\n");
 }
+
 
 void menuSelect(){
 	selectedTask=UNSELECTED;
@@ -203,6 +218,7 @@ void task1RobotPaths(){
 		(x<0 ||y<0)?0:(!x && !y)?1:robotPathCount((unsigned long long)(x+y), (unsigned long long)x)
 	);
 }
+
 
 void task2HumanPyramid(){
 	double dataPyramid[5][5]={0};
@@ -241,15 +257,16 @@ void task2HumanPyramid(){
 	return;
 }
 
+
 void task3ParenthesisValidator(){
-	int depth=0, balance=0;
+	int depth=0, balance=EOF;
 	unsigned long long word=0;
 	scanf("%*c");
 	printf("Please enter a term for validation:\n");
 	balance=closedAllParentheses(depth, word);
-	balance==EOF ? selectedTask=DONE
-	: printf("The parentheses are%sbalanced correctly.\n", balance?" ":" not ");
+	balance==EOF ? selectedTask=DONE : printf("The parentheses are%sbalanced correctly.\n", balance?" ":" not ");
 }
+
 
 void task4QueensBattle(){
 	int input=0, dimension=0;
@@ -286,56 +303,8 @@ void task4QueensBattle(){
 	for(int i=0; i<dimension; i++){
 		board[i]= -1;
 	}
-	int currentRow=0, solved=0;
 	unsigned long long colMask=0, zoneMask=0;
-	
-
-    //////////////////////////////////////////////
-
-	// CRITICAL TODO: RECURSIVE
-	while(1){
-	
-		board[currentRow]++;
-		while(board[currentRow]<dimension){
-			int col=board[currentRow];
-			int zid=zones[currentRow][col]-ASCII_MIN;
-			int valid= !(colMask &(1ULL<<col)) && !(zoneMask &(1ULL<<zid));
-			for(int r=0; valid&&r<currentRow; r++){
-				int c=board[r];
-				if(c>=0 &&absoluteDifference(c, col)<=1 &&absoluteDifference(r, currentRow)<=1){
-					valid=0;
-				}
-			}
-			if(valid){
-				break;
-			}
-			board[currentRow]++;
-		}
-		if(board[currentRow]==dimension){
-			board[currentRow]= -1;
-			currentRow--;
-			if(currentRow<0){
-				break;
-			}
-			colMask&=~(1ULL<<board[currentRow]);
-			zoneMask&=~(1ULL<<(zones[currentRow][board[currentRow]]-ASCII_MIN));
-			continue;
-		}
-		if(currentRow==dimension-1){
-			solved=1;
-			break;
-		}
-		colMask|=1ULL<<board[currentRow];
-		zoneMask|=1ULL<<(zones[currentRow][board[currentRow]]-ASCII_MIN);
-		currentRow++;
-		board[currentRow]= -1;
-	
-	}
-
-    //////////////////////////////////////////////
-
-
-	if(solved){
+	if(solveRecursive(0, dimension, board, &colMask, &zoneMask, zones)){
 		printf("Solution:\n");
 		for(int i=0; i<dimension; i++){
 			for(int j=0; j<dimension; j++){
@@ -371,6 +340,7 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k){
 	return r;
 }
 
+
 unsigned int bitmaskParenthesis(char c){
 	switch(c){
 		case'(':case')':return BIN00;
@@ -380,6 +350,7 @@ unsigned int bitmaskParenthesis(char c){
 	}
 	return (unsigned int)-1;
 }
+
 
 int closedAllParentheses(int depth, unsigned long long word){
 	int input=0, open=0, closed=0;
@@ -414,13 +385,53 @@ int closedAllParentheses(int depth, unsigned long long word){
 	return EOF;
 }
 
+
 int absoluteDifference(int a, int b){
 	return a>b?a-b:b-a;
 }
 
-void queensRec(){
 
-
+int solveRecursive(
+	int currentRow,
+	int dimension,
+	int board[20],
+	unsigned long long *colMask,
+	unsigned long long *zoneMask,
+	char zones[20][20]
+) {
+	if(currentRow==dimension){
+		return 1;
+	}
+	for(int col=0; col<dimension; col++) {
+		int zid=zones[currentRow][col]-ASCII_MIN;
+		if((*colMask&(1ULL<<col)) ||(*zoneMask&(1ULL<<zid))){
+			continue;
+		}
+		int valid=1;
+		for(int r=0; valid &&r<currentRow; r++) {
+			int c=board[r];
+			if (
+				c>=0
+				&&absoluteDifference(c, col)<=1
+				&&absoluteDifference(r, currentRow)<=1
+			){
+				valid = 0;
+			}
+		}
+		if(!valid){
+			continue;
+		}
+		board[currentRow]=col;
+		*colMask|=1ULL<<board[currentRow];
+		*zoneMask|=1ULL<<(zones[currentRow][board[currentRow]]-ASCII_MIN);
+		if(solveRecursive(currentRow+1, dimension, board, colMask, zoneMask, zones)){
+			return 1;
+		}
+		*colMask&=~(1ULL<<board[currentRow]);
+		*zoneMask&=~(1ULL<<(zones[currentRow][board[currentRow]]-ASCII_MIN));
+		board[currentRow]=-1;
+	}
+	return 0;
 }
 
 
