@@ -155,14 +155,14 @@ int closedAllParentheses(
 task 4
 compute distance between coodinates
 */
-int absoluteDifference(int a, int b);
+int computeDistanceBetweenCells(int a, int b);
 
 
 /*
 task 4
 recursively check if a cell is adjacent to any existing queens
 */
-int isAdjacentCell(
+int isCellAdjacentToExistingQueen(
 	int board[20],
 	int row,
 	int col,
@@ -174,7 +174,7 @@ int isAdjacentCell(
 task 4
 recursively attempt each column in a row for legal queen placement
 */
-int tryColForQueen(
+int tryPlacingQueenInColumn(
     int col,
     int currentRow,
     int dimension,
@@ -189,7 +189,7 @@ int tryColForQueen(
 task 4
 recursively attempt each row for legal queen placement
 */
-int tryRowForQueen(
+int tryPlacingQueenInRow(
 	int currentRow,
 	int dimension,
 	int board[20],
@@ -335,7 +335,7 @@ void task4QueensBattle(){
 	}
 
 	unsigned long long colMask=0, zoneMask=0;
-	if(tryRowForQueen(0, dimension, board, &colMask, &zoneMask, zones)){
+	if(tryPlacingQueenInRow(0, dimension, board, &colMask, &zoneMask, zones)){
 		printf("Solution:\n");
 		for(int i=0; i<dimension; i++){
 			for(int j=0; j<dimension; j++){
@@ -417,12 +417,12 @@ int closedAllParentheses(int depth, unsigned long long word){
 }
 
 
-int absoluteDifference(int a, int b){
+int computeDistanceBetweenCells(int a, int b){
 	return a>b?a-b:b-a;
 }
 
 
-int isAdjacentCell(
+int isCellAdjacentToExistingQueen(
 	int board[20],
 	int row,
 	int col,
@@ -434,15 +434,15 @@ int isAdjacentCell(
 	int c=board[row];
 	if(
 		c>=0
-		&&absoluteDifference(c, col)<=1
-		&&absoluteDifference(row, currentRow)<=1
+		&&computeDistanceBetweenCells(c, col)<=1
+		&&computeDistanceBetweenCells(row, currentRow)<=1
 	){
 		return 1;
 	}
-	return isAdjacentCell(board, row+1, col, currentRow);
+	return isCellAdjacentToExistingQueen(board, row+1, col, currentRow);
 }
 
-int tryColForQueen(
+int tryPlacingQueenInColumn(
     int col,
     int currentRow,
     int dimension,
@@ -456,25 +456,25 @@ int tryColForQueen(
 	}
     int zid=zones[currentRow][col]-ASCII_MIN;
     if((*colMask&(1ULL<<col)) ||(*zoneMask&(1ULL<<zid))){
-        return tryColForQueen(col+1, currentRow, dimension, board, colMask, zoneMask, zones);
+        return tryPlacingQueenInColumn(col+1, currentRow, dimension, board, colMask, zoneMask, zones);
     }
-    if(isAdjacentCell(board, 0, col, currentRow)) {
-        return tryColForQueen(col+1, currentRow, dimension, board, colMask, zoneMask, zones);
+    if(isCellAdjacentToExistingQueen(board, 0, col, currentRow)) {
+        return tryPlacingQueenInColumn(col+1, currentRow, dimension, board, colMask, zoneMask, zones);
     }
     board[currentRow]=col;
     *colMask|=1ULL<<col;
     *zoneMask|=1ULL<<zid;
-    if (tryRowForQueen(currentRow+1, dimension, board, colMask, zoneMask, zones)) {
+    if (tryPlacingQueenInRow(currentRow+1, dimension, board, colMask, zoneMask, zones)) {
         return 1;
     }
     *colMask&=~(1ULL<<col);
     *zoneMask&=~(1ULL<<zid);
     board[currentRow]= -1;
-    return tryColForQueen(col+1, currentRow, dimension, board, colMask, zoneMask, zones);
+    return tryPlacingQueenInColumn(col+1, currentRow, dimension, board, colMask, zoneMask, zones);
 }
 
 
-int tryRowForQueen(
+int tryPlacingQueenInRow(
 	int currentRow,
 	int dimension,
 	int board[20],
@@ -485,7 +485,7 @@ int tryRowForQueen(
 	if(currentRow==dimension){
 		return 1;
 	}
-	return tryColForQueen(0, currentRow, dimension, board, colMask, zoneMask, zones);
+	return tryPlacingQueenInColumn(0, currentRow, dimension, board, colMask, zoneMask, zones);
 }
 
 
