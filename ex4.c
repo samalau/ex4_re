@@ -14,25 +14,25 @@ no menu option selected
 
 /*
 menu selection id
-task 1
+Task 1
 */
 #define ROBOT_PATHS 1
 
 /*
 menu selection id
-task 2
+Task 2
 */
 #define HUMAN_PYRAMID 2
 
 /*
 menu selection id
-task 3
+Task 3
 */
 #define PARENTHESES 3
 
 /*
 menu selection id
-task 4
+Task 4
 */
 #define QUEENS 4
 
@@ -44,55 +44,59 @@ exit program
 
 /*
 0b0000
-task 3
-mask ( )
+Task 3
+Bitmask ( )
 */
 #define BIN00 0
 
 /*
 0b0001
-task 3
-mask [ ]
+Task 3
+Bitmask [ ]
 */
 #define BIN01 1
 
 /*
 0b0010
-task 3
-mask { }
+Task 3
+Bitmask { }
 */
 #define BIN10 2
 
 /*
 0b0011
-task 3
-mask < >
+Task 3
+Bitmask < >
 */ 
 #define BIN11 3
 
 
 /*
-task 4
-minimum legal character ASCII for zone id
+Task 4
+Minimum legal character ASCII for zone id
 */
 #define ASCII_MIN 33
 
+/*
+Task 4
+Maximum legal grid dimension
+*/
+#define MAX_DIMENSION 20
 
 /*
-select task from menu options
+Menu Selection (global)
+*/
+int selectedTask;
+
+/*
+Select a task from the menu options
 */
 void menuSelect();
 
 /*
-print menu options
+Print the menu options and the prompt
 */
 void displayMenu();
-
-/*
-menu selection
-global
-*/
-int selectedTask;
 
 
 /*
@@ -125,8 +129,8 @@ void task4QueensBattle();
 
 
 /*
-task 1
-count legal paths from (x, y) to (0,0)
+Task 1
+Count legal paths from (x, y) to (0,0)
 */
 unsigned long long robotPathCount(
 	unsigned long long n,
@@ -135,15 +139,18 @@ unsigned long long robotPathCount(
 
 
 /*
-task 3
-assign binary id to parenthesis
+Task 3
+Assign binary id to legal characters
+Legal: ( ), [ ], { }, < >
 */
-unsigned int bitmaskParenthesis(char c);
+unsigned int encodeLegalCharacters(
+	char c
+);
 
 
 /*
-task 3
-check if all parentheses are closed
+Task 3
+Check if all parentheses have been closed
 */
 int closedAllParentheses(
 	int depth,
@@ -152,18 +159,21 @@ int closedAllParentheses(
 
 
 /*
-task 4
-compute distance between coodinates
+Task 4
+Compute the absolute difference between coodinates
 */
-int computeDistanceBetweenCells(int a, int b);
+int computeDistanceBetweenCells(
+	int a,
+	int b
+);
 
 
 /*
-task 4
-recursively check if a cell is adjacent to any existing queens
+Task 4
+Check if a cell is adjacent to any existing queens
 */
 int isCellAdjacentToExistingQueen(
-	int board[20],
+	int board[MAX_DIMENSION],
 	int row,
 	int col,
 	int currentRow
@@ -171,31 +181,31 @@ int isCellAdjacentToExistingQueen(
 
 
 /*
-task 4
-recursively attempt each column in a row for legal queen placement
+Task 4
+Attempt each column in a row for legal queen placement
 */
 int tryPlacingQueenInColumn(
     int col,
     int currentRow,
     int dimension,
-    int board[20],
+    int board[MAX_DIMENSION],
     unsigned long long *colMask,
     unsigned long long *zoneMask,
-    char zones[20][20]
+    char zones[MAX_DIMENSION][MAX_DIMENSION]
 );
 
 
 /*
-task 4
-recursively attempt each row for legal queen placement
+Task 4
+Attempt each row for legal queen placement
 */
 int tryPlacingQueenInRow(
 	int currentRow,
 	int dimension,
-	int board[20],
+	int board[MAX_DIMENSION],
 	unsigned long long *colMask,
 	unsigned long long *zoneMask,
-	char zones[20][20]
+	char zones[MAX_DIMENSION][MAX_DIMENSION]
 );
 
 
@@ -366,13 +376,14 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k){
 		k=n-k;
 	}
 	unsigned long long r=1;
-	for(unsigned long long i=1; i<=k; i++)
+	for(unsigned long long i=1; i<=k; i++){
 		r=r*(n-k+i)/i;
+	}
 	return r;
 }
 
 
-unsigned int bitmaskParenthesis(char c){
+unsigned int encodeLegalCharacters(char c){
 	switch(c){
 		case'(':case')':return BIN00;
 		case'[':case']':return BIN01;
@@ -398,20 +409,20 @@ int closedAllParentheses(int depth, unsigned long long word){
 	if(!(open ||closed)){
 		return closedAllParentheses(depth, word);
 	}
-	code=bitmaskParenthesis(curr);
+	code=encodeLegalCharacters(curr);
 	if(code==(unsigned int)-1){
 		// should never be reached
 		return EOF;
 	}
 	if(open){
-		return closedAllParentheses(++depth, (word << 2) | code);
+		return closedAllParentheses(++depth, (word<<2) | code);
 	}
 	if(closed){
 		if(!depth ||(word&3U)!=code){
 			scanf("%*[^\n]");
 			return 0;
 		}
-		return closedAllParentheses(--depth, (word >> 2));
+		return closedAllParentheses(--depth, (word>>2));
 	}
 	return EOF;
 }
@@ -423,7 +434,7 @@ int computeDistanceBetweenCells(int a, int b){
 
 
 int isCellAdjacentToExistingQueen(
-	int board[20],
+	int board[MAX_DIMENSION],
 	int row,
 	int col,
 	int currentRow
@@ -442,33 +453,36 @@ int isCellAdjacentToExistingQueen(
 	return isCellAdjacentToExistingQueen(board, row+1, col, currentRow);
 }
 
+
 int tryPlacingQueenInColumn(
     int col,
     int currentRow,
     int dimension,
-    int board[20],
+    int board[MAX_DIMENSION],
     unsigned long long *colMask,
     unsigned long long *zoneMask,
-    char zones[20][20]
+    char zones[MAX_DIMENSION][MAX_DIMENSION]
 ) {
     if(col==dimension){
 		return 0;
 	}
+	unsigned long long colBit=1ULL<<col;
     int zid=zones[currentRow][col]-ASCII_MIN;
-    if((*colMask&(1ULL<<col)) ||(*zoneMask&(1ULL<<zid))){
+	unsigned long long zidBit=1ULL<<zid;
+    if((*colMask&colBit) ||(*zoneMask&zidBit)){
         return tryPlacingQueenInColumn(col+1, currentRow, dimension, board, colMask, zoneMask, zones);
     }
     if(isCellAdjacentToExistingQueen(board, 0, col, currentRow)) {
         return tryPlacingQueenInColumn(col+1, currentRow, dimension, board, colMask, zoneMask, zones);
     }
     board[currentRow]=col;
-    *colMask|=1ULL<<col;
-    *zoneMask|=1ULL<<zid;
+    *colMask|=colBit;
+    *zoneMask|=zidBit;
     if (tryPlacingQueenInRow(currentRow+1, dimension, board, colMask, zoneMask, zones)) {
         return 1;
     }
-    *colMask&=~(1ULL<<col);
-    *zoneMask&=~(1ULL<<zid);
+    *colMask&=~colBit;
+    *zoneMask&=~zidBit;
     board[currentRow]= -1;
     return tryPlacingQueenInColumn(col+1, currentRow, dimension, board, colMask, zoneMask, zones);
 }
@@ -477,10 +491,10 @@ int tryPlacingQueenInColumn(
 int tryPlacingQueenInRow(
 	int currentRow,
 	int dimension,
-	int board[20],
+	int board[MAX_DIMENSION],
 	unsigned long long *colMask,
 	unsigned long long *zoneMask,
-	char zones[20][20]
+	char zones[MAX_DIMENSION][MAX_DIMENSION]
 ) {
 	if(currentRow==dimension){
 		return 1;
