@@ -329,13 +329,10 @@ void humanPyramid() {
 	}
 	float carryWeight[5][5] = {0};
 	printf("The total weight on each cheerleader is:\n");
-	float weight = 0;
-	weight = carryWeight[0][0] = selfWeight[0][0];
+	carryWeight[0][0] = selfWeight[0][0];
 	for (int row = 1; row < 5; row++) {
 		for (int col = 0; col <= row; col++) {
-			weight = selfWeight[row][col];
-			weight += sumWeightOverhead(row, col, carryWeight);
-			carryWeight[row][col] = weight;
+			carryWeight[row][col] = (float)selfWeight[row][col] + sumWeightOverhead(row, col, carryWeight);
 		}
 	}
 	for (int row = 0; row < 5; row++) {
@@ -345,6 +342,7 @@ void humanPyramid() {
 		printf("\n");
 	}
 }
+
 
 float sumWeightOverhead(int row, int col, float carryWeight[5][5]) {
 	float weightUpLeft = (col > 0) ? carryWeight[row - 1][col - 1] / 2.00 : 0;
