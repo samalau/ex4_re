@@ -343,7 +343,8 @@ void humanPyramid() {
 void totalWeightLoad(int row, int col, double dataPyramid[5][5]) {
 	float weightUpLeft = (col > 0) ? (float)dataPyramid[row - 1][col - 1] / 2.00 : 0;
 	float weightUpRight = (col < row) ? (float)dataPyramid[row - 1][col] / 2.00 : 0;
-	dataPyramid[row][col] = (float)dataPyramid[row][col] + weightUpLeft + weightUpRight;
+	float weightSelf = (float)dataPyramid[row][col];
+	dataPyramid[row][col] = weightSelf + weightUpLeft + weightUpRight;
 }
 
 
