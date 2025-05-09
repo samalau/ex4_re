@@ -7,11 +7,13 @@ Assignment: ex4
 #include <stdio.h>
 #include <string.h>
 
+
 /*
 Menu Selection ID
 Selection: None
 */
 #define UNSELECTED 0
+
 
 /*
 Menu Selection ID
@@ -19,11 +21,13 @@ Selection: Task 1
 */
 #define ROBOT_PATHS 1
 
+
 /*
 Menu Selection ID
 Selection: Task 2
 */
 #define HUMAN_PYRAMID 2
+
 
 /*
 Menu Selection ID
@@ -31,17 +35,20 @@ Selection: Task 3
 */
 #define PARENTHESES_VALIDATOR 3
 
+
 /*
 Menu Selection ID
 Selection: Task 4
 */
 #define QUEENS_BATTLE 4
 
+
 /*
 Menu Selection ID
 Goodbye!
 */
 #define EXIT_PROGRAM 5
+
 
 /*
 0b0000
@@ -50,12 +57,14 @@ Bitmask ( )
 */
 #define BIN00 0
 
+
 /*
 0b0001
 Task 3
 Bitmask [ ]
 */
 #define BIN01 1
+
 
 /*
 0b0010
@@ -64,6 +73,7 @@ Bitmask { }
 */
 #define BIN10 2
 
+
 /*
 0b0011
 Task 3
@@ -71,11 +81,13 @@ Bitmask < >
 */ 
 #define BIN11 3
 
+
 /*
 Task 4
 Minimum ASCII for zone ID
 */
 #define ASCII_MIN 33
+
 
 /*
 Task 4
@@ -83,26 +95,31 @@ Indicates a row currently has no queen placed in any column
 */
 #define NONE_PLACED -1
 
+
 /*
 Task 4
 Maximum legal grid dimension
 */
 #define MAX 20
 
+
 /*
 Menu Selection (global)
 */
 int selectedTask;
+
 
 /*
 Select task from the main menu
 */
 void menuSelect();
 
+
 /*
 Print the main menu
 */
 void displayMenu();
+
 
 /*
 Task 1 Home
@@ -110,11 +127,13 @@ Restricted to traveling only left and/or down, how many paths could a robot take
 */
 void robotPaths();
 
+
 /*
 Task 2 Home
 What is the total weight load of each cheerleader in a pyramid formation?
 */
 void humanPyramid();
+
 
 /*
 Task 3 Home
@@ -122,6 +141,7 @@ Has every opening parenthesis been properly closed?
 Legal: ( ), [ ], { }, < >
 */
 void parenthesisValidator();
+
 
 /*
 Task 4 Home
@@ -133,11 +153,20 @@ is there a legal configuration of queens such that none of these conditions is v
 */ 
 void QueensBattle();
 
+
 /*
 Task 1
 Count legal paths from (x, y) to (0, 0)
 */
 unsigned long long robotPathCount(unsigned long long n, unsigned long long k);
+
+
+/*
+Task 2
+Compute the total weight supported by a cheerleader in the pyramid
+*/
+float totalWeightLoad(int row, int col, double dataPyramid[5][5]);
+
 
 /*
 Task 3
@@ -146,11 +175,13 @@ Legal: ( ), [ ], { }, < >
 */
 unsigned int encodeLegalCharacters(char c);
 
+
 /*
 Task 3
 Check if all parentheses have been closed
 */
 int closedAllParentheses(int depth, unsigned long long word);
+
 
 /*
 Task 4
@@ -158,24 +189,27 @@ Prepare the queen position tracker
 */
 void initQueenTracker(int index, int dimension, int queenTracker[MAX]);
 
+
 /*
 Task 4
 Compute the absolute difference between coodinates
 */
 int computeDistanceBetweenCells(int a, int b);
 
+
 /*
 Task 4
 Check if the puzzle has a solution
 */
 int isPuzzleSolvable(
-	int currentRow,
+	// int currentRow,
 	int dimension,
 	int queenTracker[MAX],
 	unsigned long long *colMask,
 	unsigned long long *zoneMask,
 	char zones[MAX][MAX]
 );
+
 
 /*
 Task 4
@@ -188,6 +222,7 @@ int isCellAdjacentToExistingQueen(
 	int currentRow,
 	int dimension
 );
+
 
 /*
 Task 4
@@ -202,6 +237,7 @@ int tryPlacingQueenInColumn(
 	unsigned long long *zoneMask,
 	char zones[MAX][MAX]
 );
+
 
 /*
 Task 4
@@ -229,6 +265,7 @@ void displayMenu() {
 	);
 }
 
+
 void menuSelect() {
 	selectedTask = UNSELECTED;
 	int input = UNSELECTED, temp = UNSELECTED;
@@ -252,9 +289,7 @@ void menuSelect() {
 
 void robotPaths() {
 	int input = 0, x = 0, y = 0;
-
 	printf("Please enter the coordinates of the robot (column, row):\n");
-
 	while ((input = scanf(" %d %d", &x, &y)) != 2) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
@@ -264,7 +299,6 @@ void robotPaths() {
 		// scanf("%*[^1234567890 \t\n]");
 		continue;
 	}
-
 	printf("The total number of paths the robot can take to reach home is: %llu\n",
 				(x < 0 || y < 0) ? 0
 					: ! (x && y) ? 1
@@ -272,15 +306,14 @@ void robotPaths() {
 	);
 }
 
+
 void humanPyramid() {
 	double dataPyramid[5][5] = {0};
-
 	printf("Please enter the weights of the cheerleaders:\n");
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j <= i; j++) {
 			double nextWeight = -1.00;
 			int input = 0;
-
 			if ((input = scanf(" %lf", &nextWeight)) != 1 || nextWeight < 0) {
 				if (input == EOF) {
 					selectedTask = EXIT_PROGRAM;
@@ -291,25 +324,18 @@ void humanPyramid() {
 				printf("Negative weights are not supported.\n");
 				return;
 			}
-
 			dataPyramid[i][j] = nextWeight;
 		}
 	}
-
 	printf("The total weight on each cheerleader is:\n");
 	for (int row = 0; row < 5; row++) {
 		for (int col = 0; col <= row; col++) {
-			// float weightLoad = dataPyramid[i][j];
-
-			if (row > 0){
-				dataPyramid[row][col] = totalWeightLoad(row, col, dataPyramid);
-			};
-			
-			printf("%.2f ", (float)dataPyramid[row][col]);
+			printf("%.2f ", totalWeightLoad(row, col, dataPyramid));
 		}
 		printf("\n");
 	}
 }
+
 
 float totalWeightLoad(int row, int col, double dataPyramid[5][5]) {
 	if (row == 0) {
@@ -321,13 +347,11 @@ float totalWeightLoad(int row, int col, double dataPyramid[5][5]) {
 	return weight + weightUpLeft + weightUpRight;
 }
 
+
 void parenthesisValidator() {
 	unsigned long long word = 0;
 	int depth = 0, balance = EOF;
-	
-	// clear residual newline
-	scanf("%*c"); 
-
+	scanf("%*c");  // clear residual newline
 	printf("Please enter a term for validation:\n");
 	balance = closedAllParentheses(depth, word);
 	balance == EOF
@@ -335,9 +359,9 @@ void parenthesisValidator() {
 		: printf("The parentheses are%sbalanced correctly.\n", balance ? " " : " not ");
 }
 
+
 void QueensBattle() {
 	int input = 0, dimension = 0;
-
 	printf("Please enter the board dimensions:\n");
 	while ((input = scanf(" %d", &dimension)) != 1 || dimension <= 0 || dimension > MAX) {
 		if (input == EOF) {
@@ -347,11 +371,9 @@ void QueensBattle() {
 		scanf("%*[^ \t\n]");
 		continue;
 	}
-
 	int filled = 0, row = 0, col = 0;
 	char zones[MAX][MAX] = {{0}};
 	char zoneChar = 0;
-
 	printf("Please enter a %d*%d puzzle board:\n", dimension, dimension);
 	while (filled < dimension*dimension) {
 		if ((input = scanf("%c", &zoneChar)) != 1 || zoneChar == ' ' || zoneChar == '\n' || zoneChar == '\t') {
@@ -368,7 +390,6 @@ void QueensBattle() {
 		}
 		++filled;
 	}
-
 	/*
 	- Track the locations of the queens
 	- The index represents the row of a queen
@@ -376,9 +397,9 @@ void QueensBattle() {
 	*/
 	int queenTracker[MAX] = {0};
 	initQueenTracker(0, dimension, queenTracker);
-
 	unsigned long long colMask = 0, zoneMask = 0;
-	if (isPuzzleSolvable(0, dimension, queenTracker, &colMask, &zoneMask, zones)) {
+	if (isPuzzleSolvable(dimension, queenTracker, &colMask, &zoneMask, zones)) {
+	// if (isPuzzleSolvable(0, dimension, queenTracker, &colMask, &zoneMask, zones)) {
 		printf("Solution:\n");
 		for (int i = 0; i < dimension; i++) {
 			for (int j = 0; j < dimension; j++) {
@@ -388,7 +409,6 @@ void QueensBattle() {
 			}
 			printf("\n");
 		}
-
 	} else {
 		printf("This puzzle cannot be solved.\n");
 	}
@@ -413,6 +433,7 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k) {
 	return r;
 }
 
+
 unsigned int encodeLegalCharacters(char c) {
 	switch(c) {
 		case'(': case')': return BIN00;
@@ -424,30 +445,27 @@ unsigned int encodeLegalCharacters(char c) {
 	return (unsigned int)-1;
 }
 
+
 int closedAllParentheses(int depth, unsigned long long word) {
 	int input = 0, open = 0, closed = 0;
 	unsigned int code = (unsigned int)-1;
 	char curr = 0;
-
 	if ((input = scanf("%c", &curr)) != 1) {
 		return EOF;
 	}
 	if (curr == '\n') {
 		return !depth;
 	}
-
 	open = (curr == '(' || curr == '[' || curr == '{' || curr == '<') ? 1 : 0;
 	closed = (curr == ')' || curr == ']' || curr == '}' || curr == '>') ? 1 : 0;
 	if (!(open || closed)) {
 		return closedAllParentheses(depth, word);
 	}
-
 	code = encodeLegalCharacters(curr);
 	if (code == (unsigned int)-1) {
 		// should never be reached
 		return EOF;
 	}
-
 	if (open) {
 		return closedAllParentheses(++depth, (word << 2) | code);
 	}
@@ -461,6 +479,7 @@ int closedAllParentheses(int depth, unsigned long long word) {
 	return EOF;
 }
 
+
 void initQueenTracker(int index, int dimension, int queenTracker[MAX]) {
 	if (index >= 0 && index < dimension) {
 		queenTracker[index] = NONE_PLACED;
@@ -468,19 +487,23 @@ void initQueenTracker(int index, int dimension, int queenTracker[MAX]) {
 	}
 }
 
-int isPuzzleSolvable(int currentRow, int dimension, int queenTracker[MAX],
+int isPuzzleSolvable(int dimension, int queenTracker[MAX],
+// int isPuzzleSolvable(int currentRow, int dimension, int queenTracker[MAX],
 	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
 ) {
 	return (
-		tryPlacingQueenInRow(0, dimension, queenTracker, &colMask, &zoneMask, zones)
+		tryPlacingQueenInRow(0, dimension, queenTracker, colMask, zoneMask, zones)
+		// tryPlacingQueenInRow(0, dimension, queenTracker, colMask, zoneMask, zones)
 			? 1
 			: 0
 	);
 }
 
+
 int computeDistanceBetweenCells(int a, int b) {
 	return (a > b) ? (a - b) : (b - a);
 }
+
 
 int isCellAdjacentToExistingQueen(int queenTracker[MAX], int row, int col, int currentRow, int dimension) {
 	if (row < 0 || row == currentRow || row >= dimension) {
@@ -494,38 +517,34 @@ int isCellAdjacentToExistingQueen(int queenTracker[MAX], int row, int col, int c
 	);
 }
 
+
 int tryPlacingQueenInColumn(int col, int currentRow, int dimension, int queenTracker[MAX],
 	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
 ) {
     if (col == dimension) {
 		return 0;
 	}
-
 	unsigned long long colBit = 1ULL << col;
     int zid = zones[currentRow][col] - ASCII_MIN;
 	unsigned long long zidBit = 1ULL << zid;
-
     if ((*colMask&colBit) || (*zoneMask & zidBit)) {
         return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
     }
     if (isCellAdjacentToExistingQueen(queenTracker, 0, col, currentRow, dimension)) {
         return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
     }
-
     queenTracker[currentRow] = col;
     *colMask |= colBit;
     *zoneMask |= zidBit;
-
     if (tryPlacingQueenInRow(currentRow + 1, dimension, queenTracker, colMask, zoneMask, zones)) {
         return 1;
     }
-
     *colMask &= ~ colBit;
     *zoneMask &= ~ zidBit;
     queenTracker[currentRow] = NONE_PLACED;
-
-    return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
+	return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
 }
+
 
 int tryPlacingQueenInRow(int currentRow, int dimension, int queenTracker[MAX],
 	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
