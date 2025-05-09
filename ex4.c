@@ -163,9 +163,9 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k);
 
 /*
 Task 2
-Compute the total weight supported by a cheerleader in the pyramid
+Compute the overhead weight supported by a cheerleader
 */
-float weightAbove(int row, int col, double dataPyramid[5][5]);
+float sumWeightOverhead(int row, int col, float carryWeight[5][5]);
 
 
 /*
@@ -308,7 +308,7 @@ void robotPaths() {
 
 
 void humanPyramid() {
-	double dataPyramid[5][5] = {0};
+	double selfWeight[5][5] = {0};
 	printf("Please enter the weights of the cheerleaders:\n");
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j <= i; j++) {
@@ -324,27 +324,31 @@ void humanPyramid() {
 				printf("Negative weights are not supported.\n");
 				return;
 			}
-			dataPyramid[i][j] = nextWeight;
+			selfWeight[i][j] = nextWeight;
 		}
 	}
+	float carryWeight[5][5] = {0};
 	printf("The total weight on each cheerleader is:\n");
+	float weight = 0;
+	weight = carryWeight[0][0] = selfWeight[0][0];
+	for (int row = 1; row < 5; row++) {
+		for (int col = 0; col <= row; col++) {
+			weight = selfWeight[row][col];
+			weight += sumWeightOverhead(row, col, carryWeight);
+			carryWeight[row][col] = weight;
+		}
+	}
 	for (int row = 0; row < 5; row++) {
 		for (int col = 0; col <= row; col++) {
-			float weight = dataPyramid[row][col];
-			if (row > 0) {
-				weight += weightAbove(row, col, dataPyramid);
-			}
-			dataPyramid[row][col] = weight;
-			printf("%.2f ", weight);
+			printf("%.2f ", carryWeight[row][col]);
 		}
 		printf("\n");
 	}
 }
 
-
-float weightAbove(int row, int col, double dataPyramid[5][5]) {
-	float weightUpLeft = (col > 0) ? (float)dataPyramid[row - 1][col - 1] / 2.00 : 0;
-	float weightUpRight = (col < row) ? (float)dataPyramid[row - 1][col] / 2.00 : 0;
+float sumWeightOverhead(int row, int col, float carryWeight[5][5]) {
+	float weightUpLeft = (col > 0) ? carryWeight[row - 1][col - 1] / 2.00 : 0;
+	float weightUpRight = (col < row) ? carryWeight[row - 1][col] / 2.00 : 0;
 	return weightUpLeft + weightUpRight;
 }
 
