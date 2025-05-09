@@ -165,7 +165,7 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k);
 Task 2
 Compute the total weight supported by a cheerleader in the pyramid
 */
-void totalWeightLoad(int row, int col, double dataPyramid[5][5]);
+float totalWeightLoad(int row, int col, double dataPyramid[5][5]);
 
 
 /*
@@ -330,21 +330,23 @@ void humanPyramid() {
 	printf("The total weight on each cheerleader is:\n");
 	for (int row = 0; row < 5; row++) {
 		for (int col = 0; col <= row; col++) {
+			float weightLoad=dataPyramid[row][col];
 			if (row > 0) {
-				totalWeightLoad(row, col, dataPyramid);
+				weightLoad = totalWeightLoad(row, col, dataPyramid);
 			}
-			printf("%.2f ", (float)dataPyramid[row][col]);
+			dataPyramid[row][col] = weightLoad;
+			printf("%.2f ", weightLoad);
 		}
 		printf("\n");
 	}
 }
 
 
-void totalWeightLoad(int row, int col, double dataPyramid[5][5]) {
+float totalWeightLoad(int row, int col, double dataPyramid[5][5]) {
 	float weightUpLeft = (col > 0) ? (float)dataPyramid[row - 1][col - 1] / 2.00 : 0;
 	float weightUpRight = (col < row) ? (float)dataPyramid[row - 1][col] / 2.00 : 0;
 	float weightSelf = (float)dataPyramid[row][col];
-	dataPyramid[row][col] = weightSelf + weightUpLeft + weightUpRight;
+	return weightSelf + weightUpLeft + weightUpRight;
 }
 
 
