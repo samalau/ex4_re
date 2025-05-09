@@ -314,7 +314,7 @@ void humanPyramid() {
 		for (int j = 0; j <= i; j++) {
 			double nextWeight = -1.00;
 			int input = 0;
-			if ((input = scanf(" %lf", &nextWeight)) != 1 || nextWeight < 0) {
+			if ((input = scanf(" %lf", &nextWeight)) != 1 || nextWeight < 0.00) {
 				if (input == EOF) {
 					selectedTask = EXIT_PROGRAM;
 					return;
@@ -341,9 +341,9 @@ void humanPyramid() {
 
 
 void totalWeightLoad(int row, int col, double dataPyramid[5][5]) {
-	float weightUpLeft = (col > 0) ? (float)dataPyramid[row - 1][col - 1] / 2.00 : 0.00;
-	float weightUpRight = (col < row) ? (float)dataPyramid[row - 1][col] / 2.00 : 0.00;
-	dataPyramid[row][col] += weightUpLeft + weightUpRight;
+	float weightUpLeft = (col > 0) ? (float)dataPyramid[row - 1][col - 1] / 2.00 : 0;
+	float weightUpRight = (col < row) ? (float)dataPyramid[row - 1][col] / 2.00 : 0;
+	dataPyramid[row][col] = (float)dataPyramid[row][col] + weightUpLeft + weightUpRight;
 }
 
 
