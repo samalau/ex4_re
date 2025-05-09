@@ -165,7 +165,14 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k);
 Task 2
 Compute the overhead weight supported by a cheerleader
 */
-float sumWeightOverhead(int row, int col, float carryWeight[5][5]);
+float computeWeightOverhead(int row, int col, float carryWeight[5][5]);
+
+
+/*
+Task 2
+Compute the total weight a cheerleader supports
+*/
+void computeWeightTotal(int row, int col, float carryWeight[5][5], double selfWeight[5][5]);
 
 
 /*
@@ -330,24 +337,13 @@ void humanPyramid() {
 	float carryWeight[5][5] = {0};
 	printf("The total weight on each cheerleader is:\n");
 	carryWeight[0][0] = selfWeight[0][0];
-	for (int row = 1; row < 5; row++) {
-		for (int col = 0; col <= row; col++) {
-			carryWeight[row][col] = (float)selfWeight[row][col] + sumWeightOverhead(row, col, carryWeight);
-		}
-	}
+	computeWeightTotal(1, 0, carryWeight, selfWeight);
 	for (int row = 0; row < 5; row++) {
 		for (int col = 0; col <= row; col++) {
 			printf("%.2f ", carryWeight[row][col]);
 		}
 		printf("\n");
 	}
-}
-
-
-float sumWeightOverhead(int row, int col, float carryWeight[5][5]) {
-	float weightUpLeft = (col > 0) ? carryWeight[row - 1][col - 1] / 2.00 : 0;
-	float weightUpRight = (col < row) ? carryWeight[row - 1][col] / 2.00 : 0;
-	return weightUpLeft + weightUpRight;
 }
 
 
@@ -434,6 +430,26 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k) {
 		r = r * (n - k + i) / i;
 	}
 	return r;
+}
+
+
+float computeWeightOverhead(int row, int col, float carryWeight[5][5]) {
+	float weightUpLeft = (col > 0) ? carryWeight[row - 1][col - 1] / 2.00 : 0;
+	float weightUpRight = (col < row) ? carryWeight[row - 1][col] / 2.00 : 0;
+	return weightUpLeft + weightUpRight;
+}
+
+
+void computeWeightTotal(int row, int col, float carryWeight[5][5], double selfWeight[5][5]) {
+	if (row >= 5) {
+		return;
+	}
+	if (col > row) {
+		computeWeightTotal(row + 1, 0, carryWeight, selfWeight);
+		return;
+	}
+	carryWeight[row][col] = (float)selfWeight[row][col] + computeWeightOverhead(row, col, carryWeight);
+	computeWeightTotal(row, col + 1, carryWeight, selfWeight);
 }
 
 
