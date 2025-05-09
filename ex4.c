@@ -165,14 +165,14 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k);
 Task 2
 Compute the overhead weight supported by a cheerleader
 */
-float computeWeightOverhead(int row, int col, float carryWeight[5][5]);
+float computeWeightOverhead(int row, int col, double selfWeight[5][5]);
 
 
 /*
 Task 2
 Compute the total weight a cheerleader supports
 */
-void computeWeightTotal(int row, int col, float carryWeight[5][5], double selfWeight[5][5]);
+float computeWeightTotal(int row, int col, double selfWeight[5][5]);
 
 
 /*
@@ -334,13 +334,10 @@ void humanPyramid() {
 			selfWeight[i][j] = nextWeight;
 		}
 	}
-	float carryWeight[5][5] = {0};
-	carryWeight[0][0] = selfWeight[0][0];
-	computeWeightTotal(1, 0, carryWeight, selfWeight);
 	printf("The total weight on each cheerleader is:\n");
 	for (int row = 0; row < 5; row++) {
 		for (int col = 0; col <= row; col++) {
-			printf("%.2f ", carryWeight[row][col]);
+			printf("%.2f ", computeWeightTotal(row, col, selfWeight));
 		}
 		printf("\n");
 	}
@@ -433,23 +430,20 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k) {
 }
 
 
-float computeWeightOverhead(int row, int col, float carryWeight[5][5]) {
-	float weightUpLeft = (col > 0) ? carryWeight[row - 1][col - 1] / 2.00 : 0;
-	float weightUpRight = (col < row) ? carryWeight[row - 1][col] / 2.00 : 0;
+float computeWeightOverhead(int row, int col, double selfWeight[5][5]) {
+	if (row == 0) return 0.0f;
+
+	float weightUpLeft = (col > 0) ? computeWeightTotal(row - 1, col - 1, selfWeight) / 2.0f : 0.0f;
+	float weightUpRight = (col < row) ? computeWeightTotal(row - 1, col, selfWeight) / 2.0f : 0.0f;
+
 	return weightUpLeft + weightUpRight;
 }
 
 
-void computeWeightTotal(int row, int col, float carryWeight[5][5], double selfWeight[5][5]) {
-	if (row >= 5) {
-		return;
-	}
-	if (col > row) {
-		computeWeightTotal(row + 1, 0, carryWeight, selfWeight);
-		return;
-	}
-	carryWeight[row][col] = (float)selfWeight[row][col] + computeWeightOverhead(row, col, carryWeight);
-	computeWeightTotal(row, col + 1, carryWeight, selfWeight);
+float computeWeightTotal(int row, int col, double selfWeight[5][5]) {
+	if (row < 0 || col < 0 || col > row) return 0.0f;
+
+	return (float)selfWeight[row][col] + computeWeightOverhead(row, col, selfWeight);
 }
 
 
