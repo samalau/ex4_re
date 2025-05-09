@@ -342,8 +342,8 @@ float totalWeightLoad(int row, int col, double dataPyramid[5][5]) {
 		return (float)dataPyramid[row][col];
 	}
 	float weight = (float)dataPyramid[row][col];				
-	float weightUpLeft = (col > 0) ? totalWeightLoad(row - 1, col - 1, dataPyramid) / 2.00 : 0.00;
-	float weightUpRight = (col < row) ? totalWeightLoad(row - 1, col, dataPyramid) / 2.00 : 0.00;
+	float weightUpLeft = (col > 0) ? (float)dataPyramid[row - 1][col - 1] / 2.00 : 0.00;
+	float weightUpRight = (col < row) ? (float)dataPyramid[row - 1][col] / 2.00 : 0.00;
 	return weight + weightUpLeft + weightUpRight;
 }
 
