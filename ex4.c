@@ -906,7 +906,6 @@ void menuNavigate() {
 			QueensBattle();
 			break;
 		case EXIT_PROGRAM:
-			printf("Goodbye!\n");
 			break;
 		default:
 			printf("Please choose a task number from the list.\n");
@@ -918,5 +917,6 @@ int main() {
 		menuSelect();
 		menuNavigate();
 	}
+	printf("Goodbye!\n");
 	return 0;
 }
