@@ -491,14 +491,12 @@ void robotPaths() {
 	} else if (!(x && y)) {
 		paths = 1LLU;
 	} else {
-		
-
 		unsigned long long unsignedX = 0LLU, unsignedY = 0LLU, coordinateSum = 0LLU, difference = 0LLU;
 		unsignedX = (unsigned long long)x;
 		unsignedY = (unsigned long long)y;
-		coordinateSum = x + y;
-		difference = coordinateSum - x;
-		paths = robotPathCount(1LLU, coordinateSum, ((x>difference)?difference:x), x);
+		coordinateSum = unsignedX + unsignedY;
+		difference = coordinateSum - unsignedX;
+		paths = robotPathCount(1LLU, coordinateSum, ((unsignedX > difference) ? difference : unsignedX), unsignedX);
 	}
 	printf("The total number of paths the robot can take to reach home is: %llu\n", paths);
 }
