@@ -493,7 +493,7 @@ void robotPaths() {
 	} else if (!(x && y)) {
 		paths = 1ULL;
 	} else {
-		unsigned long long coordinateSum = 0ULL, xULL = 0ULL, i = 0ULL, difference = 0ULL;
+		unsigned long long coordinateSum = 0ULL, xULL = 0ULL, difference = 0ULL;
 		coordinateSum = (unsigned long long)(x + y);
 		xULL = (unsigned long long)x;
 		difference = coordinateSum - xULL;
@@ -512,10 +512,10 @@ unsigned long long robotPathCount(
 		return 0;
 	}
 	if (i == 1) {
-		return (n - k + i) / i--;
+		return (n - k + i) / (i - 1);
 	}
 	if (i > 1 && i <= k) {
-		return a * robotPathCount((n - k + i) / i, n, k, --i);
+		return a * robotPathCount((n - k + i) / i, n, k, i - 1);
 	}
 	return 0;
 }
