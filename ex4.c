@@ -231,32 +231,32 @@ TODO: NOTE
 Used for overflow prevention
 */
 static unsigned long long
-	bitstack0  = 0ULL,      bitstack1  = 0ULL,     bitstack2  = 0ULL,     bitstack3  = 0ULL,       bitstack4  = 0ULL,
-	bitstack5  = 0ULL,      bitstack6  = 0ULL,     bitstack7  = 0ULL,     bitstack8  = 0ULL,       bitstack9  = 0ULL,
-	bitstack10 = 0ULL,     bitstack11 = 0ULL,     bitstack12 = 0ULL,    bitstack13 = 0ULL,      bitstack14 = 0ULL,
-	bitstack15 = 0ULL,     bitstack16 = 0ULL,     bitstack17 = 0ULL,    bitstack18 = 0ULL,      bitstack19 = 0ULL,
-	bitstack20 = 0ULL,     bitstack21 = 0ULL,     bitstack22 = 0ULL,    bitstack23 = 0ULL,      bitstack24 = 0ULL,
-	bitstack25 = 0ULL,     bitstack26 = 0ULL,     bitstack27 = 0ULL,    bitstack28 = 0ULL,      bitstack29 = 0ULL,
-	bitstack30 = 0ULL,     bitstack31 = 0ULL,     bitstack32 = 0ULL,    bitstack33 = 0ULL,      bitstack34 = 0ULL,
-	bitstack35 = 0ULL,     bitstack36 = 0ULL,     bitstack37 = 0ULL,    bitstack38 = 0ULL,      bitstack39 = 0ULL,
-	bitstack40 = 0ULL,     bitstack41 = 0ULL,     bitstack42 = 0ULL,    bitstack43 = 0ULL,      bitstack44 = 0ULL,
-	bitstack45 = 0ULL,     bitstack46 = 0ULL,     bitstack47 = 0ULL,    bitstack48 = 0ULL,      bitstack49 = 0ULL,
-	bitstack50 = 0ULL,     bitstack51 = 0ULL,     bitstack52 = 0ULL,    bitstack53 = 0ULL,      bitstack54 = 0ULL,
-	bitstack55 = 0ULL,     bitstack56 = 0ULL,     bitstack57 = 0ULL,    bitstack58 = 0ULL,      bitstack59 = 0ULL,
-	bitstack60 = 0ULL,     bitstack61 = 0ULL,     bitstack62 = 0ULL,    bitstack63 = 0ULL,      bitstack64 = 0ULL,
-	bitstack65 = 0ULL,     bitstack66 = 0ULL,     bitstack67 = 0ULL,    bitstack68 = 0ULL,      bitstack69 = 0ULL,
-	bitstack70 = 0ULL,     bitstack71 = 0ULL,     bitstack72 = 0ULL,    bitstack73 = 0ULL,      bitstack74 = 0ULL,
-	bitstack75 = 0ULL,     bitstack76 = 0ULL,     bitstack77 = 0ULL,    bitstack78 = 0ULL,      bitstack79 = 0ULL,
-	bitstack80 = 0ULL,     bitstack81 = 0ULL,     bitstack82 = 0ULL,    bitstack83 = 0ULL,      bitstack84 = 0ULL,
-	bitstack85 = 0ULL,     bitstack86 = 0ULL,     bitstack87 = 0ULL,    bitstack88 = 0ULL,      bitstack89 = 0ULL,
-	bitstack90 = 0ULL,     bitstack91 = 0ULL,     bitstack92 = 0ULL,    bitstack93 = 0ULL,      bitstack94 = 0ULL,
-	bitstack95 = 0ULL,     bitstack96 = 0ULL,     bitstack97 = 0ULL,    bitstack98 = 0ULL,      bitstack99 = 0ULL,
-	bitstack100 = 0ULL,   bitstack101 = 0ULL,   bitstack102 = 0ULL,   bitstack103 = 0ULL,    bitstack104 = 0ULL,
-	bitstack105 = 0ULL,   bitstack106 = 0ULL,   bitstack107 = 0ULL,   bitstack108 = 0ULL,    bitstack109 = 0ULL,
-	bitstack110 = 0ULL,   bitstack111 = 0ULL,    bitstack112 = 0ULL,   bitstack113 = 0ULL,    bitstack114 = 0ULL,
-	bitstack115 = 0ULL,   bitstack116 = 0ULL,    bitstack117 = 0ULL,   bitstack118 = 0ULL,    bitstack119 = 0ULL,
-	bitstack120 = 0ULL,   bitstack121 = 0ULL,   bitstack122 = 0ULL,   bitstack123 = 0ULL,    bitstack124 = 0ULL,
-	bitstack125 = 0ULL,   bitstack126 = 0ULL,   bitstack127 = 0ULL;
+	bitstack0  = 0LLU,      bitstack1  = 0LLU,     bitstack2  = 0LLU,     bitstack3  = 0LLU,       bitstack4  = 0LLU,
+	bitstack5  = 0LLU,      bitstack6  = 0LLU,     bitstack7  = 0LLU,     bitstack8  = 0LLU,       bitstack9  = 0LLU,
+	bitstack10 = 0LLU,     bitstack11 = 0LLU,     bitstack12 = 0LLU,    bitstack13 = 0LLU,      bitstack14 = 0LLU,
+	bitstack15 = 0LLU,     bitstack16 = 0LLU,     bitstack17 = 0LLU,    bitstack18 = 0LLU,      bitstack19 = 0LLU,
+	bitstack20 = 0LLU,     bitstack21 = 0LLU,     bitstack22 = 0LLU,    bitstack23 = 0LLU,      bitstack24 = 0LLU,
+	bitstack25 = 0LLU,     bitstack26 = 0LLU,     bitstack27 = 0LLU,    bitstack28 = 0LLU,      bitstack29 = 0LLU,
+	bitstack30 = 0LLU,     bitstack31 = 0LLU,     bitstack32 = 0LLU,    bitstack33 = 0LLU,      bitstack34 = 0LLU,
+	bitstack35 = 0LLU,     bitstack36 = 0LLU,     bitstack37 = 0LLU,    bitstack38 = 0LLU,      bitstack39 = 0LLU,
+	bitstack40 = 0LLU,     bitstack41 = 0LLU,     bitstack42 = 0LLU,    bitstack43 = 0LLU,      bitstack44 = 0LLU,
+	bitstack45 = 0LLU,     bitstack46 = 0LLU,     bitstack47 = 0LLU,    bitstack48 = 0LLU,      bitstack49 = 0LLU,
+	bitstack50 = 0LLU,     bitstack51 = 0LLU,     bitstack52 = 0LLU,    bitstack53 = 0LLU,      bitstack54 = 0LLU,
+	bitstack55 = 0LLU,     bitstack56 = 0LLU,     bitstack57 = 0LLU,    bitstack58 = 0LLU,      bitstack59 = 0LLU,
+	bitstack60 = 0LLU,     bitstack61 = 0LLU,     bitstack62 = 0LLU,    bitstack63 = 0LLU,      bitstack64 = 0LLU,
+	bitstack65 = 0LLU,     bitstack66 = 0LLU,     bitstack67 = 0LLU,    bitstack68 = 0LLU,      bitstack69 = 0LLU,
+	bitstack70 = 0LLU,     bitstack71 = 0LLU,     bitstack72 = 0LLU,    bitstack73 = 0LLU,      bitstack74 = 0LLU,
+	bitstack75 = 0LLU,     bitstack76 = 0LLU,     bitstack77 = 0LLU,    bitstack78 = 0LLU,      bitstack79 = 0LLU,
+	bitstack80 = 0LLU,     bitstack81 = 0LLU,     bitstack82 = 0LLU,    bitstack83 = 0LLU,      bitstack84 = 0LLU,
+	bitstack85 = 0LLU,     bitstack86 = 0LLU,     bitstack87 = 0LLU,    bitstack88 = 0LLU,      bitstack89 = 0LLU,
+	bitstack90 = 0LLU,     bitstack91 = 0LLU,     bitstack92 = 0LLU,    bitstack93 = 0LLU,      bitstack94 = 0LLU,
+	bitstack95 = 0LLU,     bitstack96 = 0LLU,     bitstack97 = 0LLU,    bitstack98 = 0LLU,      bitstack99 = 0LLU,
+	bitstack100 = 0LLU,   bitstack101 = 0LLU,   bitstack102 = 0LLU,   bitstack103 = 0LLU,    bitstack104 = 0LLU,
+	bitstack105 = 0LLU,   bitstack106 = 0LLU,   bitstack107 = 0LLU,   bitstack108 = 0LLU,    bitstack109 = 0LLU,
+	bitstack110 = 0LLU,   bitstack111 = 0LLU,    bitstack112 = 0LLU,   bitstack113 = 0LLU,    bitstack114 = 0LLU,
+	bitstack115 = 0LLU,   bitstack116 = 0LLU,    bitstack117 = 0LLU,   bitstack118 = 0LLU,    bitstack119 = 0LLU,
+	bitstack120 = 0LLU,   bitstack121 = 0LLU,   bitstack122 = 0LLU,   bitstack123 = 0LLU,    bitstack124 = 0LLU,
+	bitstack125 = 0LLU,   bitstack126 = 0LLU,   bitstack127 = 0LLU;
 
 /*
 Task 4
@@ -420,7 +420,6 @@ Task 4
 Check if the puzzle has a solution
 */
 int isPuzzleSolvable(
-	// int currentRow,
 	int dimension,
 	int queenTracker[MAX],
 	unsigned long long *colMask,
@@ -474,11 +473,12 @@ int tryPlacingQueenInRow(
 //////////////////////////////////
 
 void robotPaths() {
-	int input = 0, x = 0, y = 0;
+	int input = 0;
+	unsigned long long x = 0LLU, y = 0LLU;
 	printf("Please enter the coordinates of the robot (column, row):\n");
 
 	// MINOR TODO: (UNSIGNED OR SIGNED) LONG LONG??
-	while ((input = scanf(" %d %d", &x, &y)) != 2) {
+	while ((input = scanf(" %llu %llu", &x, &y)) != 2) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
 			return;
@@ -487,17 +487,16 @@ void robotPaths() {
 		// scanf("%*[^1234567890 \t\n]");
 		continue;
 	}
-	unsigned long long paths = 0ULL;
-	if (x < 0 || y < 0) {
-		paths = 0ULL;
+	unsigned long long paths = 0LLU;
+	if (x < 0LLU || y < 0LLU) {
+		paths = 0LLU;
 	} else if (!(x && y)) {
-		paths = 1ULL;
+		paths = 1LLU;
 	} else {
-		unsigned long long coordinateSum = 0ULL, xULL = 0ULL, difference = 0ULL;
-		coordinateSum = (unsigned long long)(x + y);
-		xULL = (unsigned long long)x;
-		difference = coordinateSum - xULL;
-		paths = robotPathCount((unsigned long long)1, coordinateSum, ((xULL>difference)?difference:xULL), xULL);
+		unsigned long long coordinateSum = 0LLU, difference = 0LLU;
+		coordinateSum = x + y;
+		difference = coordinateSum - x;
+		paths = robotPathCount(1LLU, coordinateSum, ((x>difference)?difference:x), x);
 	}
 	printf("The total number of paths the robot can take to reach home is: %llu\n", paths);
 }
@@ -508,16 +507,16 @@ unsigned long long robotPathCount(
 	unsigned long long k,
 	unsigned long long i
 ) {
-	if (i < 1 || i > k) {
-		return 0;
+	if (i < 1LLU || i > k) {
+		return 0LLU;
 	}
-	if (i == 1) {
-		return (n - k + i) / (i - 1);
+	if (i == 1LLU) {
+		return a * ((n - k + i) / i);
 	}
-	if (i > 1 && i <= k) {
-		return a * robotPathCount((n - k + i) / i, n, k, i - 1);
+	if (i > 1LLU && i <= k) {
+		return a * robotPathCount((n - k + i) / i, n, k, i - 1LLU);
 	}
-	return 0;
+	return 0LLU;
 }
 
 
@@ -528,7 +527,7 @@ unsigned long long robotPathCount(
 void humanPyramid() {
 
 	// CRITICAL TODO: MAGIC
-	double selfWeight[5][5] = {0};
+	double selfWeight[5][5] = {0.00};
 	
 	printf("Please enter the weights of the cheerleaders:\n");
 	
@@ -589,7 +588,6 @@ float computeWeightTotal(int row, int col, double selfWeight[5][5]) {
 //////////////////////////////////
 
 void parenthesisValidator() {
-	recursion_count = 0;
 	resetOverflowProtection();
 	int depth = 0, balance = EOF;
 	// clear residual newline
@@ -602,7 +600,6 @@ void parenthesisValidator() {
 	}
 	printf("The parentheses are%sbalanced correctly.\n", balance ? " " : " not ");
 	resetOverflowProtection();
-	recursion_count = 0;
 }
 
 unsigned int encodeLegalCharacters(char c) {
@@ -628,7 +625,6 @@ int closedAllParentheses(int depth) {
 		return EOF;
 	}
 	if (c == '\n') {
-		recursion_count = 0;
 		return !depth;
 	}
 	unsigned int code = encodeLegalCharacters(c);
@@ -655,12 +651,12 @@ int closedAllParentheses(int depth) {
 		index = (--depth) / LEVELS_PER_BITSTACK;
 		shift = (depth % LEVELS_PER_BITSTACK) * BITS__PER_LEVEL;
 		unsigned long long bitstack = GET_BITSTACK(index);
-		unsigned int top = (bitstack >> shift) & 3ULL;
+		unsigned int top = (bitstack >> shift) & 3LLU;
 		if (top != code) {
 			scanf("%*[^\n]");
 			return 0;
 		}
-		bitstack &= ~(3ULL << shift);
+		bitstack &= ~(3LLU << shift);
 		SET_BITSTACK(index, bitstack);
 		return closedAllParentheses(depth);
 	}
@@ -702,6 +698,7 @@ int closedAllParentheses(int depth) {
 // }
 
 void resetOverflowProtection() {
+	recursion_count = 0;
 	bitstack0 = bitstack1 = bitstack2 = bitstack3 = bitstack4 = bitstack5 = bitstack6 = bitstack7 =
 	bitstack8 = bitstack9 = bitstack10 = bitstack11 = bitstack12 = bitstack13 = bitstack14 = bitstack15 =
 	bitstack16 = bitstack17 = bitstack18 = bitstack19 = bitstack20 = bitstack21 = bitstack22 = bitstack23 =
@@ -718,9 +715,7 @@ void resetOverflowProtection() {
 	bitstack103 = bitstack104 = bitstack105 = bitstack106 = bitstack107 = bitstack108 = bitstack109 =
 	bitstack110 = bitstack111 = bitstack112 = bitstack113 = bitstack114 = bitstack115 = bitstack116 =
 	bitstack117 = bitstack118 = bitstack119 = bitstack120 = bitstack121 = bitstack122 = bitstack123 =
-	bitstack124 = bitstack125 = bitstack126 =
-	bitstack127 = 0ULL;
-	recursion_count = 0;
+	bitstack124 = bitstack125 = bitstack126 = bitstack127 = 0LLU;
 }
 
 
@@ -765,7 +760,7 @@ void QueensBattle() {
 	*/
 	int queenTracker[MAX] = {0};
 	initQueenTracker(0, dimension, queenTracker);
-	unsigned long long colMask = 0, zoneMask = 0;
+	unsigned long long colMask = 0LLU, zoneMask = 0LLU;
 	if (isPuzzleSolvable(dimension, queenTracker, &colMask, &zoneMask, zones)) {
 	// if (isPuzzleSolvable(0, dimension, queenTracker, &colMask, &zoneMask, zones)) {
 		printf("Solution:\n");
@@ -792,12 +787,10 @@ void initQueenTracker(int index, int dimension, int queenTracker[MAX]) {
 }
 
 int isPuzzleSolvable(int dimension, int queenTracker[MAX],
-// int isPuzzleSolvable(int currentRow, int dimension, int queenTracker[MAX],
 	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
 ) {
 	return (
 		tryPlacingQueenInRow(0, dimension, queenTracker, colMask, zoneMask, zones)
-		// tryPlacingQueenInRow(0, dimension, queenTracker, colMask, zoneMask, zones)
 			? 1
 			: 0
 	);
@@ -826,9 +819,9 @@ int tryPlacingQueenInColumn(int col, int currentRow, int dimension, int queenTra
 	if (col == dimension) {
 		return 0;
 	}
-	unsigned long long colBit = 1ULL << col;
+	unsigned long long colBit = 1LLU << col;
 	int zid = zones[currentRow][col] - ASCII_MIN;
-	unsigned long long zidBit = 1ULL << zid;
+	unsigned long long zidBit = 1LLU << zid;
 	if ((*colMask&colBit) || (*zoneMask & zidBit)) {
 		return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
 	}
