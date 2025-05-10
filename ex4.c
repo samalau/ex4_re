@@ -527,7 +527,7 @@ unsigned long long robotPathCount(
 void humanPyramid() {
 
 	// CRITICAL TODO: MAGIC
-	double selfWeight[5][5] = {0.00};
+	double selfWeight[5][5] = {0};
 	
 	printf("Please enter the weights of the cheerleaders:\n");
 	
