@@ -55,7 +55,7 @@ Goodbye!
 Task 3
 Bitmask ( )
 */
-#define BIN00 0
+#define BITS_00 0
 
 
 /*
@@ -63,7 +63,7 @@ Bitmask ( )
 Task 3
 Bitmask [ ]
 */
-#define BIN01 1
+#define BITS_01 1
 
 
 /*
@@ -71,7 +71,7 @@ Bitmask [ ]
 Task 3
 Bitmask { }
 */
-#define BIN10 2
+#define BITS_10 2
 
 
 /*
@@ -79,7 +79,16 @@ Bitmask { }
 Task 3
 Bitmask < >
 */ 
-#define BIN11 3
+#define BITS_11 3
+
+
+/*
+Task 3
+TODO: NOTE
+Used for overflow prevention
+*/
+#define MAX_TOTAL_CALLS 4096
+
 
 /*
 Task 3
@@ -93,111 +102,111 @@ Task 3
 TODO: NOTE
 Used for overflow prevention
 */
-#define BITS_PER_WORD 64
+#define BITS__PER_BITSTACK 64
 
 /*
 Task 3
 TODO: NOTE
 Used for overflow prevention
 */
-#define BITS_PER_LEVEL 2
+#define BITS__PER_LEVEL 2
 
 /*
 Task 3
 TODO: NOTE
 Used for overflow prevention
 */
-#define LEVELS_PER_WORD (BITS_PER_WORD / BITS_PER_LEVEL)
+#define LEVELS_PER_BITSTACK (BITS__PER_BITSTACK / BITS__PER_LEVEL)
 
 /*
 Task 3
 TODO: NOTE
 Used for overflow prevention
 */
-#define WORD_COUNT (MAX_NESTING_DEPTH / LEVELS_PER_WORD)
+#define BITSTACK_COUNT (MAX_NESTING_DEPTH / LEVELS_PER_BITSTACK)
 
 /*
 Task 3
 TODO: NOTE
 Used for overflow prevention
 */
-#define GET_WORD(i) ( \
-	(i)==0?word0:(i)==1?word1:(i)==2?word2:(i)==3?word3:(i)==4?word4: \
-	(i)==5?word5:(i)==6?word6:(i)==7?word7:(i)==8?word8:(i)==9?word9: \
-	(i)==10?word10:(i)==11?word11:(i)==12?word12:(i)==13?word13:(i)==14?word14: \
-	(i)==15?word15:(i)==16?word16:(i)==17?word17:(i)==18?word18:(i)==19?word19: \
-	(i)==20?word20:(i)==21?word21:(i)==22?word22:(i)==23?word23:(i)==24?word24: \
-	(i)==25?word25:(i)==26?word26:(i)==27?word27:(i)==28?word28:(i)==29?word29: \
-	(i)==30?word30:(i)==31?word31:(i)==32?word32:(i)==33?word33:(i)==34?word34: \
-	(i)==35?word35:(i)==36?word36:(i)==37?word37:(i)==38?word38:(i)==39?word39: \
-	(i)==40?word40:(i)==41?word41:(i)==42?word42:(i)==43?word43:(i)==44?word44: \
-	(i)==45?word45:(i)==46?word46:(i)==47?word47:(i)==48?word48:(i)==49?word49: \
-	(i)==50?word50:(i)==51?word51:(i)==52?word52:(i)==53?word53:(i)==54?word54: \
-	(i)==55?word55:(i)==56?word56:(i)==57?word57:(i)==58?word58:(i)==59?word59: \
-	(i)==60?word60:(i)==61?word61:(i)==62?word62:(i)==63?word63:(i)==64?word64: \
-	(i)==65?word65:(i)==66?word66:(i)==67?word67:(i)==68?word68:(i)==69?word69: \
-	(i)==70?word70:(i)==71?word71:(i)==72?word72:(i)==73?word73:(i)==74?word74: \
-	(i)==75?word75:(i)==76?word76:(i)==77?word77:(i)==78?word78:(i)==79?word79: \
-	(i)==80?word80:(i)==81?word81:(i)==82?word82:(i)==83?word83:(i)==84?word84: \
-	(i)==85?word85:(i)==86?word86:(i)==87?word87:(i)==88?word88:(i)==89?word89: \
-	(i)==90?word90:(i)==91?word91:(i)==92?word92:(i)==93?word93:(i)==94?word94: \
-	(i)==95?word95:(i)==96?word96:(i)==97?word97:(i)==98?word98:(i)==99?word99: \
-	(i)==100?word100:(i)==101?word101:(i)==102?word102:(i)==103?word103:(i)==104?word104: \
-	(i)==105?word105:(i)==106?word106:(i)==107?word107:(i)==108?word108:(i)==109?word109: \
-	(i)==110?word110:(i)==111?word111:(i)==112?word112:(i)==113?word113:(i)==114?word114: \
-	(i)==115?word115:(i)==116?word116:(i)==117?word117:(i)==118?word118:(i)==119?word119: \
-	(i)==120?word120:(i)==121?word121:(i)==122?word122:(i)==123?word123:(i)==124?word124: \
-	(i)==125?word125:(i)==126?word126:word127)
+#define GET_BITSTACK(i) ( \
+	(i)==0?bitstack0:(i)==1?bitstack1:(i)==2?bitstack2:(i)==3?bitstack3:(i)==4?bitstack4: \
+	(i)==5?bitstack5:(i)==6?bitstack6:(i)==7?bitstack7:(i)==8?bitstack8:(i)==9?bitstack9: \
+	(i)==10?bitstack10:(i)==11?bitstack11:(i)==12?bitstack12:(i)==13?bitstack13:(i)==14?bitstack14: \
+	(i)==15?bitstack15:(i)==16?bitstack16:(i)==17?bitstack17:(i)==18?bitstack18:(i)==19?bitstack19: \
+	(i)==20?bitstack20:(i)==21?bitstack21:(i)==22?bitstack22:(i)==23?bitstack23:(i)==24?bitstack24: \
+	(i)==25?bitstack25:(i)==26?bitstack26:(i)==27?bitstack27:(i)==28?bitstack28:(i)==29?bitstack29: \
+	(i)==30?bitstack30:(i)==31?bitstack31:(i)==32?bitstack32:(i)==33?bitstack33:(i)==34?bitstack34: \
+	(i)==35?bitstack35:(i)==36?bitstack36:(i)==37?bitstack37:(i)==38?bitstack38:(i)==39?bitstack39: \
+	(i)==40?bitstack40:(i)==41?bitstack41:(i)==42?bitstack42:(i)==43?bitstack43:(i)==44?bitstack44: \
+	(i)==45?bitstack45:(i)==46?bitstack46:(i)==47?bitstack47:(i)==48?bitstack48:(i)==49?bitstack49: \
+	(i)==50?bitstack50:(i)==51?bitstack51:(i)==52?bitstack52:(i)==53?bitstack53:(i)==54?bitstack54: \
+	(i)==55?bitstack55:(i)==56?bitstack56:(i)==57?bitstack57:(i)==58?bitstack58:(i)==59?bitstack59: \
+	(i)==60?bitstack60:(i)==61?bitstack61:(i)==62?bitstack62:(i)==63?bitstack63:(i)==64?bitstack64: \
+	(i)==65?bitstack65:(i)==66?bitstack66:(i)==67?bitstack67:(i)==68?bitstack68:(i)==69?bitstack69: \
+	(i)==70?bitstack70:(i)==71?bitstack71:(i)==72?bitstack72:(i)==73?bitstack73:(i)==74?bitstack74: \
+	(i)==75?bitstack75:(i)==76?bitstack76:(i)==77?bitstack77:(i)==78?bitstack78:(i)==79?bitstack79: \
+	(i)==80?bitstack80:(i)==81?bitstack81:(i)==82?bitstack82:(i)==83?bitstack83:(i)==84?bitstack84: \
+	(i)==85?bitstack85:(i)==86?bitstack86:(i)==87?bitstack87:(i)==88?bitstack88:(i)==89?bitstack89: \
+	(i)==90?bitstack90:(i)==91?bitstack91:(i)==92?bitstack92:(i)==93?bitstack93:(i)==94?bitstack94: \
+	(i)==95?bitstack95:(i)==96?bitstack96:(i)==97?bitstack97:(i)==98?bitstack98:(i)==99?bitstack99: \
+	(i)==100?bitstack100:(i)==101?bitstack101:(i)==102?bitstack102:(i)==103?bitstack103:(i)==104?bitstack104: \
+	(i)==105?bitstack105:(i)==106?bitstack106:(i)==107?bitstack107:(i)==108?bitstack108:(i)==109?bitstack109: \
+	(i)==110?bitstack110:(i)==111?bitstack111:(i)==112?bitstack112:(i)==113?bitstack113:(i)==114?bitstack114: \
+	(i)==115?bitstack115:(i)==116?bitstack116:(i)==117?bitstack117:(i)==118?bitstack118:(i)==119?bitstack119: \
+	(i)==120?bitstack120:(i)==121?bitstack121:(i)==122?bitstack122:(i)==123?bitstack123:(i)==124?bitstack124: \
+	(i)==125?bitstack125:(i)==126?bitstack126:bitstack127)
 
 /*
 Task 3
 TODO: NOTE
 Used for overflow prevention
 */
-#define SET_WORD(i, val) do { \
-	if ((i)==0) word0=(val); else if ((i)==1) word1=(val); else if ((i)==2) word2=(val); \
-	else if ((i)==3) word3=(val); else if ((i)==4) word4=(val); else if ((i)==5) word5=(val); \
-	else if ((i)==6) word6=(val); else if ((i)==7) word7=(val); else if ((i)==8) word8=(val); \
-	else if ((i)==9) word9=(val); else if ((i)==10) word10=(val); else if ((i)==11) word11=(val); \
-	else if ((i)==12) word12=(val); else if ((i)==13) word13=(val); else if ((i)==14) word14=(val); \
-	else if ((i)==15) word15=(val); else if ((i)==16) word16=(val); else if ((i)==17) word17=(val); \
-	else if ((i)==18) word18=(val); else if ((i)==19) word19=(val); else if ((i)==20) word20=(val); \
-	else if ((i)==21) word21=(val); else if ((i)==22) word22=(val); else if ((i)==23) word23=(val); \
-	else if ((i)==24) word24=(val); else if ((i)==25) word25=(val); else if ((i)==26) word26=(val); \
-	else if ((i)==27) word27=(val); else if ((i)==28) word28=(val); else if ((i)==29) word29=(val); \
-	else if ((i)==30) word30=(val); else if ((i)==31) word31=(val); else if ((i)==32) word32=(val); \
-	else if ((i)==33) word33=(val); else if ((i)==34) word34=(val); else if ((i)==35) word35=(val); \
-	else if ((i)==36) word36=(val); else if ((i)==37) word37=(val); else if ((i)==38) word38=(val); \
-	else if ((i)==39) word39=(val); else if ((i)==40) word40=(val); else if ((i)==41) word41=(val); \
-	else if ((i)==42) word42=(val); else if ((i)==43) word43=(val); else if ((i)==44) word44=(val); \
-	else if ((i)==45) word45=(val); else if ((i)==46) word46=(val); else if ((i)==47) word47=(val); \
-	else if ((i)==48) word48=(val); else if ((i)==49) word49=(val); else if ((i)==50) word50=(val); \
-	else if ((i)==51) word51=(val); else if ((i)==52) word52=(val); else if ((i)==53) word53=(val); \
-	else if ((i)==54) word54=(val); else if ((i)==55) word55=(val); else if ((i)==56) word56=(val); \
-	else if ((i)==57) word57=(val); else if ((i)==58) word58=(val); else if ((i)==59) word59=(val); \
-	else if ((i)==60) word60=(val); else if ((i)==61) word61=(val); else if ((i)==62) word62=(val); \
-	else if ((i)==63) word63=(val); else if ((i)==64) word64=(val); else if ((i)==65) word65=(val); \
-	else if ((i)==66) word66=(val); else if ((i)==67) word67=(val); else if ((i)==68) word68=(val); \
-	else if ((i)==69) word69=(val); else if ((i)==70) word70=(val); else if ((i)==71) word71=(val); \
-	else if ((i)==72) word72=(val); else if ((i)==73) word73=(val); else if ((i)==74) word74=(val); \
-	else if ((i)==75) word75=(val); else if ((i)==76) word76=(val); else if ((i)==77) word77=(val); \
-	else if ((i)==78) word78=(val); else if ((i)==79) word79=(val); else if ((i)==80) word80=(val); \
-	else if ((i)==81) word81=(val); else if ((i)==82) word82=(val); else if ((i)==83) word83=(val); \
-	else if ((i)==84) word84=(val); else if ((i)==85) word85=(val); else if ((i)==86) word86=(val); \
-	else if ((i)==87) word87=(val); else if ((i)==88) word88=(val); else if ((i)==89) word89=(val); \
-	else if ((i)==90) word90=(val); else if ((i)==91) word91=(val); else if ((i)==92) word92=(val); \
-	else if ((i)==93) word93=(val); else if ((i)==94) word94=(val); else if ((i)==95) word95=(val); \
-	else if ((i)==96) word96=(val); else if ((i)==97) word97=(val); else if ((i)==98) word98=(val); \
-	else if ((i)==99) word99=(val); else if ((i)==100) word100=(val); else if ((i)==101) word101=(val); \
-	else if ((i)==102) word102=(val); else if ((i)==103) word103=(val); else if ((i)==104) word104=(val); \
-	else if ((i)==105) word105=(val); else if ((i)==106) word106=(val); else if ((i)==107) word107=(val); \
-	else if ((i)==108) word108=(val); else if ((i)==109) word109=(val); else if ((i)==110) word110=(val); \
-	else if ((i)==111) word111=(val); else if ((i)==112) word112=(val); else if ((i)==113) word113=(val); \
-	else if ((i)==114) word114=(val); else if ((i)==115) word115=(val); else if ((i)==116) word116=(val); \
-	else if ((i)==117) word117=(val); else if ((i)==118) word118=(val); else if ((i)==119) word119=(val); \
-	else if ((i)==120) word120=(val); else if ((i)==121) word121=(val); else if ((i)==122) word122=(val); \
-	else if ((i)==123) word123=(val); else if ((i)==124) word124=(val); else if ((i)==125) word125=(val); \
-	else if ((i)==126) word126=(val); else word127=(val); \
+#define SET_BITSTACK(i, val) do { \
+	if ((i)==0) bitstack0=(val); else if ((i)==1) bitstack1=(val); else if ((i)==2) bitstack2=(val); \
+	else if ((i)==3) bitstack3=(val); else if ((i)==4) bitstack4=(val); else if ((i)==5) bitstack5=(val); \
+	else if ((i)==6) bitstack6=(val); else if ((i)==7) bitstack7=(val); else if ((i)==8) bitstack8=(val); \
+	else if ((i)==9) bitstack9=(val); else if ((i)==10) bitstack10=(val); else if ((i)==11) bitstack11=(val); \
+	else if ((i)==12) bitstack12=(val); else if ((i)==13) bitstack13=(val); else if ((i)==14) bitstack14=(val); \
+	else if ((i)==15) bitstack15=(val); else if ((i)==16) bitstack16=(val); else if ((i)==17) bitstack17=(val); \
+	else if ((i)==18) bitstack18=(val); else if ((i)==19) bitstack19=(val); else if ((i)==20) bitstack20=(val); \
+	else if ((i)==21) bitstack21=(val); else if ((i)==22) bitstack22=(val); else if ((i)==23) bitstack23=(val); \
+	else if ((i)==24) bitstack24=(val); else if ((i)==25) bitstack25=(val); else if ((i)==26) bitstack26=(val); \
+	else if ((i)==27) bitstack27=(val); else if ((i)==28) bitstack28=(val); else if ((i)==29) bitstack29=(val); \
+	else if ((i)==30) bitstack30=(val); else if ((i)==31) bitstack31=(val); else if ((i)==32) bitstack32=(val); \
+	else if ((i)==33) bitstack33=(val); else if ((i)==34) bitstack34=(val); else if ((i)==35) bitstack35=(val); \
+	else if ((i)==36) bitstack36=(val); else if ((i)==37) bitstack37=(val); else if ((i)==38) bitstack38=(val); \
+	else if ((i)==39) bitstack39=(val); else if ((i)==40) bitstack40=(val); else if ((i)==41) bitstack41=(val); \
+	else if ((i)==42) bitstack42=(val); else if ((i)==43) bitstack43=(val); else if ((i)==44) bitstack44=(val); \
+	else if ((i)==45) bitstack45=(val); else if ((i)==46) bitstack46=(val); else if ((i)==47) bitstack47=(val); \
+	else if ((i)==48) bitstack48=(val); else if ((i)==49) bitstack49=(val); else if ((i)==50) bitstack50=(val); \
+	else if ((i)==51) bitstack51=(val); else if ((i)==52) bitstack52=(val); else if ((i)==53) bitstack53=(val); \
+	else if ((i)==54) bitstack54=(val); else if ((i)==55) bitstack55=(val); else if ((i)==56) bitstack56=(val); \
+	else if ((i)==57) bitstack57=(val); else if ((i)==58) bitstack58=(val); else if ((i)==59) bitstack59=(val); \
+	else if ((i)==60) bitstack60=(val); else if ((i)==61) bitstack61=(val); else if ((i)==62) bitstack62=(val); \
+	else if ((i)==63) bitstack63=(val); else if ((i)==64) bitstack64=(val); else if ((i)==65) bitstack65=(val); \
+	else if ((i)==66) bitstack66=(val); else if ((i)==67) bitstack67=(val); else if ((i)==68) bitstack68=(val); \
+	else if ((i)==69) bitstack69=(val); else if ((i)==70) bitstack70=(val); else if ((i)==71) bitstack71=(val); \
+	else if ((i)==72) bitstack72=(val); else if ((i)==73) bitstack73=(val); else if ((i)==74) bitstack74=(val); \
+	else if ((i)==75) bitstack75=(val); else if ((i)==76) bitstack76=(val); else if ((i)==77) bitstack77=(val); \
+	else if ((i)==78) bitstack78=(val); else if ((i)==79) bitstack79=(val); else if ((i)==80) bitstack80=(val); \
+	else if ((i)==81) bitstack81=(val); else if ((i)==82) bitstack82=(val); else if ((i)==83) bitstack83=(val); \
+	else if ((i)==84) bitstack84=(val); else if ((i)==85) bitstack85=(val); else if ((i)==86) bitstack86=(val); \
+	else if ((i)==87) bitstack87=(val); else if ((i)==88) bitstack88=(val); else if ((i)==89) bitstack89=(val); \
+	else if ((i)==90) bitstack90=(val); else if ((i)==91) bitstack91=(val); else if ((i)==92) bitstack92=(val); \
+	else if ((i)==93) bitstack93=(val); else if ((i)==94) bitstack94=(val); else if ((i)==95) bitstack95=(val); \
+	else if ((i)==96) bitstack96=(val); else if ((i)==97) bitstack97=(val); else if ((i)==98) bitstack98=(val); \
+	else if ((i)==99) bitstack99=(val); else if ((i)==100) bitstack100=(val); else if ((i)==101) bitstack101=(val); \
+	else if ((i)==102) bitstack102=(val); else if ((i)==103) bitstack103=(val); else if ((i)==104) bitstack104=(val); \
+	else if ((i)==105) bitstack105=(val); else if ((i)==106) bitstack106=(val); else if ((i)==107) bitstack107=(val); \
+	else if ((i)==108) bitstack108=(val); else if ((i)==109) bitstack109=(val); else if ((i)==110) bitstack110=(val); \
+	else if ((i)==111) bitstack111=(val); else if ((i)==112) bitstack112=(val); else if ((i)==113) bitstack113=(val); \
+	else if ((i)==114) bitstack114=(val); else if ((i)==115) bitstack115=(val); else if ((i)==116) bitstack116=(val); \
+	else if ((i)==117) bitstack117=(val); else if ((i)==118) bitstack118=(val); else if ((i)==119) bitstack119=(val); \
+	else if ((i)==120) bitstack120=(val); else if ((i)==121) bitstack121=(val); else if ((i)==122) bitstack122=(val); \
+	else if ((i)==123) bitstack123=(val); else if ((i)==124) bitstack124=(val); else if ((i)==125) bitstack125=(val); \
+	else if ((i)==126) bitstack126=(val); else bitstack127=(val); \
 } while (0)
 
 
@@ -227,140 +236,148 @@ Task 3
 TODO: NOTE
 Used for overflow prevention
 */
-static unsigned long long word0  = 0ULL;
-static unsigned long long word1  = 0ULL;
-static unsigned long long word2  = 0ULL;
-static unsigned long long word3  = 0ULL;
-static unsigned long long word4  = 0ULL;
-static unsigned long long word5  = 0ULL;
-static unsigned long long word6  = 0ULL;
-static unsigned long long word7  = 0ULL;
-static unsigned long long word8  = 0ULL;
-static unsigned long long word9  = 0ULL;
-static unsigned long long word10 = 0ULL;
-static unsigned long long word11 = 0ULL;
-static unsigned long long word12 = 0ULL;
-static unsigned long long word13 = 0ULL;
-static unsigned long long word14 = 0ULL;
-static unsigned long long word15 = 0ULL;
-static unsigned long long word16 = 0ULL;
-static unsigned long long word17 = 0ULL;
-static unsigned long long word18 = 0ULL;
-static unsigned long long word19 = 0ULL;
-static unsigned long long word20 = 0ULL;
-static unsigned long long word21 = 0ULL;
-static unsigned long long word22 = 0ULL;
-static unsigned long long word23 = 0ULL;
-static unsigned long long word24 = 0ULL;
-static unsigned long long word25 = 0ULL;
-static unsigned long long word26 = 0ULL;
-static unsigned long long word27 = 0ULL;
-static unsigned long long word28 = 0ULL;
-static unsigned long long word29 = 0ULL;
-static unsigned long long word30 = 0ULL;
-static unsigned long long word31 = 0ULL;
-static unsigned long long word32 = 0ULL;
-static unsigned long long word33 = 0ULL;
-static unsigned long long word34 = 0ULL;
-static unsigned long long word35 = 0ULL;
-static unsigned long long word36 = 0ULL;
-static unsigned long long word37 = 0ULL;
-static unsigned long long word38 = 0ULL;
-static unsigned long long word39 = 0ULL;
-static unsigned long long word40 = 0ULL;
-static unsigned long long word41 = 0ULL;
-static unsigned long long word42 = 0ULL;
-static unsigned long long word43 = 0ULL;
-static unsigned long long word44 = 0ULL;
-static unsigned long long word45 = 0ULL;
-static unsigned long long word46 = 0ULL;
-static unsigned long long word47 = 0ULL;
-static unsigned long long word48 = 0ULL;
-static unsigned long long word49 = 0ULL;
-static unsigned long long word50 = 0ULL;
-static unsigned long long word51 = 0ULL;
-static unsigned long long word52 = 0ULL;
-static unsigned long long word53 = 0ULL;
-static unsigned long long word54 = 0ULL;
-static unsigned long long word55 = 0ULL;
-static unsigned long long word56 = 0ULL;
-static unsigned long long word57 = 0ULL;
-static unsigned long long word58 = 0ULL;
-static unsigned long long word59 = 0ULL;
-static unsigned long long word60 = 0ULL;
-static unsigned long long word61 = 0ULL;
-static unsigned long long word62 = 0ULL;
-static unsigned long long word63 = 0ULL;
-static unsigned long long word64 = 0ULL;
-static unsigned long long word65 = 0ULL;
-static unsigned long long word66 = 0ULL;
-static unsigned long long word67 = 0ULL;
-static unsigned long long word68 = 0ULL;
-static unsigned long long word69 = 0ULL;
-static unsigned long long word70 = 0ULL;
-static unsigned long long word71 = 0ULL;
-static unsigned long long word72 = 0ULL;
-static unsigned long long word73 = 0ULL;
-static unsigned long long word74 = 0ULL;
-static unsigned long long word75 = 0ULL;
-static unsigned long long word76 = 0ULL;
-static unsigned long long word77 = 0ULL;
-static unsigned long long word78 = 0ULL;
-static unsigned long long word79 = 0ULL;
-static unsigned long long word80 = 0ULL;
-static unsigned long long word81 = 0ULL;
-static unsigned long long word82 = 0ULL;
-static unsigned long long word83 = 0ULL;
-static unsigned long long word84 = 0ULL;
-static unsigned long long word85 = 0ULL;
-static unsigned long long word86 = 0ULL;
-static unsigned long long word87 = 0ULL;
-static unsigned long long word88 = 0ULL;
-static unsigned long long word89 = 0ULL;
-static unsigned long long word90 = 0ULL;
-static unsigned long long word91 = 0ULL;
-static unsigned long long word92 = 0ULL;
-static unsigned long long word93 = 0ULL;
-static unsigned long long word94 = 0ULL;
-static unsigned long long word95 = 0ULL;
-static unsigned long long word96 = 0ULL;
-static unsigned long long word97 = 0ULL;
-static unsigned long long word98 = 0ULL;
-static unsigned long long word99 = 0ULL;
-static unsigned long long word100 = 0ULL;
-static unsigned long long word101 = 0ULL;
-static unsigned long long word102 = 0ULL;
-static unsigned long long word103 = 0ULL;
-static unsigned long long word104 = 0ULL;
-static unsigned long long word105 = 0ULL;
-static unsigned long long word106 = 0ULL;
-static unsigned long long word107 = 0ULL;
-static unsigned long long word108 = 0ULL;
-static unsigned long long word109 = 0ULL;
-static unsigned long long word110 = 0ULL;
-static unsigned long long word111 = 0ULL;
-static unsigned long long word112 = 0ULL;
-static unsigned long long word113 = 0ULL;
-static unsigned long long word114 = 0ULL;
-static unsigned long long word115 = 0ULL;
-static unsigned long long word116 = 0ULL;
-static unsigned long long word117 = 0ULL;
-static unsigned long long word118 = 0ULL;
-static unsigned long long word119 = 0ULL;
-static unsigned long long word120 = 0ULL;
-static unsigned long long word121 = 0ULL;
-static unsigned long long word122 = 0ULL;
-static unsigned long long word123 = 0ULL;
-static unsigned long long word124 = 0ULL;
-static unsigned long long word125 = 0ULL;
-static unsigned long long word126 = 0ULL;
-static unsigned long long word127 = 0ULL;
+static int recursion_count = 0;
+
+
+/*
+Task 3
+TODO: NOTE
+Used for overflow prevention
+*/
+static unsigned long long bitstack0  = 0ULL;
+static unsigned long long bitstack1  = 0ULL;
+static unsigned long long bitstack2  = 0ULL;
+static unsigned long long bitstack3  = 0ULL;
+static unsigned long long bitstack4  = 0ULL;
+static unsigned long long bitstack5  = 0ULL;
+static unsigned long long bitstack6  = 0ULL;
+static unsigned long long bitstack7  = 0ULL;
+static unsigned long long bitstack8  = 0ULL;
+static unsigned long long bitstack9  = 0ULL;
+static unsigned long long bitstack10 = 0ULL;
+static unsigned long long bitstack11 = 0ULL;
+static unsigned long long bitstack12 = 0ULL;
+static unsigned long long bitstack13 = 0ULL;
+static unsigned long long bitstack14 = 0ULL;
+static unsigned long long bitstack15 = 0ULL;
+static unsigned long long bitstack16 = 0ULL;
+static unsigned long long bitstack17 = 0ULL;
+static unsigned long long bitstack18 = 0ULL;
+static unsigned long long bitstack19 = 0ULL;
+static unsigned long long bitstack20 = 0ULL;
+static unsigned long long bitstack21 = 0ULL;
+static unsigned long long bitstack22 = 0ULL;
+static unsigned long long bitstack23 = 0ULL;
+static unsigned long long bitstack24 = 0ULL;
+static unsigned long long bitstack25 = 0ULL;
+static unsigned long long bitstack26 = 0ULL;
+static unsigned long long bitstack27 = 0ULL;
+static unsigned long long bitstack28 = 0ULL;
+static unsigned long long bitstack29 = 0ULL;
+static unsigned long long bitstack30 = 0ULL;
+static unsigned long long bitstack31 = 0ULL;
+static unsigned long long bitstack32 = 0ULL;
+static unsigned long long bitstack33 = 0ULL;
+static unsigned long long bitstack34 = 0ULL;
+static unsigned long long bitstack35 = 0ULL;
+static unsigned long long bitstack36 = 0ULL;
+static unsigned long long bitstack37 = 0ULL;
+static unsigned long long bitstack38 = 0ULL;
+static unsigned long long bitstack39 = 0ULL;
+static unsigned long long bitstack40 = 0ULL;
+static unsigned long long bitstack41 = 0ULL;
+static unsigned long long bitstack42 = 0ULL;
+static unsigned long long bitstack43 = 0ULL;
+static unsigned long long bitstack44 = 0ULL;
+static unsigned long long bitstack45 = 0ULL;
+static unsigned long long bitstack46 = 0ULL;
+static unsigned long long bitstack47 = 0ULL;
+static unsigned long long bitstack48 = 0ULL;
+static unsigned long long bitstack49 = 0ULL;
+static unsigned long long bitstack50 = 0ULL;
+static unsigned long long bitstack51 = 0ULL;
+static unsigned long long bitstack52 = 0ULL;
+static unsigned long long bitstack53 = 0ULL;
+static unsigned long long bitstack54 = 0ULL;
+static unsigned long long bitstack55 = 0ULL;
+static unsigned long long bitstack56 = 0ULL;
+static unsigned long long bitstack57 = 0ULL;
+static unsigned long long bitstack58 = 0ULL;
+static unsigned long long bitstack59 = 0ULL;
+static unsigned long long bitstack60 = 0ULL;
+static unsigned long long bitstack61 = 0ULL;
+static unsigned long long bitstack62 = 0ULL;
+static unsigned long long bitstack63 = 0ULL;
+static unsigned long long bitstack64 = 0ULL;
+static unsigned long long bitstack65 = 0ULL;
+static unsigned long long bitstack66 = 0ULL;
+static unsigned long long bitstack67 = 0ULL;
+static unsigned long long bitstack68 = 0ULL;
+static unsigned long long bitstack69 = 0ULL;
+static unsigned long long bitstack70 = 0ULL;
+static unsigned long long bitstack71 = 0ULL;
+static unsigned long long bitstack72 = 0ULL;
+static unsigned long long bitstack73 = 0ULL;
+static unsigned long long bitstack74 = 0ULL;
+static unsigned long long bitstack75 = 0ULL;
+static unsigned long long bitstack76 = 0ULL;
+static unsigned long long bitstack77 = 0ULL;
+static unsigned long long bitstack78 = 0ULL;
+static unsigned long long bitstack79 = 0ULL;
+static unsigned long long bitstack80 = 0ULL;
+static unsigned long long bitstack81 = 0ULL;
+static unsigned long long bitstack82 = 0ULL;
+static unsigned long long bitstack83 = 0ULL;
+static unsigned long long bitstack84 = 0ULL;
+static unsigned long long bitstack85 = 0ULL;
+static unsigned long long bitstack86 = 0ULL;
+static unsigned long long bitstack87 = 0ULL;
+static unsigned long long bitstack88 = 0ULL;
+static unsigned long long bitstack89 = 0ULL;
+static unsigned long long bitstack90 = 0ULL;
+static unsigned long long bitstack91 = 0ULL;
+static unsigned long long bitstack92 = 0ULL;
+static unsigned long long bitstack93 = 0ULL;
+static unsigned long long bitstack94 = 0ULL;
+static unsigned long long bitstack95 = 0ULL;
+static unsigned long long bitstack96 = 0ULL;
+static unsigned long long bitstack97 = 0ULL;
+static unsigned long long bitstack98 = 0ULL;
+static unsigned long long bitstack99 = 0ULL;
+static unsigned long long bitstack100 = 0ULL;
+static unsigned long long bitstack101 = 0ULL;
+static unsigned long long bitstack102 = 0ULL;
+static unsigned long long bitstack103 = 0ULL;
+static unsigned long long bitstack104 = 0ULL;
+static unsigned long long bitstack105 = 0ULL;
+static unsigned long long bitstack106 = 0ULL;
+static unsigned long long bitstack107 = 0ULL;
+static unsigned long long bitstack108 = 0ULL;
+static unsigned long long bitstack109 = 0ULL;
+static unsigned long long bitstack110 = 0ULL;
+static unsigned long long bitstack111 = 0ULL;
+static unsigned long long bitstack112 = 0ULL;
+static unsigned long long bitstack113 = 0ULL;
+static unsigned long long bitstack114 = 0ULL;
+static unsigned long long bitstack115 = 0ULL;
+static unsigned long long bitstack116 = 0ULL;
+static unsigned long long bitstack117 = 0ULL;
+static unsigned long long bitstack118 = 0ULL;
+static unsigned long long bitstack119 = 0ULL;
+static unsigned long long bitstack120 = 0ULL;
+static unsigned long long bitstack121 = 0ULL;
+static unsigned long long bitstack122 = 0ULL;
+static unsigned long long bitstack123 = 0ULL;
+static unsigned long long bitstack124 = 0ULL;
+static unsigned long long bitstack125 = 0ULL;
+static unsigned long long bitstack126 = 0ULL;
+static unsigned long long bitstack127 = 0ULL;
 
 
 /*
 Menu Selection (global)
 */
-int selectedTask;
+int selectedTask = UNSELECTED;
 
 
 /*
@@ -458,13 +475,13 @@ Task 3
 Check if all parentheses have been closed
 */
 int closedAllParentheses(int depth);
-// int closedAllParentheses(int depth, unsigned long long word);
+// int closedAllParentheses(int depth, unsigned long long bitstack);
 
 /*
 Task 3
 TODO: NOTE
 */
-void resetWords();
+void resetOverflowProtection();
 
 /*
 Task 4
@@ -587,7 +604,6 @@ void humanPyramid() {
 	for (int row = 0; row < 5; row++) {
 		for (int col = 0; col <= row; col++) {
 			displayWeight(row, col, selfWeight);
-			// printf("%.2f ", computeWeightTotal(row, col, selfWeight));
 		}
 		printf("\n");
 	}
@@ -595,8 +611,8 @@ void humanPyramid() {
 
 
 void parenthesisValidator() {
-	resetWords();
-	// unsigned long long word;
+	recursion_count = 0;
+	resetOverflowProtection();
 
 	int depth = 0, balance = EOF;
 
@@ -605,13 +621,14 @@ void parenthesisValidator() {
 	printf("Please enter a term for validation:\n");
 
 	balance = closedAllParentheses(depth);
-	// balance = closedAllParentheses(depth, word);
 
-	balance == EOF
-		? selectedTask = EXIT_PROGRAM
-		: printf("The parentheses are%sbalanced correctly.\n", balance ? " " : " not ");
-	
-	resetWords();
+	if (balance == EOF){
+		selectedTask = EXIT_PROGRAM;
+		return;
+	}
+	printf("The parentheses are%sbalanced correctly.\n", balance ? " " : " not ");
+	resetOverflowProtection();
+	recursion_count = 0;
 }
 
 
@@ -720,10 +737,10 @@ float computeWeightTotal(int row, int col, double selfWeight[5][5]) {
 
 unsigned int encodeLegalCharacters(char c) {
 	switch(c) {
-		case'(': case')': return BIN00;
-		case'[': case']': return BIN01;
-		case'{': case'}': return BIN10;
-		case'<': case'>': return BIN11;
+		case'(': case')': return BITS_00;
+		case'[': case']': return BITS_01;
+		case'{': case'}': return BITS_10;
+		case'<': case'>': return BITS_11;
 		default: return (unsigned int)-1;
 	}
 
@@ -731,56 +748,62 @@ unsigned int encodeLegalCharacters(char c) {
 }
 
 int closedAllParentheses(int depth) {
-    if (depth > MAX_NESTING_DEPTH) {
-        scanf("%*[^\n]");
-        return 0;
-    }
+	if (++recursion_count > MAX_TOTAL_CALLS || depth < 0 || depth > MAX_NESTING_DEPTH) {
+		scanf("%*[^\n]");
+		return 0;
+	}
 
-    char c;
-    if (scanf("%c", &c) != 1) return EOF;
-    if (c == '\n') return depth == 0;
+	int input = 0;
+	char c = 0;
+	if ((input = scanf("%c", &c)) != 1) {
+		selectedTask=EXIT_PROGRAM;
+		return EOF;
+	}
+	if (c == '\n') {
+		recursion_count = 0;
+		return !depth;
+	}
+	unsigned int code = encodeLegalCharacters(c);
+	if (code == (unsigned int)-1)
+		return closedAllParentheses(depth);
 
-    unsigned int code = encodeLegalCharacters(c);
-    if (code == (unsigned int)-1)
-        return closedAllParentheses(depth);
+	int index = depth / LEVELS_PER_BITSTACK;
+	int shift = (depth % LEVELS_PER_BITSTACK) * BITS__PER_LEVEL;
 
-    int index = depth / LEVELS_PER_WORD;
-    int shift = (depth % LEVELS_PER_WORD) * BITS_PER_LEVEL;
+	if (c == '(' || c == '[' || c == '{' || c == '<') {
+		if (depth >= MAX_NESTING_DEPTH) {
+			selectedTask=EXIT_PROGRAM;
+			return 0;
+		}
+		unsigned long long bitstack = GET_BITSTACK(index);
+		bitstack |= ((unsigned long long)code << shift);
+		SET_BITSTACK(index, bitstack);
+		return closedAllParentheses(depth + 1);
+	}
 
-    if (c == '(' || c == '[' || c == '{' || c == '<') {
-        if (depth >= MAX_NESTING_DEPTH) {
-            scanf("%*[^\n]");
-            return 0;
-        }
-        unsigned long long word = GET_WORD(index);
-        word |= ((unsigned long long)code << shift);
-        SET_WORD(index, word);
-        return closedAllParentheses(depth + 1);
-    }
-
-    if (c == ')' || c == ']' || c == '}' || c == '>') {
-        if (depth <= 0) {
-            scanf("%*[^\n]");
-            return 0;
-        }
-        --depth;
-        index = depth / LEVELS_PER_WORD;
-        shift = (depth % LEVELS_PER_WORD) * BITS_PER_LEVEL;
-        unsigned long long word = GET_WORD(index);
-        unsigned int top = (word >> shift) & 3ULL;
-        if (top != code) {
-            scanf("%*[^\n]");
-            return 0;
-        }
-        word &= ~(3ULL << shift);
-        SET_WORD(index, word);
-        return closedAllParentheses(depth);
-    }
-
-    return EOF;
+	if (c == ')' || c == ']' || c == '}' || c == '>') {
+		if (depth <= 0) {
+			scanf("%*[^\n]");
+			return 0;
+		}
+		--depth;
+		index = depth / LEVELS_PER_BITSTACK;
+		shift = (depth % LEVELS_PER_BITSTACK) * BITS__PER_LEVEL;
+		unsigned long long bitstack = GET_BITSTACK(index);
+		unsigned int top = (bitstack >> shift) & 3ULL;
+		if (top != code) {
+			scanf("%*[^\n]");
+			return 0;
+		}
+		bitstack &= ~(3ULL << shift);
+		SET_BITSTACK(index, bitstack);
+		return closedAllParentheses(depth);
+	}
+	selectedTask=EXIT_PROGRAM;
+	return EOF;
 }
 
-// int closedAllParentheses(int depth, unsigned long long word) {
+// int closedAllParentheses(int depth, unsigned long long bitstack) {
 // 	int input = 0, open = 0, closed = 0;
 // 	unsigned int code = (unsigned int)-1;
 // 	char curr = 0;
@@ -793,7 +816,7 @@ int closedAllParentheses(int depth) {
 // 	open = (curr == '(' || curr == '[' || curr == '{' || curr == '<') ? 1 : 0;
 // 	closed = (curr == ')' || curr == ']' || curr == '}' || curr == '>') ? 1 : 0;
 // 	if (!(open || closed)) {
-// 		return closedAllParentheses(depth, word);
+// 		return closedAllParentheses(depth, bitstack);
 // 	}
 // 	code = encodeLegalCharacters(curr);
 // 	if (code == (unsigned int)-1) {
@@ -801,36 +824,40 @@ int closedAllParentheses(int depth) {
 // 		return EOF;
 // 	}
 // 	if (open) {
-// 		return closedAllParentheses(++depth, (word << 2) | code);
+// 		return closedAllParentheses(++depth, (bitstack << 2) | code);
 // 	}
 // 	if (closed) {
-// 		if (!depth || (word & 3U) != code) {
+// 		if (!depth || (bitstack & 3U) != code) {
 // 			scanf("%*[^\n]");
 // 			return 0;
 // 		}
-// 		return closedAllParentheses(--depth, (word >> 2));
+// 		return closedAllParentheses(--depth, (bitstack >> 2));
 // 	}
 // 	return EOF;
 // }
 
 
-void resetWords() {
-    word0 = word1 = word2 = word3 = word4 = word5 = word6 = word7 =
-    word8 = word9 = word10 = word11 = word12 = word13 = word14 = word15 =
-    word16 = word17 = word18 = word19 = word20 = word21 = word22 = word23 =
-    word24 = word25 = word26 = word27 = word28 = word29 = word30 = word31 =
-    word32 = word33 = word34 = word35 = word36 = word37 = word38 = word39 =
-    word40 = word41 = word42 = word43 = word44 = word45 = word46 = word47 =
-    word48 = word49 = word50 = word51 = word52 = word53 = word54 = word55 =
-    word56 = word57 = word58 = word59 = word60 = word61 = word62 = word63 =
-    word64 = word65 = word66 = word67 = word68 = word69 = word70 = word71 =
-    word72 = word73 = word74 = word75 = word76 = word77 = word78 = word79 =
-    word80 = word81 = word82 = word83 = word84 = word85 = word86 = word87 =
-    word88 = word89 = word90 = word91 = word92 = word93 = word94 = word95 =
-    word96 = word97 = word98 = word99 = word100 = word101 = word102 = word103 =
-    word104 = word105 = word106 = word107 = word108 = word109 = word110 = word111 =
-    word112 = word113 = word114 = word115 = word116 = word117 = word118 = word119 =
-    word120 = word121 = word122 = word123 = word124 = word125 = word126 = word127 = 0ULL;
+void resetOverflowProtection() {
+	recursion_count = 0;
+	
+	bitstack0 = bitstack1 = bitstack2 = bitstack3 = bitstack4 = bitstack5 = bitstack6 = bitstack7 =
+	bitstack8 = bitstack9 = bitstack10 = bitstack11 = bitstack12 = bitstack13 = bitstack14 = bitstack15 =
+	bitstack16 = bitstack17 = bitstack18 = bitstack19 = bitstack20 = bitstack21 = bitstack22 = bitstack23 =
+	bitstack24 = bitstack25 = bitstack26 = bitstack27 = bitstack28 = bitstack29 = bitstack30 = bitstack31 =
+	bitstack32 = bitstack33 = bitstack34 = bitstack35 = bitstack36 = bitstack37 = bitstack38 = bitstack39 =
+	bitstack40 = bitstack41 = bitstack42 = bitstack43 = bitstack44 = bitstack45 = bitstack46 = bitstack47 =
+	bitstack48 = bitstack49 = bitstack50 = bitstack51 = bitstack52 = bitstack53 = bitstack54 = bitstack55 =
+	bitstack56 = bitstack57 = bitstack58 = bitstack59 = bitstack60 = bitstack61 = bitstack62 = bitstack63 =
+	bitstack64 = bitstack65 = bitstack66 = bitstack67 = bitstack68 = bitstack69 = bitstack70 = bitstack71 =
+	bitstack72 = bitstack73 = bitstack74 = bitstack75 = bitstack76 = bitstack77 = bitstack78 = bitstack79 =
+	bitstack80 = bitstack81 = bitstack82 = bitstack83 = bitstack84 = bitstack85 = bitstack86 = bitstack87 =
+	bitstack88 = bitstack89 = bitstack90 = bitstack91 = bitstack92 = bitstack93 = bitstack94 = bitstack95 =
+	bitstack96 = bitstack97 = bitstack98 = bitstack99 = bitstack100 = bitstack101 = bitstack102 =
+	bitstack103 = bitstack104 = bitstack105 = bitstack106 = bitstack107 = bitstack108 = bitstack109 =
+	bitstack110 = bitstack111 = bitstack112 = bitstack113 = bitstack114 = bitstack115 = bitstack116 =
+	bitstack117 = bitstack118 = bitstack119 = bitstack120 = bitstack121 = bitstack122 = bitstack123 =
+	bitstack124 = bitstack125 = bitstack126 = bitstack127
+	= 0ULL;
 }
 
 
@@ -875,27 +902,27 @@ int isCellAdjacentToExistingQueen(int queenTracker[MAX], int row, int col, int c
 int tryPlacingQueenInColumn(int col, int currentRow, int dimension, int queenTracker[MAX],
 	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
 ) {
-    if (col == dimension) {
+	if (col == dimension) {
 		return 0;
 	}
 	unsigned long long colBit = 1ULL << col;
-    int zid = zones[currentRow][col] - ASCII_MIN;
+	int zid = zones[currentRow][col] - ASCII_MIN;
 	unsigned long long zidBit = 1ULL << zid;
-    if ((*colMask&colBit) || (*zoneMask & zidBit)) {
-        return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
-    }
-    if (isCellAdjacentToExistingQueen(queenTracker, 0, col, currentRow, dimension)) {
-        return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
-    }
-    queenTracker[currentRow] = col;
-    *colMask |= colBit;
-    *zoneMask |= zidBit;
-    if (tryPlacingQueenInRow(currentRow + 1, dimension, queenTracker, colMask, zoneMask, zones)) {
-        return 1;
-    }
-    *colMask &= ~ colBit;
-    *zoneMask &= ~ zidBit;
-    queenTracker[currentRow] = NONE_PLACED;
+	if ((*colMask&colBit) || (*zoneMask & zidBit)) {
+		return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
+	}
+	if (isCellAdjacentToExistingQueen(queenTracker, 0, col, currentRow, dimension)) {
+		return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
+	}
+	queenTracker[currentRow] = col;
+	*colMask |= colBit;
+	*zoneMask |= zidBit;
+	if (tryPlacingQueenInRow(currentRow + 1, dimension, queenTracker, colMask, zoneMask, zones)) {
+		return 1;
+	}
+	*colMask &= ~ colBit;
+	*zoneMask &= ~ zidBit;
+	queenTracker[currentRow] = NONE_PLACED;
 	return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
 }
 
@@ -980,28 +1007,4 @@ int main() {
 		menuNavigate();
 	}
 	return 0;
-
-	
-// int main() {
-	// while (selectedTask != EXIT_PROGRAM) {
-	// 	menuSelect();
-	// 	switch (selectedTask) {
-	// 		case EXIT_PROGRAM: break;
-	// 		case ROBOT_PATHS:
-    //             robotPaths();
-    //             break;
-	// 		case HUMAN_PYRAMID:
-    //             humanPyramid();
-    //             break;
-	// 		case PARENTHESES_VALIDATOR:
-    //             parenthesisValidator();
-    //             break;
-    //         case QUEENS_BATTLE:
-    //             QueensBattle();
-    //             break;
-	// 		default: printf("Please choose a task number from the list.\n");
-	// 	}
-	// }
-	// printf("Goodbye!\n");
-	// return 0;
 }
