@@ -321,8 +321,12 @@ void robotPaths();
 Task 1
 Count total legal paths from (x, y) to (0, 0)
 */
-unsigned long long robotPathCount(unsigned long long n, unsigned long long k);
-
+unsigned long long robotPathCount(
+	unsigned long long a,
+	unsigned long long n,
+	unsigned long long k,
+	unsigned long long i
+);
 
 /////////////////////////////////////
 // TASK 2 PROTOTYPES
@@ -472,6 +476,8 @@ int tryPlacingQueenInRow(
 void robotPaths() {
 	int input = 0, x = 0, y = 0;
 	printf("Please enter the coordinates of the robot (column, row):\n");
+
+	// MINOR TODO: (UNSIGNED OR SIGNED) LONG LONG??
 	while ((input = scanf(" %d %d", &x, &y)) != 2) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
@@ -481,49 +487,37 @@ void robotPaths() {
 		// scanf("%*[^1234567890 \t\n]");
 		continue;
 	}
-	printf("The total number of paths the robot can take to reach home is: %llu\n",
-				(x < 0 || y < 0) ? 0
-					: ! (x && y) ? 1
-						: robotPathCount((unsigned long long)(x + y), (unsigned long long)x)
-	);
+	unsigned long long paths = 0ULL;
+	if (x < 0 || y < 0) {
+		paths = 0ULL;
+	} else if (!(x && y)) {
+		paths = 1ULL;
+	} else {
+		unsigned long long coordinateSum = 0ULL, xULL = 0ULL, i = 0ULL, difference = 0ULL;
+		coordinateSum = (unsigned long long)(x + y);
+		xULL = (unsigned long long)x;
+		difference = coordinateSum - xULL;
+		paths = robotPathCount((unsigned long long)1, coordinateSum, ((xULL>difference)?difference:xULL), xULL);
+	}
+	printf("The total number of paths the robot can take to reach home is: %llu\n", paths);
 }
 
-// todo prototype
-unsigned long long recursiveRobo(unsigned long long r,
-	unsigned long long n, unsigned long long k, unsigned long long i
+unsigned long long robotPathCount(
+	unsigned long long a,
+	unsigned long long n,
+	unsigned long long k,
+	unsigned long long i
 ) {
 	if (i < 1 || i > k) {
 		return 0;
 	}
 	if (i == 1) {
-		return (n - k + i) / i;
+		return (n - k + i) / i--;
 	}
 	if (i > 1 && i <= k) {
-		return recursiveRobo(r * (n - k + i) / i, n, k, i - 1);
+		return a * robotPathCount((n - k + i) / i, n, k, --i);
 	}
 	return 0;
-}
-
-unsigned long long robotPathCount(unsigned long long n, unsigned long long k) {
-	if (k > n) {
-		return 0;
-	}
-	if (k > n - k) {
-		k = n - k;
-	}
-	unsigned long long r = 1;
-	r *= recursiveRobo(r, n, k, k);
-
-	// CRITICAL TODO: RECURSIVE
-	// for (unsigned long long i = 1; i <= k; i++) {
-	// 	r = r * (n - k + i) / i;
-	// }
-	for (unsigned long long i = k; i >= 1; --i) {
-		r = r * (n - k + i) / i;
-
-	}
-
-	return r;
 }
 
 
