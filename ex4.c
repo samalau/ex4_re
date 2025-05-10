@@ -488,6 +488,22 @@ void robotPaths() {
 	);
 }
 
+// todo prototype
+unsigned long long recursiveRobo(unsigned long long r,
+	unsigned long long n, unsigned long long k, unsigned long long i
+) {
+	if (i < 1 || i > k) {
+		return 0;
+	}
+	if (i == 1) {
+		return (n - k + i) / i;
+	}
+	if (i > 1 && i <= k) {
+		return recursiveRobo(r * (n - k + i) / i, n, k, i - 1);
+	}
+	return 0;
+}
+
 unsigned long long robotPathCount(unsigned long long n, unsigned long long k) {
 	if (k > n) {
 		return 0;
@@ -496,11 +512,17 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k) {
 		k = n - k;
 	}
 	unsigned long long r = 1;
-	
+	r *= recursiveRobo(r, n, k, k);
+
 	// CRITICAL TODO: RECURSIVE
-	for (unsigned long long i = 1; i <= k; i++) {
+	// for (unsigned long long i = 1; i <= k; i++) {
+	// 	r = r * (n - k + i) / i;
+	// }
+	for (unsigned long long i = k; i >= 1; --i) {
 		r = r * (n - k + i) / i;
+
 	}
+
 	return r;
 }
 
@@ -575,15 +597,11 @@ float computeWeightTotal(int row, int col, double selfWeight[5][5]) {
 void parenthesisValidator() {
 	recursion_count = 0;
 	resetOverflowProtection();
-
 	int depth = 0, balance = EOF;
-
 	// clear residual newline
 	scanf("%*c");
 	printf("Please enter a term for validation:\n");
-
 	balance = closedAllParentheses(depth);
-
 	if (balance == EOF){
 		selectedTask = EXIT_PROGRAM;
 		return;
@@ -601,7 +619,6 @@ unsigned int encodeLegalCharacters(char c) {
 		case'<': case'>': return BITS_11;
 		default: return (unsigned int)-1;
 	}
-
 	return (unsigned int)-1;
 }
 
@@ -691,8 +708,6 @@ int closedAllParentheses(int depth) {
 // }
 
 void resetOverflowProtection() {
-	recursion_count = 0;
-	
 	bitstack0 = bitstack1 = bitstack2 = bitstack3 = bitstack4 = bitstack5 = bitstack6 = bitstack7 =
 	bitstack8 = bitstack9 = bitstack10 = bitstack11 = bitstack12 = bitstack13 = bitstack14 = bitstack15 =
 	bitstack16 = bitstack17 = bitstack18 = bitstack19 = bitstack20 = bitstack21 = bitstack22 = bitstack23 =
@@ -709,8 +724,9 @@ void resetOverflowProtection() {
 	bitstack103 = bitstack104 = bitstack105 = bitstack106 = bitstack107 = bitstack108 = bitstack109 =
 	bitstack110 = bitstack111 = bitstack112 = bitstack113 = bitstack114 = bitstack115 = bitstack116 =
 	bitstack117 = bitstack118 = bitstack119 = bitstack120 = bitstack121 = bitstack122 = bitstack123 =
-	bitstack124 = bitstack125 = bitstack126 = bitstack127
-	= 0ULL;
+	bitstack124 = bitstack125 = bitstack126 =
+	bitstack127 = 0ULL;
+	recursion_count = 0;
 }
 
 
