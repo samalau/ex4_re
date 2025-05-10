@@ -374,11 +374,14 @@ static unsigned long long bitstack126 = 0ULL;
 static unsigned long long bitstack127 = 0ULL;
 
 
+////////////////////////////////////////////
+// MAIN MENU PROTOTYPES
+////////////////////////////////////////////
+
 /*
 Menu Selection (global)
 */
 int selectedTask = UNSELECTED;
-
 
 /*
 - Select menu option
@@ -387,18 +390,20 @@ int selectedTask = UNSELECTED;
 */
 void menuSelect();
 
-
 /*
 Navigate the menu according to selectedTask
 */
 void menuNavigate();
-
 
 /*
 Print the menu
 */
 void displayMenu();
 
+
+/////////////////////////////////////
+// TASK 1 PROTOTYPES
+/////////////////////////////////////
 
 /*
 Task 1 Home
@@ -407,12 +412,46 @@ Restricted to traveling only left and/or down, how many paths could a robot take
 void robotPaths();
 
 
+// CRITICAL TODO: RECURSIVE
+
+/*
+Task 1
+Count total legal paths from (x, y) to (0, 0)
+*/
+unsigned long long robotPathCount(unsigned long long n, unsigned long long k);
+
+
+/////////////////////////////////////
+// TASK 2 PROTOTYPES
+/////////////////////////////////////
+
 /*
 Task 2 Home
 What is the total weight load of each cheerleader in a pyramid formation?
 */
 void humanPyramid();
 
+/*
+Task 2
+Display the output of the computeWeightTotal recursive function
+*/
+void displayWeight(int row, int col, double selfWeight[5][5]);
+
+/*
+Task 2
+Compute the overhead weight supported by a cheerleader
+*/
+float computeWeightOverhead(int row, int col, double selfWeight[5][5]);
+
+/*
+Task 2
+Compute the total weight a cheerleader supports
+*/
+float computeWeightTotal(int row, int col, double selfWeight[5][5]);
+
+/////////////////////////////////////
+// TASK 3 PROTOTYPES
+/////////////////////////////////////
 
 /*
 Task 3 Home
@@ -421,54 +460,12 @@ Legal: ( ), [ ], { }, < >
 */
 void parenthesisValidator();
 
-
-/*
-Task 4 Home
-For a square grid of dimensions N x N and exactly N queens,
-is there a legal configuration of queens such that none of these conditions is violated:
-- exactly one queen in every row,
-- exactly one queen in every column
-- every cell adjacent to each queen is empty (row, col, diags)
-*/ 
-void QueensBattle();
-
-
-// CRITICAL TODO: RECURSIVE
-/*
-Task 1
-Count total legal paths from (x, y) to (0, 0)
-*/
-unsigned long long robotPathCount(unsigned long long n, unsigned long long k);
-
-
-/*
-Task 2
-Display the output of the computeWeightTotal recursive function
-*/
-void displayWeight(int row, int col, double selfWeight[5][5]);
-
-
-/*
-Task 2
-Compute the overhead weight supported by a cheerleader
-*/
-float computeWeightOverhead(int row, int col, double selfWeight[5][5]);
-
-
-/*
-Task 2
-Compute the total weight a cheerleader supports
-*/
-float computeWeightTotal(int row, int col, double selfWeight[5][5]);
-
-
 /*
 Task 3
 Assign binary id to legal characters
 Legal: ( ), [ ], { }, < >
 */
 unsigned int encodeLegalCharacters(char c);
-
 
 /*
 Task 3
@@ -483,19 +480,32 @@ TODO: NOTE
 */
 void resetOverflowProtection();
 
+
+/////////////////////////////////////
+// TASK 4 PROTOTYPES
+/////////////////////////////////////
+
+/*
+Task 4 Home
+For a square grid of dimensions N x N and exactly N queens,
+is there a legal configuration of queens such that none of these conditions is violated:
+- exactly one queen in every row,
+- exactly one queen in every column
+- every cell adjacent to each queen is empty (row, col, diags)
+*/ 
+void QueensBattle();
+
 /*
 Task 4
 Prepare the queen position tracker
 */
 void initQueenTracker(int index, int dimension, int queenTracker[MAX]);
 
-
 /*
 Task 4
 Compute the absolute difference between coodinates
 */
 int computeDistanceBetweenCells(int a, int b);
-
 
 /*
 Task 4
@@ -510,7 +520,6 @@ int isPuzzleSolvable(
 	char zones[MAX][MAX]
 );
 
-
 /*
 Task 4
 Check if a cell is adjacent to any existing queens
@@ -522,7 +531,6 @@ int isCellAdjacentToExistingQueen(
 	int currentRow,
 	int dimension
 );
-
 
 /*
 Task 4
@@ -553,7 +561,9 @@ int tryPlacingQueenInRow(
 );
 
 
+///////////////////////////////
 // TASK FUNCTIONS
+///////////////////////////////
 
 void robotPaths() {
 	int input = 0, x = 0, y = 0;
@@ -689,6 +699,7 @@ void QueensBattle() {
 }
 
 
+
 // HELPER FUNCTIONS
 
 unsigned long long robotPathCount(unsigned long long n, unsigned long long k) {
@@ -712,7 +723,6 @@ void displayWeight(int row, int col, double selfWeight[5][5]) {
 	printf("%.2f ", computeWeightTotal(row, col, selfWeight));
 }
 
-
 float computeWeightOverhead(int row, int col, double selfWeight[5][5]) {
 	if (row == 0) {
 		return 0.0f;
@@ -723,7 +733,6 @@ float computeWeightOverhead(int row, int col, double selfWeight[5][5]) {
 
 	return weightUpLeft + weightUpRight;
 }
-
 
 float computeWeightTotal(int row, int col, double selfWeight[5][5]) {
 	return (
@@ -764,8 +773,9 @@ int closedAllParentheses(int depth) {
 		return !depth;
 	}
 	unsigned int code = encodeLegalCharacters(c);
-	if (code == (unsigned int)-1)
+	if (code == (unsigned int)-1) {
 		return closedAllParentheses(depth);
+	}
 
 	int index = depth / LEVELS_PER_BITSTACK;
 	int shift = (depth % LEVELS_PER_BITSTACK) * BITS__PER_LEVEL;
@@ -780,7 +790,6 @@ int closedAllParentheses(int depth) {
 		SET_BITSTACK(index, bitstack);
 		return closedAllParentheses(depth + 1);
 	}
-
 	if (c == ')' || c == ']' || c == '}' || c == '>') {
 		if (depth <= 0) {
 			scanf("%*[^\n]");
@@ -835,7 +844,6 @@ int closedAllParentheses(int depth) {
 // 	}
 // 	return EOF;
 // }
-
 
 void resetOverflowProtection() {
 	recursion_count = 0;
@@ -898,7 +906,6 @@ int isCellAdjacentToExistingQueen(int queenTracker[MAX], int row, int col, int c
 	);
 }
 
-
 int tryPlacingQueenInColumn(int col, int currentRow, int dimension, int queenTracker[MAX],
 	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
 ) {
@@ -926,7 +933,6 @@ int tryPlacingQueenInColumn(int col, int currentRow, int dimension, int queenTra
 	return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
 }
 
-
 int tryPlacingQueenInRow(int currentRow, int dimension, int queenTracker[MAX],
 	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
 ) {
@@ -946,7 +952,7 @@ int tryPlacingQueenInRow(int currentRow, int dimension, int queenTracker[MAX],
 }
 
 
-// MENU FUNCTIONS
+// MAIN MENU FUNCTIONS
 
 void menuSelect() {
 	selectedTask = UNSELECTED;
@@ -965,18 +971,6 @@ void menuSelect() {
 	}
 	selectedTask = temp;
 }
-
-
-void displayMenu() {
-	printf("Choose an option:\n"
-		"1. Robot Paths\n"
-		"2. The Human Pyramid\n"
-		"3. Parenthesis Validation\n"
-		"4. Queens Battle\n"
-		"5. Exit\n"
-	);
-}
-
 
 void menuNavigate() {
 	switch (selectedTask) {
@@ -1000,11 +994,20 @@ void menuNavigate() {
 	}
 }
 
-
 int main() {
 	while (selectedTask != EXIT_PROGRAM) {
 		menuSelect();
 		menuNavigate();
 	}
 	return 0;
+}
+
+void displayMenu() {
+	printf("Choose an option:\n"
+		"1. Robot Paths\n"
+		"2. The Human Pyramid\n"
+		"3. Parenthesis Validation\n"
+		"4. Queens Battle\n"
+		"5. Exit\n"
+	);
 }
