@@ -800,7 +800,6 @@ int computeDistanceBetweenCells(int a, int b) {
 	return (a > b) ? (a - b) : (b - a);
 }
 
-
 int isCellAdjacentToExistingQueen(int queenTracker[MAX], int row, int col, int currentRow, int dimension) {
 	if (row < 0 || row == currentRow || row >= dimension) {
 		return 0;
