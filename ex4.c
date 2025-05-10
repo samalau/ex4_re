@@ -474,11 +474,9 @@ int tryPlacingQueenInRow(
 
 void robotPaths() {
 	int input = 0;
-	unsigned long long x = 0LLU, y = 0LLU;
+	long long x = 0LL, y = 0LL;
 	printf("Please enter the coordinates of the robot (column, row):\n");
-
-	// MINOR TODO: (UNSIGNED OR SIGNED) LONG LONG??
-	while ((input = scanf(" %llu %llu", &x, &y)) != 2) {
+	while ((input = scanf(" %lld %lld", &x, &y)) != 2) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
 			return;
@@ -488,12 +486,16 @@ void robotPaths() {
 		continue;
 	}
 	unsigned long long paths = 0LLU;
-	if (x < 0LLU || y < 0LLU) {
+	if (x < 0LL || y < 0LL) {
 		paths = 0LLU;
 	} else if (!(x && y)) {
 		paths = 1LLU;
 	} else {
-		unsigned long long coordinateSum = 0LLU, difference = 0LLU;
+		
+
+		unsigned long long unsignedX = 0LLU, unsignedY = 0LLU, coordinateSum = 0LLU, difference = 0LLU;
+		unsignedX = (unsigned long long)x;
+		unsignedY = (unsigned long long)y;
 		coordinateSum = x + y;
 		difference = coordinateSum - x;
 		paths = robotPathCount(1LLU, coordinateSum, ((x>difference)?difference:x), x);
