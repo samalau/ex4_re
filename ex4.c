@@ -51,6 +51,14 @@ Goodbye!
 
 
 /*
+Task 3
+DEBUG
+protection against overflow from opening parentheses 
+*/
+#define STACK_MAX_DEPTH 256
+
+
+/*
 0b0000
 Task 3
 Bitmask ( )
@@ -110,13 +118,21 @@ int selectedTask;
 
 
 /*
-Select task from the main menu
+- Select menu option
+- Validate / Reprompt
+- Update global selectedTask
 */
 void menuSelect();
 
 
 /*
-Print the main menu
+Navigate the menu according to selectedTask
+*/
+void menuNavigate();
+
+
+/*
+Print the menu
 */
 void displayMenu();
 
@@ -154,11 +170,19 @@ is there a legal configuration of queens such that none of these conditions is v
 void QueensBattle();
 
 
+// CRITICAL TODO: RECURSIVE
 /*
 Task 1
-Count legal paths from (x, y) to (0, 0)
+Count total legal paths from (x, y) to (0, 0)
 */
 unsigned long long robotPathCount(unsigned long long n, unsigned long long k);
+
+
+/*
+Task 2
+Display the output of the computeWeightTotal recursive function
+*/
+void displayWeight(int row, int col, double selfWeight[5][5]);
 
 
 /*
@@ -187,7 +211,13 @@ unsigned int encodeLegalCharacters(char c);
 Task 3
 Check if all parentheses have been closed
 */
-int closedAllParentheses(int depth, unsigned long long word);
+int closedAllParentheses(
+	int depth,
+	unsigned long long word0, unsigned long long word1,
+	unsigned long long word2, unsigned long long word3,
+	unsigned long long word4, unsigned long long word5
+);
+// int closedAllParentheses(int depth, unsigned long long word);
 
 
 /*
@@ -315,8 +345,13 @@ void robotPaths() {
 
 
 void humanPyramid() {
+
+	// CRITICAL TODO: MAGIC
 	double selfWeight[5][5] = {0};
+	
 	printf("Please enter the weights of the cheerleaders:\n");
+	
+	// CRITICAL TODO: MAGIC
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j <= i; j++) {
 			double nextWeight = -1.00;
@@ -337,7 +372,8 @@ void humanPyramid() {
 	printf("The total weight on each cheerleader is:\n");
 	for (int row = 0; row < 5; row++) {
 		for (int col = 0; col <= row; col++) {
-			printf("%.2f ", computeWeightTotal(row, col, selfWeight));
+			displayWeight(row, col, selfWeight);
+			// printf("%.2f ", computeWeightTotal(row, col, selfWeight));
 		}
 		printf("\n");
 	}
@@ -345,11 +381,16 @@ void humanPyramid() {
 
 
 void parenthesisValidator() {
-	unsigned long long word = 0;
+	unsigned long long word0 = 0, word1 = 0, word2 = 0, word3 = 0, word4 = 0, word5 = 0;
+	// unsigned long long word;
+
 	int depth = 0, balance = EOF;
-	scanf("%*c");  // clear residual newline
+	// clear residual newline
+	scanf("%*c");
 	printf("Please enter a term for validation:\n");
-	balance = closedAllParentheses(depth, word);
+	balance = closedAllParentheses(depth, word0, word1, word2, word3, word4, word5);
+	// balance = closedAllParentheses(depth, word);
+
 	balance == EOF
 		? selectedTask = EXIT_PROGRAM
 		: printf("The parentheses are%sbalanced correctly.\n", balance ? " " : " not ");
@@ -423,6 +464,8 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k) {
 		k = n - k;
 	}
 	unsigned long long r = 1;
+	
+	// CRITICAL TODO: RECURSIVE
 	for (unsigned long long i = 1; i <= k; i++) {
 		r = r * (n - k + i) / i;
 	}
@@ -430,8 +473,15 @@ unsigned long long robotPathCount(unsigned long long n, unsigned long long k) {
 }
 
 
+void displayWeight(int row, int col, double selfWeight[5][5]) {
+	printf("%.2f ", computeWeightTotal(row, col, selfWeight));
+}
+
+
 float computeWeightOverhead(int row, int col, double selfWeight[5][5]) {
-	if (row == 0) return 0.0f;
+	if (row == 0) {
+		return 0.0f;
+	}
 
 	float weightUpLeft = (col > 0) ? computeWeightTotal(row - 1, col - 1, selfWeight) / 2.0f : 0.0f;
 	float weightUpRight = (col < row) ? computeWeightTotal(row - 1, col, selfWeight) / 2.0f : 0.0f;
@@ -441,9 +491,12 @@ float computeWeightOverhead(int row, int col, double selfWeight[5][5]) {
 
 
 float computeWeightTotal(int row, int col, double selfWeight[5][5]) {
-	if (row < 0 || col < 0 || col > row) return 0.0f;
-
-	return (float)selfWeight[row][col] + computeWeightOverhead(row, col, selfWeight);
+	return (
+		row < 0 || col < 0 || col > row
+			? 0.0f
+			: (float)selfWeight[row][col]
+				+ computeWeightOverhead(row, col, selfWeight)
+	);
 }
 
 
@@ -455,42 +508,159 @@ unsigned int encodeLegalCharacters(char c) {
 		case'<': case'>': return BIN11;
 		default: return (unsigned int)-1;
 	}
+
 	return (unsigned int)-1;
 }
 
 
-int closedAllParentheses(int depth, unsigned long long word) {
+int closedAllParentheses(
+	int depth,
+	unsigned long long word0, unsigned long long word1,
+	unsigned long long word2, unsigned long long word3,
+	unsigned long long word4, unsigned long long word5
+) {
+	if (depth > STACK_MAX_DEPTH) {
+		scanf("%*[^\n]");
+		return 0;
+	}
 	int input = 0, open = 0, closed = 0;
 	unsigned int code = (unsigned int)-1;
 	char curr = 0;
+
 	if ((input = scanf("%c", &curr)) != 1) {
+		selectedTask = EXIT_PROGRAM;
 		return EOF;
 	}
 	if (curr == '\n') {
 		return !depth;
 	}
-	open = (curr == '(' || curr == '[' || curr == '{' || curr == '<') ? 1 : 0;
-	closed = (curr == ')' || curr == ']' || curr == '}' || curr == '>') ? 1 : 0;
+
+	open = (curr == '(' || curr == '[' || curr == '{' || curr == '<');
+	closed = (curr == ')' || curr == ']' || curr == '}' || curr == '>');
+
 	if (!(open || closed)) {
-		return closedAllParentheses(depth, word);
+		return closedAllParentheses(depth, word0, word1, word2, word3, word4, word5);
 	}
+
 	code = encodeLegalCharacters(curr);
 	if (code == (unsigned int)-1) {
-		// should never be reached
+		selectedTask = EXIT_PROGRAM;
 		return EOF;
 	}
+
+	int index = depth / 32;  // MEDIUM TODO: MAGIC
+	int shift = (depth % 32) * 2;  // MEDIUM TODO: MAGIC
+
 	if (open) {
-		return closedAllParentheses(++depth, (word << 2) | code);
-	}
-	if (closed) {
-		if (!depth || (word & 3U) != code) {
+		// overflow protection
+		if (depth >= STACK_MAX_DEPTH) {
 			scanf("%*[^\n]");
 			return 0;
 		}
-		return closedAllParentheses(--depth, (word >> 2));
+		if (index == 0) {
+			word0 |= (unsigned long long)code << shift;
+		} else if (index == 1) {
+			word1 |= (unsigned long long)code << shift;
+		} else if (index == 2) {
+			word2 |= (unsigned long long)code << shift;
+		} else if (index == 3) {
+			word3 |= (unsigned long long)code << shift;
+		} else if (index == 4) {
+			word4 |= (unsigned long long)code << shift;
+		} else if (index == 5) {
+			word5 |= (unsigned long long)code << shift;
+		} else {
+			selectedTask = EXIT_PROGRAM;
+			return EOF;
+		}
+		return closedAllParentheses(depth + 1, word0, word1, word2, word3, word4, word5);
+	}
+
+	if (closed) {
+		if (depth <= 0 || depth >= STACK_MAX_DEPTH) {  // MEDIUM TODO: MAGIC
+			scanf("%*[^\n]");
+			return 0;
+		}
+		index = --depth / 32;  // MEDIUM TODO: MAGIC
+		shift = (depth % 32) * 2;
+		unsigned long long tempWord=0ULL;
+		unsigned int cap = 0U;
+		if (index == 0) {
+			cap = (word0 >> shift) & 3ULL;
+			tempWord = word0 & ~(3ULL << shift);
+		} else if (index == 1) {
+			cap = (word1 >> shift) & 3ULL;
+			tempWord = word1 & ~(3ULL << shift);
+		} else if (index == 2) {
+			cap = (word2 >> shift) & 3ULL;
+			tempWord = word2 & ~(3ULL << shift);
+		} else if (index == 3) {
+			cap = (word3 >> shift) & 3ULL;
+			tempWord = word3;
+			tempWord = word3 & ~(3ULL << shift);
+		} else if (index == 4) {
+			cap = (word4 >> shift) & 3ULL;
+			tempWord = word4 & ~(3ULL << shift);
+		} else if (index == 5) {
+			cap = (word5 >> shift) & 3ULL;
+			tempWord = word5 & ~(3ULL << shift);
+		} else {
+			selectedTask = EXIT_PROGRAM;
+			return EOF;
+		}
+
+		if (cap != code) {
+			scanf("%*[^\n]");
+			return 0;
+		}
+
+		switch(index) {
+			case 0:  word0 = tempWord; break;
+			case 1: word1 = tempWord; break;
+			case 2: word2 = tempWord; break;
+			case 3: word3 = tempWord; break;
+			case 4: word4 = tempWord; break;
+			case 5: word5 = tempWord; break;
+			default:
+				selectedTask = EXIT_PROGRAM;
+				return EOF;
+		}
+		return closedAllParentheses(depth, word0, word1, word2, word3, word4, word5);
 	}
 	return EOF;
 }
+// int closedAllParentheses(int depth, unsigned long long word) {
+// 	int input = 0, open = 0, closed = 0;
+// 	unsigned int code = (unsigned int)-1;
+// 	char curr = 0;
+// 	if ((input = scanf("%c", &curr)) != 1) {
+// 		return EOF;
+// 	}
+// 	if (curr == '\n') {
+// 		return !depth;
+// 	}
+// 	open = (curr == '(' || curr == '[' || curr == '{' || curr == '<') ? 1 : 0;
+// 	closed = (curr == ')' || curr == ']' || curr == '}' || curr == '>') ? 1 : 0;
+// 	if (!(open || closed)) {
+// 		return closedAllParentheses(depth, word);
+// 	}
+// 	code = encodeLegalCharacters(curr);
+// 	if (code == (unsigned int)-1) {
+// 		// should never be reached
+// 		return EOF;
+// 	}
+// 	if (open) {
+// 		return closedAllParentheses(++depth, (word << 2) | code);
+// 	}
+// 	if (closed) {
+// 		if (!depth || (word & 3U) != code) {
+// 			scanf("%*[^\n]");
+// 			return 0;
+// 		}
+// 		return closedAllParentheses(--depth, (word >> 2));
+// 	}
+// 	return EOF;
+// }
 
 
 void initQueenTracker(int index, int dimension, int queenTracker[MAX]) {
@@ -578,28 +748,60 @@ int tryPlacingQueenInRow(int currentRow, int dimension, int queenTracker[MAX],
 }
 
 
-// NAVIGATE VIA MAIN
+
+// MENU NAVIGATION
+
+void menuNavigate() {
+	switch (selectedTask) {
+		case ROBOT_PATHS:
+			robotPaths();
+			break;
+		case HUMAN_PYRAMID:
+			humanPyramid();
+			break;
+		case PARENTHESES_VALIDATOR:
+			parenthesisValidator();
+			break;
+		case QUEENS_BATTLE:
+			QueensBattle();
+			break;
+		case EXIT_PROGRAM:
+			printf("Goodbye!\n");
+			break;
+		default:
+			printf("Please choose a task number from the list.\n");
+	}
+}
+
 
 int main() {
 	while (selectedTask != EXIT_PROGRAM) {
 		menuSelect();
-		switch (selectedTask) {
-			case EXIT_PROGRAM: break;
-			case ROBOT_PATHS:
-                robotPaths();
-                break;
-			case HUMAN_PYRAMID:
-                humanPyramid();
-                break;
-			case PARENTHESES_VALIDATOR:
-                parenthesisValidator();
-                break;
-            case QUEENS_BATTLE:
-                QueensBattle();
-                break;
-			default: printf("Please choose a task number from the list.\n");
-		}
+		menuNavigate();
 	}
-	printf("Goodbye!\n");
 	return 0;
+
+	
+// int main() {
+	// while (selectedTask != EXIT_PROGRAM) {
+	// 	menuSelect();
+	// 	switch (selectedTask) {
+	// 		case EXIT_PROGRAM: break;
+	// 		case ROBOT_PATHS:
+    //             robotPaths();
+    //             break;
+	// 		case HUMAN_PYRAMID:
+    //             humanPyramid();
+    //             break;
+	// 		case PARENTHESES_VALIDATOR:
+    //             parenthesisValidator();
+    //             break;
+    //         case QUEENS_BATTLE:
+    //             QueensBattle();
+    //             break;
+	// 		default: printf("Please choose a task number from the list.\n");
+	// 	}
+	// }
+	// printf("Goodbye!\n");
+	// return 0;
 }
