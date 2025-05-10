@@ -893,6 +893,8 @@ void menuSelect() {
 
 void menuNavigate() {
 	switch (selectedTask) {
+		case EXIT_PROGRAM:
+			break;
 		case ROBOT_PATHS:
 			robotPaths();
 			break;
@@ -904,8 +906,6 @@ void menuNavigate() {
 			break;
 		case QUEENS_BATTLE:
 			QueensBattle();
-			break;
-		case EXIT_PROGRAM:
 			break;
 		default:
 			printf("Please choose a task number from the list.\n");
