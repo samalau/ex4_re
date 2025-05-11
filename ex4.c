@@ -319,10 +319,10 @@ Task 1
 Count total legal paths from (x, y) to (0, 0)
 */
 void robotPathCount(
+	unsigned long long e,
 	unsigned long long paths[1],
 	unsigned long long d,
-	unsigned long long i,
-	unsigned long long e
+	unsigned long long i
 );
 
 
@@ -471,9 +471,9 @@ int tryPlacingQueenInRow(
 
 void robotPaths() {
 	int input = 0;
-	long long xTmp = 0LL, yTmp = 0LL;
+	long long x = 0LL, y = 0LL;
 	printf("Please enter the coordinates of the robot (column, row):\n");
-	while ((input = scanf(" %lld %lld", &xTmp, &yTmp)) != 2) {
+	while ((input = scanf(" %lld %lld", &x, &y)) != 2) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
 			return;
@@ -482,35 +482,27 @@ void robotPaths() {
 		continue;
 	}
 	scanf("%*[^\n]");
-	unsigned long long paths = 0LLU;
-	unsigned long long pTmp[1] = {1LLU};
-	unsigned long long x = 0LLU, y = 0LLU;
-	if (xTmp < 0LLU || yTmp < 0LLU) {
-		paths = 0LLU;
-	} else if (!(xTmp && yTmp)) {
-		paths = 1LLU;
+	unsigned long long paths[1] = {0LLU};
+	if (x < 0 || y < 0) {
+		paths[0] = 0LLU;
+	} else if (!(x && y)) {
+		paths[0] = 1LLU;
 	} else {
-		x = (unsigned long long)xTmp;
-		y = (unsigned long long)yTmp;
-		unsigned long long k = 0LLU;
-		k = (x > y) ? y : x;
-		robotPathCount(pTmp, x + y, k, 1LLU);
-		paths = pTmp[0];
+		robotPathCount(1LLU, paths, (unsigned long long)(x+y), (x>y)?(unsigned long long)y:(unsigned long long)x);
 	}
-	printf("The total number of paths the robot can take to reach home is: %llu\n", paths);
+	printf("The total number of paths the robot can take to reach home is: %llu\n", paths[0]);
 }
 
 void robotPathCount(
+	unsigned long long e,
 	unsigned long long p[1],
 	unsigned long long d,
-	unsigned long long i,
-	unsigned long long e
+	unsigned long long i
 ) {
-	if (e > i) {
-		return;
+	if (e <= i) {
+		p[0] = p[0]* (d - i + e) / e;
+		robotPathCount(p, d, i, e + 1LLU);
 	}
-	p[0] = p[0]* (d - i + e) / e;
-	robotPathCount(p, d, i, e + 1);
 }
 
 
