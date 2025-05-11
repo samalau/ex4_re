@@ -170,70 +170,71 @@ TODO: NOTE
 Used for overflow prevention
 */
 #define SET_BITSTACK(i, val) do { \
-		   if ((i) == 0)     bitstack0  = (val);     else if ((i) == 1)      bitstack1  = (val); \
-	else if ((i) == 2)     bitstack2  = (val);     else if ((i) == 3)      bitstack3  = (val); \
-	else if ((i) == 4)     bitstack4  = (val);     else if ((i) == 5)      bitstack5  = (val); \
-	else if ((i) == 6)     bitstack6  = (val);      else if ((i) == 7)     bitstack7  = (val); \
-	else if ((i) == 8)     bitstack8  = (val);     else if ((i) == 9)      bitstack9  = (val); \
-	else if ((i) == 10)   bitstack10 = (val);     else if ((i) == 11)    bitstack11 = (val); \
-	else if ((i) == 12)   bitstack12 = (val);     else if ((i) == 13)    bitstack13 = (val); \
-	else if ((i) == 14)   bitstack14 = (val);     else if ((i) == 15)    bitstack15 = (val); \
-	else if ((i) == 16)   bitstack16 = (val);     else if ((i) == 17)    bitstack17 = (val); \
-	else if ((i) == 18)   bitstack18 = (val);     else if ((i) == 19)    bitstack19 = (val); \
-	else if ((i) == 20)   bitstack20 = (val);     else if ((i) == 21)    bitstack21 = (val); \
-	else if ((i) == 22)   bitstack22 = (val);     else if ((i) == 23)    bitstack23 = (val); \
-	else if ((i) == 24)   bitstack24 = (val);     else if ((i) == 25)    bitstack25 = (val); \
-	else if ((i) == 26)   bitstack26 = (val);     else if ((i) == 27)    bitstack27 = (val); \
-	else if ((i) == 28)   bitstack28 = (val);     else if ((i) == 29)    bitstack29 = (val); \
-	else if ((i) == 30)   bitstack30 = (val);     else if ((i) == 31)    bitstack31 = (val); \
-	else if ((i) == 32)   bitstack32 = (val);     else if ((i) == 33)    bitstack33 = (val); \
-	else if ((i) == 34)   bitstack34 = (val);     else if ((i) == 35)    bitstack35 = (val); \
-	else if ((i) == 36)   bitstack36 = (val);     else if ((i) == 37)    bitstack37 = (val); \
-	else if ((i) == 38)   bitstack38 = (val);     else if ((i) == 39)    bitstack39 = (val); \
-	else if ((i) == 40)   bitstack40 = (val);     else if ((i) == 41)    bitstack41 = (val); \
-	else if ((i) == 42)   bitstack42 = (val);     else if ((i) == 43)    bitstack43 = (val); \
-	else if ((i) == 44)   bitstack44 = (val);     else if ((i) == 45)    bitstack45 = (val); \
-	else if ((i) == 46)   bitstack46 = (val);     else if ((i) == 47)    bitstack47 = (val); \
-	else if ((i) == 48)   bitstack48 = (val);     else if ((i) == 49)    bitstack49 = (val); \
-	else if ((i) == 50)   bitstack50 = (val);     else if ((i) == 51)    bitstack51 = (val); \
-	else if ((i) == 52)   bitstack52 = (val);     else if ((i) == 53)    bitstack53 = (val); \
-	else if ((i) == 54)   bitstack54 = (val);     else if ((i) == 55)    bitstack55 = (val); \
-	else if ((i) == 56)   bitstack56 = (val);     else if ((i) == 57)    bitstack57 = (val); \
-	else if ((i) == 58)   bitstack58 = (val);     else if ((i) == 59)    bitstack59 = (val); \
-	else if ((i) == 60)   bitstack60 = (val);     else if ((i) == 61)    bitstack61 = (val); \
-	else if ((i) == 62)   bitstack62 = (val);     else if ((i) == 63)    bitstack63 = (val); \
-	else if ((i) == 64)   bitstack64 = (val);     else if ((i) == 65)    bitstack65 = (val); \
-	else if ((i) == 66)   bitstack66 = (val);     else if ((i) == 67)    bitstack67 = (val); \
-	else if ((i) == 68)   bitstack68 = (val);     else if ((i) == 69)    bitstack69 = (val); \
-	else if ((i) == 70)   bitstack70 = (val);     else if ((i) == 71)    bitstack71 = (val); \
-	else if ((i) == 72)   bitstack72 = (val);     else if ((i) == 73)    bitstack73 = (val); \
-	else if ((i) == 74)   bitstack74 = (val);     else if ((i) == 75)    bitstack75 = (val); \
-	else if ((i) == 76)   bitstack76 = (val);     else if ((i) == 77)    bitstack77 = (val); \
-	else if ((i) == 78)   bitstack78 = (val);     else if ((i) == 79)    bitstack79 = (val); \
-	else if ((i) == 80)   bitstack80 = (val);     else if ((i) == 81)    bitstack81 = (val); \
-	else if ((i) == 82)   bitstack82 = (val);     else if ((i) == 83)    bitstack83 = (val); \
-	else if ((i) == 84)   bitstack84 = (val);     else if ((i) == 85)    bitstack85 = (val); \
-	else if ((i) == 86)   bitstack86 = (val);     else if ((i) == 87)    bitstack87 = (val); \
-	else if ((i) == 88)   bitstack88 = (val);     else if ((i) == 89)    bitstack89 = (val); \
-	else if ((i) == 90)   bitstack90 = (val);     else if ((i) == 91)    bitstack91 = (val); \
-	else if ((i) == 92)   bitstack92 = (val);     else if ((i) == 93)    bitstack93 = (val); \
-	else if ((i) == 94)   bitstack94 = (val);     else if ((i) == 95)    bitstack95 = (val); \
-	else if ((i) == 96)   bitstack96 = (val);     else if ((i) == 97)    bitstack97 = (val); \
-	else if ((i) == 98)   bitstack98 = (val);     else if ((i) == 99)    bitstack99 = (val); \
-	else if ((i) == 100) bitstack100 = (val);   else if ((i) == 101)   bitstack101 = (val); \
-	else if ((i) == 102) bitstack102 = (val);   else if ((i) == 103)   bitstack103 = (val); \
-	else if ((i) == 104) bitstack104 = (val);   else if ((i) == 105)   bitstack105 = (val); \
-	else if ((i) == 106) bitstack106 = (val);   else if ((i) == 107)   bitstack107 = (val); \
-	else if ((i) == 108) bitstack108 = (val);   else if ((i) == 109)   bitstack109 = (val); \
-	else if ((i) == 110) bitstack110 = (val);   else if ((i) == 111)    bitstack111 = (val); \
-	else if ((i) == 112) bitstack112 = (val);   else if ((i) == 113)    bitstack113 = (val); \
-	else if ((i) == 114) bitstack114 = (val);   else if ((i) == 115)    bitstack115 = (val); \
-	else if ((i) == 116) bitstack116 = (val);   else if ((i) == 117)    bitstack117 = (val); \
-	else if ((i) == 118) bitstack118 = (val);   else if ((i) == 119)    bitstack119 = (val); \
-	else if ((i) == 120) bitstack120 = (val);   else if ((i) == 121)   bitstack121 = (val); \
-	else if ((i) == 122) bitstack122 = (val);   else if ((i) == 123)   bitstack123 = (val); \
-	else if ((i) == 124) bitstack124 = (val);   else if ((i) == 125)   bitstack125 = (val); \
-	else if ((i) == 126) bitstack126 = (val);   else                       bitstack127 = (val); \
+	if ((i) == 0) bitstack0 = (val);  	 		   else if ((i) == 1)    bitstack1 = (val); \
+	else if ((i) == 2)    bitstack2 = (val);  	 else if ((i) == 3)	  bitstack3 = (val); \
+	else if ((i) == 4)    bitstack4 = (val);  	 else if ((i) == 5)   bitstack5 = (val); \
+	else if ((i) == 6)    bitstack6 = (val);   	 else if ((i) == 7)   bitstack7 = (val); \
+	else if ((i) == 8)    bitstack8 = (val); 	 else if ((i) == 9)   bitstack9 = (val); \
+	else if ((i) == 10)   bitstack10 = (val);   else if ((i) == 11) bitstack11 = (val); \
+	else if ((i) == 12)   bitstack12 = (val);   else if ((i) == 13) bitstack13 = (val); \
+	else if ((i) == 14)   bitstack14 = (val);   else if ((i) == 15) bitstack15 = (val); \
+	else if ((i) == 16)   bitstack16 = (val);   else if ((i) == 17) bitstack17 = (val); \
+	else if ((i) == 18)   bitstack18 = (val);   else if ((i) == 19) bitstack19 = (val); \
+	else if ((i) == 20)  bitstack20 = (val);   else if ((i) == 21)  bitstack21 = (val); \
+	else if ((i) == 22)  bitstack22 = (val);   else if ((i) == 23)  bitstack23 = (val); \
+	else if ((i) == 24)  bitstack24 = (val);   else if ((i) == 25)  bitstack25 = (val); \
+	else if ((i) == 26)  bitstack26 = (val);   else if ((i) == 27)  bitstack27 = (val); \
+	else if ((i) == 28)  bitstack28 = (val);   else if ((i) == 29)  bitstack29 = (val); \
+	else if ((i) == 30)  bitstack30 = (val);   else if ((i) == 31)  bitstack31 = (val); \
+	else if ((i) == 32)  bitstack32 = (val);   else if ((i) == 33)  bitstack33 = (val); \
+	else if ((i) == 34)  bitstack34 = (val);   else if ((i) == 35)  bitstack35 = (val); \
+	else if ((i) == 36)  bitstack36 = (val);   else if ((i) == 37)  bitstack37 = (val); \
+	else if ((i) == 38)  bitstack38 = (val);   else if ((i) == 39)  bitstack39 = (val); \
+	else if ((i) == 40)  bitstack40 = (val);   else if ((i) == 41)  bitstack41 = (val); \
+	else if ((i) == 42)  bitstack42 = (val);   else if ((i) == 43)  bitstack43 = (val); \
+	else if ((i) == 44)  bitstack44 = (val);   else if ((i) == 45)  bitstack45 = (val); \
+	else if ((i) == 46)  bitstack46 = (val);   else if ((i) == 47)  bitstack47 = (val); \
+	else if ((i) == 48)  bitstack48 = (val);   else if ((i) == 49)  bitstack49 = (val); \
+	else if ((i) == 50)  bitstack50 = (val);   else if ((i) == 51)  bitstack51 = (val); \
+	else if ((i) == 52)  bitstack52 = (val);   else if ((i) == 53)  bitstack53 = (val); \
+	else if ((i) == 54)  bitstack54 = (val);   else if ((i) == 55)  bitstack55 = (val); \
+	else if ((i) == 56)  bitstack56 = (val);   else if ((i) == 57)  bitstack57 = (val); \
+	else if ((i) == 58)  bitstack58 = (val);   else if ((i) == 59)  bitstack59 = (val); \
+	else if ((i) == 60)  bitstack60 = (val);   else if ((i) == 61)  bitstack61 = (val); \
+	else if ((i) == 62)  bitstack62 = (val);   else if ((i) == 63)  bitstack63 = (val); \
+	else if ((i) == 64)  bitstack64 = (val);   else if ((i) == 65)  bitstack65 = (val); \
+	else if ((i) == 66)  bitstack66 = (val);   else if ((i) == 67)  bitstack67 = (val); \
+	else if ((i) == 68)  bitstack68 = (val);   else if ((i) == 69)  bitstack69 = (val); \
+	else if ((i) == 70)  bitstack70 = (val);   else if ((i) == 71)   bitstack71 = (val); \
+	else if ((i) == 72)  bitstack72 = (val);   else if ((i) == 73)   bitstack73 = (val); \
+	else if ((i) == 74)  bitstack74 = (val);   else if ((i) == 75)   bitstack75 = (val); \
+	else if ((i) == 76)  bitstack76 = (val);   else if ((i) == 77)   bitstack77 = (val); \
+	else if ((i) == 78)  bitstack78 = (val);   else if ((i) == 79)   bitstack79 = (val); \
+	else if ((i) == 80)  bitstack80 = (val);   else if ((i) == 81)   bitstack81 = (val); \
+	else if ((i) == 82)  bitstack82 = (val);   else if ((i) == 83)   bitstack83 = (val); \
+	else if ((i) == 84)  bitstack84 = (val);   else if ((i) == 85)   bitstack85 = (val); \
+	else if ((i) == 86)  bitstack86 = (val);   else if ((i) == 87)   bitstack87 = (val); \
+	else if ((i) == 88)  bitstack88 = (val);   else if ((i) == 89)   bitstack89 = (val); \
+	else if ((i) == 90)  bitstack90 = (val);   else if ((i) == 91)    bitstack91 = (val); \
+	else if ((i) == 92)  bitstack92 = (val);   else if ((i) == 93)    bitstack93 = (val); \
+	else if ((i) == 94)   bitstack94 = (val);   else if ((i) == 95)   bitstack95 = (val); \
+	else if ((i) == 96)   bitstack96 = (val);   else if ((i) == 97)   bitstack97 = (val); \
+	else if ((i) == 98)   bitstack98 = (val);   else if ((i) == 99)   bitstack99 = (val); \
+	else if ((i) == 100) bitstack100 = (val);  else if ((i) == 101)  bitstack101 = (val); \
+	else if ((i) == 102) bitstack102 = (val);  else if ((i) == 103)  bitstack103 = (val); \
+	else if ((i) == 104) bitstack104 = (val);  else if ((i) == 105)  bitstack105 = (val); \
+	else if ((i) == 106) bitstack106 = (val);  else if ((i) == 107)  bitstack107 = (val); \
+	else if ((i) == 108) bitstack108 = (val);  else if ((i) == 109)  bitstack109 = (val); \
+	else if ((i) == 110) bitstack110 = (val);  	else if ((i) == 111)   bitstack111 = (val); \
+	else if ((i) == 112) bitstack112 = (val);  	else if ((i) == 113)   bitstack113 = (val); \
+	else if ((i) == 114) bitstack114 = (val);  	else if ((i) == 115)   bitstack115 = (val); \
+	else if ((i) == 116) bitstack116 = (val);  	else if ((i) == 117)   bitstack117 = (val); \
+	else if ((i) == 118) bitstack118 = (val);  	else if ((i) == 119)   bitstack119 = (val); \
+	else if ((i) == 120) bitstack120 = (val);  else if ((i) == 121)   bitstack121 = (val); \
+	else if ((i) == 122) bitstack122 = (val);  else if ((i) == 123)   bitstack123 = (val); \
+	else if ((i) == 124) bitstack124 = (val);  else if ((i) == 125)   bitstack125 = (val); \
+	else if ((i) == 126) bitstack126 = (val); \
+	else bitstack127 = (val); \
 } while (0)
 
 /*
@@ -249,32 +250,32 @@ TODO: NOTE
 Used for overflow prevention
 */
 static unsigned long long
-	bitstack0  = 0LLU,      bitstack1    = 0LLU,   bitstack2   = 0LLU,    bitstack3   = 0LLU,    bitstack4  = 0LLU,
-	bitstack5  = 0LLU,      bitstack6    = 0LLU,   bitstack7   = 0LLU,    bitstack8   = 0LLU,    bitstack9  = 0LLU,
-	bitstack10   = 0LLU,   bitstack11   = 0LLU,   bitstack12 = 0LLU,    bitstack13 = 0LLU,    bitstack14 = 0LLU,
-	bitstack15   = 0LLU,   bitstack16   = 0LLU,   bitstack17 = 0LLU,    bitstack18 = 0LLU,    bitstack19 = 0LLU,
-	bitstack20   = 0LLU,   bitstack21   = 0LLU,   bitstack22 = 0LLU,    bitstack23 = 0LLU,    bitstack24 = 0LLU,
-	bitstack25   = 0LLU,   bitstack26   = 0LLU,   bitstack27 = 0LLU,    bitstack28 = 0LLU,    bitstack29 = 0LLU,
-	bitstack30   = 0LLU,   bitstack31   = 0LLU,   bitstack32 = 0LLU,    bitstack33 = 0LLU,    bitstack34 = 0LLU,
-	bitstack35   = 0LLU,   bitstack36   = 0LLU,   bitstack37 = 0LLU,    bitstack38 = 0LLU,    bitstack39 = 0LLU,
-	bitstack40   = 0LLU,   bitstack41   = 0LLU,   bitstack42 = 0LLU,    bitstack43 = 0LLU,    bitstack44 = 0LLU,
-	bitstack45   = 0LLU,   bitstack46   = 0LLU,   bitstack47 = 0LLU,    bitstack48 = 0LLU,    bitstack49 = 0LLU,
-	bitstack50   = 0LLU,   bitstack51   = 0LLU,   bitstack52 = 0LLU,    bitstack53 = 0LLU,    bitstack54 = 0LLU,
-	bitstack55   = 0LLU,   bitstack56   = 0LLU,   bitstack57 = 0LLU,    bitstack58 = 0LLU,    bitstack59 = 0LLU,
-	bitstack60   = 0LLU,   bitstack61   = 0LLU,   bitstack62 = 0LLU,    bitstack63 = 0LLU,    bitstack64 = 0LLU,
-	bitstack65   = 0LLU,   bitstack66   = 0LLU,   bitstack67 = 0LLU,    bitstack68 = 0LLU,    bitstack69 = 0LLU,
-	bitstack70   = 0LLU,   bitstack71   = 0LLU,   bitstack72 = 0LLU,    bitstack73 = 0LLU,    bitstack74 = 0LLU,
-	bitstack75   = 0LLU,   bitstack76   = 0LLU,   bitstack77 = 0LLU,    bitstack78 = 0LLU,    bitstack79 = 0LLU,
-	bitstack80   = 0LLU,   bitstack81   = 0LLU,   bitstack82 = 0LLU,    bitstack83 = 0LLU,    bitstack84 = 0LLU,
-	bitstack85   = 0LLU,   bitstack86   = 0LLU,   bitstack87 = 0LLU,    bitstack88 = 0LLU,    bitstack89 = 0LLU,
-	bitstack90   = 0LLU,   bitstack91   = 0LLU,   bitstack92 = 0LLU,    bitstack93 = 0LLU,    bitstack94 = 0LLU,
-	bitstack95   = 0LLU,   bitstack96   = 0LLU,   bitstack97 = 0LLU,    bitstack98  = 0LLU,   bitstack99 = 0LLU,
-	bitstack100 = 0LLU,   bitstack101  = 0LLU,  bitstack102 = 0LLU,   bitstack103 = 0LLU,  bitstack104 = 0LLU,
-	bitstack105 = 0LLU,   bitstack106  = 0LLU,  bitstack107 = 0LLU,   bitstack108 = 0LLU,  bitstack109 = 0LLU,
-	bitstack110 = 0LLU,   bitstack111   = 0LLU,  bitstack112 = 0LLU,   bitstack113 = 0LLU,  bitstack114 = 0LLU,
-	bitstack115 = 0LLU,   bitstack116  = 0LLU,  bitstack117 = 0LLU,    bitstack118 = 0LLU,  bitstack119 = 0LLU,
-	bitstack120 = 0LLU,   bitstack121  = 0LLU,  bitstack122 = 0LLU,   bitstack123 = 0LLU,  bitstack124 = 0LLU,
-	bitstack125 = 0LLU,   bitstack126  = 0LLU,  bitstack127 = 0LLU;
+	bitstack0  	 = 0LLU,  bitstack1   = 0LLU, bitstack2   = 0LLU, bitstack3   = 0LLU, bitstack4   = 0LLU,
+	bitstack5    = 0LLU,  bitstack6   = 0LLU, bitstack7   = 0LLU, bitstack8   = 0LLU, bitstack9   = 0LLU,
+	bitstack10   = 0LLU, bitstack11   = 0LLU, bitstack12  = 0LLU, bitstack13 = 0LLU, bitstack14  = 0LLU,
+	bitstack15   = 0LLU, bitstack16   = 0LLU, bitstack17  = 0LLU, bitstack18 = 0LLU, bitstack19  = 0LLU,
+	bitstack20   = 0LLU, bitstack21   = 0LLU, bitstack22 = 0LLU, bitstack23 = 0LLU, bitstack24 = 0LLU,
+	bitstack25   = 0LLU, bitstack26   = 0LLU, bitstack27 = 0LLU, bitstack28 = 0LLU, bitstack29 = 0LLU,
+	bitstack30   = 0LLU, bitstack31   = 0LLU, bitstack32 = 0LLU, bitstack33 = 0LLU, bitstack34 = 0LLU,
+	bitstack35   = 0LLU, bitstack36   = 0LLU, bitstack37 = 0LLU, bitstack38 = 0LLU, bitstack39 = 0LLU,
+	bitstack40   = 0LLU, bitstack41   = 0LLU, bitstack42 = 0LLU, bitstack43 = 0LLU, bitstack44 = 0LLU,
+	bitstack45   = 0LLU, bitstack46   = 0LLU, bitstack47 = 0LLU, bitstack48 = 0LLU, bitstack49 = 0LLU,
+	bitstack50   = 0LLU, bitstack51   = 0LLU, bitstack52 = 0LLU, bitstack53 = 0LLU, bitstack54 = 0LLU,
+	bitstack55   = 0LLU, bitstack56   = 0LLU, bitstack57 = 0LLU, bitstack58 = 0LLU, bitstack59 = 0LLU,
+	bitstack60   = 0LLU, bitstack61   = 0LLU, bitstack62 = 0LLU, bitstack63 = 0LLU, bitstack64 = 0LLU,
+	bitstack65   = 0LLU, bitstack66   = 0LLU, bitstack67 = 0LLU, bitstack68 = 0LLU, bitstack69 = 0LLU,
+	bitstack70   = 0LLU, bitstack71   = 0LLU, bitstack72 = 0LLU, bitstack73 = 0LLU, bitstack74 = 0LLU,
+	bitstack75   = 0LLU, bitstack76   = 0LLU, bitstack77 = 0LLU, bitstack78 = 0LLU, bitstack79 = 0LLU,
+	bitstack80   = 0LLU, bitstack81   = 0LLU, bitstack82 = 0LLU, bitstack83 = 0LLU, bitstack84 = 0LLU,
+	bitstack85   = 0LLU, bitstack86   = 0LLU, bitstack87 = 0LLU, bitstack88 = 0LLU, bitstack89 = 0LLU,
+	bitstack90   = 0LLU, bitstack91   = 0LLU, bitstack92 = 0LLU, bitstack93 = 0LLU, bitstack94 = 0LLU,
+	bitstack95   = 0LLU, bitstack96   = 0LLU, bitstack97 = 0LLU, bitstack98  = 0LLU, bitstack99 = 0LLU,
+	bitstack100 = 0LLU, bitstack101  = 0LLU, bitstack102 = 0LLU, bitstack103 = 0LLU, bitstack104 = 0LLU,
+	bitstack105 = 0LLU, bitstack106  = 0LLU, bitstack107 = 0LLU, bitstack108 = 0LLU, bitstack109 = 0LLU,
+	bitstack110 = 0LLU, bitstack111   = 0LLU, bitstack112 = 0LLU, bitstack113 = 0LLU, bitstack114 = 0LLU,
+	bitstack115 = 0LLU, bitstack116   = 0LLU, bitstack117 = 0LLU, bitstack118 = 0LLU, bitstack119 = 0LLU,
+	bitstack120 = 0LLU, bitstack121   = 0LLU, bitstack122 = 0LLU, bitstack123 = 0LLU, bitstack124 = 0LLU,
+	bitstack125 = 0LLU, bitstack126   = 0LLU, bitstack127 = 0LLU;
 
 /*
 Task 4
@@ -584,25 +585,47 @@ void humanPyramid() {
 	}
 }
 
-void displayWeight(int row, int col, double selfWeight[MAX_HEIGHT][MAX_LENGTH]) {
-	printf("%.2f ", computeWeightTotal(row, col, selfWeight));
+void displayWeight(
+	int row,
+	int col,
+	double selfWeight[MAX_HEIGHT][MAX_LENGTH]
+) {
+	printf("%.2f ",
+		computeWeightTotal(
+			row,
+			col,
+			selfWeight
+		)
+	);
 }
 
-float computeWeightOverhead(int row, int col, double selfWeight[MAX_HEIGHT][MAX_LENGTH]) {
-	if (row <= 0) {
-		return 0.0f;
-	}
-	float weightUpLeft = (col > 0) ? computeWeightTotal(row - 1, col - 1, selfWeight) / 2.0f : 0.0f;
-	float weightUpRight = (col < row) ? computeWeightTotal(row - 1, col, selfWeight) / 2.0f : 0.0f;
-	return weightUpLeft + weightUpRight;
-}
-
-float computeWeightTotal(int row, int col, double selfWeight[MAX_HEIGHT][MAX_LENGTH]) {
+float computeWeightTotal(
+	int row,
+	int col,
+	double selfWeight[MAX_HEIGHT][MAX_LENGTH]
+) {
 	return (
 		row < 0 || col < 0 || col > row
 			? 0.0f
 			: (float)selfWeight[row][col] + computeWeightOverhead(row, col, selfWeight)
 	);
+}
+
+float computeWeightOverhead(
+	int row,
+	int col,
+	double selfWeight[MAX_HEIGHT][MAX_LENGTH]
+) {
+	if (row <= 0) {
+		return 0.0f;
+	}
+	float weightUpLeft = (col <= 0)
+		? 0.0f
+		: computeWeightTotal(row - 1, col - 1, selfWeight) / 2.0f;
+	float weightUpRight = (col >= row)
+		? 0.0f
+		: computeWeightTotal(row - 1, col, selfWeight) / 2.0f;
+	return weightUpLeft + weightUpRight;
 }
 
 
@@ -629,15 +652,26 @@ void parenthesisValidator() {
 	resetOverflowProtection();
 }
 
-unsigned int encodeLegalCharacters(char c) {
-	switch(c) {
-		case '(': case ')': return BITS_00;
-		case '[': case ']': return BITS_01;
-		case '{': case '}': return BITS_10;
-		case '<': case '>': return BITS_11;
-		default: return (unsigned int)-1;
-	}
-	return (unsigned int)-1;
+void resetOverflowProtection() {
+	bitstack0 = bitstack1 = bitstack2 = bitstack3 = bitstack4 = bitstack5 = bitstack6 = bitstack7
+	= bitstack8 = bitstack9 = bitstack10 = bitstack11 = bitstack12 = bitstack13 = bitstack14 = bitstack15
+	= bitstack16 = bitstack17 = bitstack18 = bitstack19 = bitstack20 = bitstack21 = bitstack22 = bitstack23
+	= bitstack24 = bitstack25 = bitstack26 = bitstack27 = bitstack28 = bitstack29 = bitstack30 = bitstack31
+	= bitstack32 = bitstack33 = bitstack34 = bitstack35 = bitstack36 = bitstack37 = bitstack38 = bitstack39
+	= bitstack40 = bitstack41 = bitstack42 = bitstack43 = bitstack44 = bitstack45 = bitstack46 = bitstack47
+	= bitstack48 = bitstack49 = bitstack50 = bitstack51 = bitstack52 = bitstack53 = bitstack54 = bitstack55
+	= bitstack56 = bitstack57 = bitstack58 = bitstack59 = bitstack60 = bitstack61 = bitstack62 = bitstack63
+	= bitstack64 = bitstack65 = bitstack66 = bitstack67 = bitstack68 = bitstack69 = bitstack70 = bitstack71
+	= bitstack72 = bitstack73 = bitstack74 = bitstack75 = bitstack76 = bitstack77 = bitstack78 = bitstack79
+	= bitstack80 = bitstack81 = bitstack82 = bitstack83 = bitstack84 = bitstack85 = bitstack86 = bitstack87
+	= bitstack88 = bitstack89 = bitstack90 = bitstack91 = bitstack92 = bitstack93 = bitstack94 = bitstack95
+	= bitstack96 = bitstack97 = bitstack98 = bitstack99 = bitstack100 = bitstack101 = bitstack102
+	= bitstack103 = bitstack104 = bitstack105 = bitstack106 = bitstack107 = bitstack108 = bitstack109
+	= bitstack110 = bitstack111 = bitstack112 = bitstack113 = bitstack114 = bitstack115 = bitstack116
+	= bitstack117 = bitstack118 = bitstack119 = bitstack120 = bitstack121 = bitstack122 = bitstack123
+	= bitstack124 = bitstack125 = bitstack126 = bitstack127
+	= 0LLU;
+	recursion_count = 0;
 }
 
 int closedAllParentheses(int depth) {
@@ -690,62 +724,16 @@ int closedAllParentheses(int depth) {
 	selectedTask=EXIT_PROGRAM;
 	return EOF;
 }
-
-// int closedAllParentheses(int depth, unsigned long long bitstack) {
-// 	int input = 0, open = 0, closed = 0;
-// 	unsigned int code = (unsigned int)-1;
-// 	char curr = 0;
-// 	if ((input = scanf("%c", &curr)) != 1) {
-// 		return EOF;
-// 	}
-// 	if (curr == '\n') {
-// 		return !depth;
-// 	}
-// 	open = (curr == '(' || curr == '[' || curr == '{' || curr == '<') ? 1 : 0;
-// 	closed = (curr == ')' || curr == ']' || curr == '}' || curr == '>') ? 1 : 0;
-// 	if (!(open || closed)) {
-// 		return closedAllParentheses(depth, bitstack);
-// 	}
-// 	code = encodeLegalCharacters(curr);
-// 	if (code == (unsigned int)-1) {
-// 		// should never be reached
-// 		return EOF;
-// 	}
-// 	if (open) {
-// 		return closedAllParentheses(++depth, (bitstack << 2) | code);
-// 	}
-// 	if (closed) {
-// 		if (!depth || (bitstack & 3U) != code) {
-// 			scanf("%*[^\n]");
-// 			return 0;
-// 		}
-// 		return closedAllParentheses(--depth, (bitstack >> 2));
-// 	}
-// 	return EOF;
-// }
-
-void resetOverflowProtection() {
-	bitstack0 = bitstack1 = bitstack2 = bitstack3 = bitstack4 = bitstack5 = bitstack6 = bitstack7
-	= bitstack8 = bitstack9 = bitstack10 = bitstack11 = bitstack12 = bitstack13 = bitstack14 = bitstack15
-	= bitstack16 = bitstack17 = bitstack18 = bitstack19 = bitstack20 = bitstack21 = bitstack22 = bitstack23
-	= bitstack24 = bitstack25 = bitstack26 = bitstack27 = bitstack28 = bitstack29 = bitstack30 = bitstack31
-	= bitstack32 = bitstack33 = bitstack34 = bitstack35 = bitstack36 = bitstack37 = bitstack38 = bitstack39
-	= bitstack40 = bitstack41 = bitstack42 = bitstack43 = bitstack44 = bitstack45 = bitstack46 = bitstack47
-	= bitstack48 = bitstack49 = bitstack50 = bitstack51 = bitstack52 = bitstack53 = bitstack54 = bitstack55
-	= bitstack56 = bitstack57 = bitstack58 = bitstack59 = bitstack60 = bitstack61 = bitstack62 = bitstack63
-	= bitstack64 = bitstack65 = bitstack66 = bitstack67 = bitstack68 = bitstack69 = bitstack70 = bitstack71
-	= bitstack72 = bitstack73 = bitstack74 = bitstack75 = bitstack76 = bitstack77 = bitstack78 = bitstack79
-	= bitstack80 = bitstack81 = bitstack82 = bitstack83 = bitstack84 = bitstack85 = bitstack86 = bitstack87
-	= bitstack88 = bitstack89 = bitstack90 = bitstack91 = bitstack92 = bitstack93 = bitstack94 = bitstack95
-	= bitstack96 = bitstack97 = bitstack98 = bitstack99 = bitstack100 = bitstack101 = bitstack102
-	= bitstack103 = bitstack104 = bitstack105 = bitstack106 = bitstack107 = bitstack108 = bitstack109
-	= bitstack110 = bitstack111 = bitstack112 = bitstack113 = bitstack114 = bitstack115 = bitstack116
-	= bitstack117 = bitstack118 = bitstack119 = bitstack120 = bitstack121 = bitstack122 = bitstack123
-	= bitstack124 = bitstack125 = bitstack126 = bitstack127
-	= 0LLU;
-	recursion_count = 0;
+unsigned int encodeLegalCharacters(char c) {
+	switch(c) {
+		case '(': case ')': return BITS_00;
+		case '[': case ']': return BITS_01;
+		case '{': case '}': return BITS_10;
+		case '<': case '>': return BITS_11;
+		default: return (unsigned int)-1;
+	}
+	return (unsigned int)-1;
 }
-
 
 //////////////////////////////////
 // TASK 4 FUNCTIONS
@@ -754,7 +742,9 @@ void resetOverflowProtection() {
 void QueensBattle() {
 	int input = 0, dimension = 0;
 	printf("Please enter the board dimensions:\n");
-	while ((input = scanf(" %d", &dimension)) != 1 || dimension <= 0 || dimension > MAX) {
+	while ((input = scanf(" %d", &dimension)) != 1
+				|| dimension <= 0 || dimension > MAX
+	) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
 			return;
@@ -767,7 +757,9 @@ void QueensBattle() {
 	char zoneChar = 0;
 	printf("Please enter a %d*%d puzzle board:\n", dimension, dimension);
 	while (filled < dimension*dimension) {
-		if ((input = scanf("%c", &zoneChar)) != 1 || zoneChar == ' ' || zoneChar == '\n' || zoneChar == '\t') {
+		if ((input = scanf("%c", &zoneChar)) != 1
+			|| zoneChar == ' ' || zoneChar == '\n' || zoneChar == '\t'
+		) {
 			if (input == EOF) {
 				selectedTask = EXIT_PROGRAM;
 				return;
@@ -811,15 +803,27 @@ void QueensBattle() {
 	scanf("%*[^\n]");
 }
 
-void initQueenTracker(int index, int dimension, int queenTracker[MAX]) {
+void initQueenTracker(
+	int index,
+	int dimension,
+	int queenTracker[MAX]
+) {
 	if (index >= 0 && index < dimension) {
 		queenTracker[index] = NONE_PLACED;
-		initQueenTracker(index + 1, dimension, queenTracker);
+		initQueenTracker(
+			index + 1,
+			dimension,
+			queenTracker
+		);
 	}
 }
 
-int isPuzzleSolvable(int dimension, int queenTracker[MAX],
-	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
+int isPuzzleSolvable(
+	int dimension, 
+	int queenTracker[MAX],
+	unsigned long long *colMask,
+	unsigned long long *zoneMask, 
+	char zones[MAX][MAX]
 ) {
 	return (
 		tryPlacingQueenInRow(
@@ -909,7 +913,8 @@ int tryPlacingQueenInColumn(
 			queenTracker,
 			colMask,
 			zoneMask,
-			zones)) {
+			zones
+		)) {
 			return 1;
 		}
 		*colMask &= ~ colBit;
@@ -928,20 +933,26 @@ int tryPlacingQueenInColumn(
 	return 0;
 }
 
-int tryPlacingQueenInRow(int currentRow, int dimension, int queenTracker[MAX],
-	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
+int tryPlacingQueenInRow(
+	int currentRow,
+	int dimension,
+	int queenTracker[MAX],
+	unsigned long long *colMask,
+	unsigned long long *zoneMask,
+	char zones[MAX][MAX]
 ) {
-	return (currentRow == dimension
-		? 1
-		: tryPlacingQueenInColumn(
-			0,
-			currentRow,
-			dimension,
-			queenTracker,
-			colMask,
-			zoneMask,
-			zones
-		)
+	return (
+		currentRow == dimension
+			? 1
+			: tryPlacingQueenInColumn(
+				0,
+				currentRow,
+				dimension,
+				queenTracker,
+				colMask,
+				zoneMask,
+				zones
+			)
 	);
 }
 
@@ -965,7 +976,8 @@ void menuSelect() {
 	int input = UNSELECTED, temp = UNSELECTED;
 	while (
 		displayMenu(),
-		(input = scanf(" %d",&temp)) != 1 || temp < 1 || temp > EXIT_PROGRAM
+		(input = scanf(" %d",&temp)) != 1
+		|| temp < 1 || temp > EXIT_PROGRAM
 	) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
