@@ -1,5 +1,5 @@
 /******************
-Name:
+Name: Samantha Newmark
 ID:
 Assignment: ex4
 *******************/
@@ -904,15 +904,15 @@ int tryPlacingQueenInRow(
 	return (
 		currentRow == dimension
 			? 1
-			: tryPlacingQueenInColumn(
-				0,
-				currentRow,
-				dimension,
-				queenTracker,
-				colMask,
-				zoneMask,
-				zones
-			)
+		: tryPlacingQueenInColumn(
+			0,
+			currentRow,
+			dimension,
+			queenTracker,
+			colMask,
+			zoneMask,
+			zones
+		)
 	);
 }
 
@@ -1002,22 +1002,18 @@ int isCellAdjacentToExistingQueen(
 ) {
 	return (
 		row < 0 || row == currentRow || row >= dimension
-
-		? 0
-
+			? 0
 		: queenTracker[row] >= 0
 		&& computeDistanceBetweenCells(queenTracker[row], col) <= 1
 		&& computeDistanceBetweenCells(row, currentRow) <= 1
-
 			? 1
-
-			: isCellAdjacentToExistingQueen(
-				queenTracker,
-				row + 1,
-				col,
-				currentRow,
-				dimension
-			)
+		: isCellAdjacentToExistingQueen(
+			queenTracker,
+			row + 1,
+			col,
+			currentRow,
+			dimension
+		)
 	);
 }
 
@@ -1060,7 +1056,6 @@ void menuSelect() {
 		(input = scanf(" %d",&temp)) != 1
 		|| temp < 1 || temp > EXIT_PROGRAM
 	) {
-
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
 			return;
