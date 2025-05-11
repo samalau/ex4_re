@@ -1,5 +1,5 @@
 /******************
-Name: Samantha Newmark
+Name:
 ID:
 Assignment: ex4
 *******************/
@@ -314,19 +314,13 @@ Restricted to traveling only left and/or down, how many paths could a robot take
 */
 void robotPaths();
 
-
-// CRITICAL TODO: RECURSIVE
-
 /*
 Task 1
 Count total legal paths from (x, y) to (0, 0)
 */
-unsigned long long robotPathCount(
-	unsigned long long a,
-	unsigned long long n,
-	unsigned long long k,
-	unsigned long long i
-);
+// CRITICAL TODO: RECURSIVE
+unsigned long long robotPathCount(unsigned long long n, unsigned long long k);
+
 
 /////////////////////////////////////
 // TASK 2 PROTOTYPES
@@ -453,7 +447,6 @@ int tryPlacingQueenInColumn(
 	char zones[MAX][MAX]
 );
 
-
 /*
 Task 4
 Attempt each row for legal queen placement
@@ -473,10 +466,9 @@ int tryPlacingQueenInRow(
 //////////////////////////////////
 
 void robotPaths() {
-	int input = 0;
-	long long x = 0LL, y = 0LL;
+	int input = 0, x = 0, y = 0;
 	printf("Please enter the coordinates of the robot (column, row):\n");
-	while ((input = scanf(" %lld %lld", &x, &y)) != 2) {
+	while ((input = scanf(" %d %d", &x, &y)) != 2) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
 			return;
@@ -485,38 +477,25 @@ void robotPaths() {
 		// scanf("%*[^1234567890 \t\n]");
 		continue;
 	}
-	unsigned long long paths = 0LLU;
-	if (x < 0LL || y < 0LL) {
-		paths = 0LLU;
-	} else if (!(x && y)) {
-		paths = 1LLU;
-	} else {
-		unsigned long long unsignedX = 0LLU, unsignedY = 0LLU, coordinateSum = 0LLU, difference = 0LLU;
-		unsignedX = (unsigned long long)x;
-		unsignedY = (unsigned long long)y;
-		coordinateSum = unsignedX + unsignedY;
-		difference = coordinateSum - unsignedX;
-		paths = robotPathCount(1LLU, coordinateSum, ((unsignedX > difference) ? difference : unsignedX), unsignedX);
-	}
-	printf("The total number of paths the robot can take to reach home is: %llu\n", paths);
+	printf("The total number of paths the robot can take to reach home is: %llu\n",
+				(x < 0 || y < 0) ? 0
+					: ! (x && y) ? 1
+						: robotPathCount((unsigned long long)(x + y), (unsigned long long)x)
+	);
 }
 
-unsigned long long robotPathCount(
-	unsigned long long a,
-	unsigned long long n,
-	unsigned long long k,
-	unsigned long long i
-) {
-	if (i < 1LLU || i > k) {
-		return 0LLU;
+unsigned long long robotPathCount(unsigned long long n, unsigned long long k) {
+	if (k > n) {
+		return 0;
 	}
-	if (i == 1LLU) {
-		return a * ((n - k + i) / i);
+	if (k > n - k) {
+		k = n - k;
 	}
-	if (i > 1LLU && i <= k) {
-		return a * robotPathCount((n - k + i) / i, n, k, i - 1LLU);
+	unsigned long long r = 1;
+	for (unsigned long long i = 1; i <= k; i++) {
+		r = r * (n - k + i) / i;
 	}
-	return 0LLU;
+	return r;
 }
 
 
