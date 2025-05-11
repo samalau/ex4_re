@@ -477,7 +477,6 @@ void robotPaths() {
 			return;
 		}
 		scanf("%*[^\n]");
-		// scanf("%*[^1234567890 \t\n]");
 		continue;
 	}
 	scanf("%*[^\n]");
@@ -535,7 +534,6 @@ void humanPyramid() {
 					return;
 				}
 				scanf("%*[^\n]");
-				// scanf("%*[^1234567890 \n]");
 				printf("Negative weights are not supported.\n");
 				return;
 			}
@@ -691,24 +689,25 @@ int closedAllParentheses(int depth) {
 // }
 
 void resetOverflowProtection() {
+	bitstack0 = bitstack1 = bitstack2 = bitstack3 = bitstack4 = bitstack5 = bitstack6 = bitstack7
+	= bitstack8 = bitstack9 = bitstack10 = bitstack11 = bitstack12 = bitstack13 = bitstack14 = bitstack15
+	= bitstack16 = bitstack17 = bitstack18 = bitstack19 = bitstack20 = bitstack21 = bitstack22 = bitstack23
+	= bitstack24 = bitstack25 = bitstack26 = bitstack27 = bitstack28 = bitstack29 = bitstack30 = bitstack31
+	= bitstack32 = bitstack33 = bitstack34 = bitstack35 = bitstack36 = bitstack37 = bitstack38 = bitstack39
+	= bitstack40 = bitstack41 = bitstack42 = bitstack43 = bitstack44 = bitstack45 = bitstack46 = bitstack47
+	= bitstack48 = bitstack49 = bitstack50 = bitstack51 = bitstack52 = bitstack53 = bitstack54 = bitstack55
+	= bitstack56 = bitstack57 = bitstack58 = bitstack59 = bitstack60 = bitstack61 = bitstack62 = bitstack63
+	= bitstack64 = bitstack65 = bitstack66 = bitstack67 = bitstack68 = bitstack69 = bitstack70 = bitstack71
+	= bitstack72 = bitstack73 = bitstack74 = bitstack75 = bitstack76 = bitstack77 = bitstack78 = bitstack79
+	= bitstack80 = bitstack81 = bitstack82 = bitstack83 = bitstack84 = bitstack85 = bitstack86 = bitstack87
+	= bitstack88 = bitstack89 = bitstack90 = bitstack91 = bitstack92 = bitstack93 = bitstack94 = bitstack95
+	= bitstack96 = bitstack97 = bitstack98 = bitstack99 = bitstack100 = bitstack101 = bitstack102
+	= bitstack103 = bitstack104 = bitstack105 = bitstack106 = bitstack107 = bitstack108 = bitstack109
+	= bitstack110 = bitstack111 = bitstack112 = bitstack113 = bitstack114 = bitstack115 = bitstack116
+	= bitstack117 = bitstack118 = bitstack119 = bitstack120 = bitstack121 = bitstack122 = bitstack123
+	= bitstack124 = bitstack125 = bitstack126 = bitstack127
+	= 0LLU;
 	recursion_count = 0;
-	bitstack0 = bitstack1 = bitstack2 = bitstack3 = bitstack4 = bitstack5 = bitstack6 = bitstack7 =
-	bitstack8 = bitstack9 = bitstack10 = bitstack11 = bitstack12 = bitstack13 = bitstack14 = bitstack15 =
-	bitstack16 = bitstack17 = bitstack18 = bitstack19 = bitstack20 = bitstack21 = bitstack22 = bitstack23 =
-	bitstack24 = bitstack25 = bitstack26 = bitstack27 = bitstack28 = bitstack29 = bitstack30 = bitstack31 =
-	bitstack32 = bitstack33 = bitstack34 = bitstack35 = bitstack36 = bitstack37 = bitstack38 = bitstack39 =
-	bitstack40 = bitstack41 = bitstack42 = bitstack43 = bitstack44 = bitstack45 = bitstack46 = bitstack47 =
-	bitstack48 = bitstack49 = bitstack50 = bitstack51 = bitstack52 = bitstack53 = bitstack54 = bitstack55 =
-	bitstack56 = bitstack57 = bitstack58 = bitstack59 = bitstack60 = bitstack61 = bitstack62 = bitstack63 =
-	bitstack64 = bitstack65 = bitstack66 = bitstack67 = bitstack68 = bitstack69 = bitstack70 = bitstack71 =
-	bitstack72 = bitstack73 = bitstack74 = bitstack75 = bitstack76 = bitstack77 = bitstack78 = bitstack79 =
-	bitstack80 = bitstack81 = bitstack82 = bitstack83 = bitstack84 = bitstack85 = bitstack86 = bitstack87 =
-	bitstack88 = bitstack89 = bitstack90 = bitstack91 = bitstack92 = bitstack93 = bitstack94 = bitstack95 =
-	bitstack96 = bitstack97 = bitstack98 = bitstack99 = bitstack100 = bitstack101 = bitstack102 =
-	bitstack103 = bitstack104 = bitstack105 = bitstack106 = bitstack107 = bitstack108 = bitstack109 =
-	bitstack110 = bitstack111 = bitstack112 = bitstack113 = bitstack114 = bitstack115 = bitstack116 =
-	bitstack117 = bitstack118 = bitstack119 = bitstack120 = bitstack121 = bitstack122 = bitstack123 =
-	bitstack124 = bitstack125 = bitstack126 = bitstack127 = 0LLU;
 }
 
 
@@ -769,7 +768,6 @@ void QueensBattle() {
 		printf("This puzzle cannot be solved.\n");
 	}
 	scanf("%*[^\n]");
-	// scanf("%*[^1234567890 \t\n]");
 }
 
 void initQueenTracker(int index, int dimension, int queenTracker[MAX]) {
@@ -794,15 +792,23 @@ int computeDistanceBetweenCells(int a, int b) {
 }
 
 int isCellAdjacentToExistingQueen(int queenTracker[MAX], int row, int col, int currentRow, int dimension) {
-	if (row < 0 || row == currentRow || row >= dimension) {
-		return 0;
-	}
-	int c = queenTracker[row];
 	return (
-		(c >= 0 && computeDistanceBetweenCells(c, col) <= 1 && computeDistanceBetweenCells(row, currentRow) <= 1)
-			? 1
-			: isCellAdjacentToExistingQueen(queenTracker, row + 1, col, currentRow, dimension)
+		row < 0 || row == currentRow || row >= dimension
+			? 0
+			: (queenTracker[row] >= 0 && computeDistanceBetweenCells(queenTracker[row], col) <= 1
+					&& computeDistanceBetweenCells(row, currentRow) <= 1
+				? 1 : isCellAdjacentToExistingQueen(queenTracker, row + 1, col, currentRow, dimension))
 	);
+	// if (row < 0 || row == currentRow || row >= dimension) {
+	// 	return 0;
+	// }
+	// int c = queenTracker[row];
+	// return (
+	// 	c >= 0
+	// 	&& computeDistanceBetweenCells(c, col) <= 1
+	// 	&& computeDistanceBetweenCells(row, currentRow) <= 1
+	// 		? 1 : isCellAdjacentToExistingQueen(queenTracker, row + 1, col, currentRow, dimension)
+	// );
 }
 
 int tryPlacingQueenInColumn(int col, int currentRow, int dimension, int queenTracker[MAX],
@@ -877,7 +883,6 @@ void menuSelect() {
 			return;
 		}
 		scanf("%*[^\n]");
-		// scanf("%*[^12345 \t\n]");
 		printf("Please choose a task number from the list.\n");
 	}
 	selectedTask = temp;
