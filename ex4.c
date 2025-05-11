@@ -108,21 +108,21 @@ Task 3
 TODO: NOTE
 Used for overflow prevention
 */
-#define BITS__PER_BITSTACK 64
+#define BITS_PER_BITSTACK 64
 
 /*
 Task 3
 TODO: NOTE
 Used for overflow prevention
 */
-#define BITS__PER_LEVEL 2
+#define BITS_PER_LEVEL 2
 
 /*
 Task 3
 TODO: NOTE
 Used for overflow prevention
 */
-#define LEVELS_PER_BITSTACK (BITS__PER_BITSTACK / BITS__PER_LEVEL)
+#define LEVELS_PER_BITSTACK (BITS_PER_BITSTACK / BITS_PER_LEVEL)
 
 /*
 Task 3
@@ -175,11 +175,11 @@ Used for overflow prevention
 	else if ((i) == 4)    bitstack4 = (val);  	 else if ((i) == 5)   bitstack5 = (val); \
 	else if ((i) == 6)    bitstack6 = (val);   	 else if ((i) == 7)   bitstack7 = (val); \
 	else if ((i) == 8)    bitstack8 = (val); 	 else if ((i) == 9)   bitstack9 = (val); \
-	else if ((i) == 10)   bitstack10 = (val);   else if ((i) == 11) bitstack11 = (val); \
-	else if ((i) == 12)   bitstack12 = (val);   else if ((i) == 13) bitstack13 = (val); \
-	else if ((i) == 14)   bitstack14 = (val);   else if ((i) == 15) bitstack15 = (val); \
-	else if ((i) == 16)   bitstack16 = (val);   else if ((i) == 17) bitstack17 = (val); \
-	else if ((i) == 18)   bitstack18 = (val);   else if ((i) == 19) bitstack19 = (val); \
+	else if ((i) == 10)   bitstack10 = (val);   else if ((i) == 11)  bitstack11 = (val); \
+	else if ((i) == 12)   bitstack12 = (val);   else if ((i) == 13)  bitstack13 = (val); \
+	else if ((i) == 14)   bitstack14 = (val);   else if ((i) == 15)  bitstack15 = (val); \
+	else if ((i) == 16)   bitstack16 = (val);   else if ((i) == 17)  bitstack17 = (val); \
+	else if ((i) == 18)   bitstack18 = (val);   else if ((i) == 19)  bitstack19 = (val); \
 	else if ((i) == 20)  bitstack20 = (val);   else if ((i) == 21)  bitstack21 = (val); \
 	else if ((i) == 22)  bitstack22 = (val);   else if ((i) == 23)  bitstack23 = (val); \
 	else if ((i) == 24)  bitstack24 = (val);   else if ((i) == 25)  bitstack25 = (val); \
@@ -217,9 +217,9 @@ Used for overflow prevention
 	else if ((i) == 88)  bitstack88 = (val);   else if ((i) == 89)   bitstack89 = (val); \
 	else if ((i) == 90)  bitstack90 = (val);   else if ((i) == 91)    bitstack91 = (val); \
 	else if ((i) == 92)  bitstack92 = (val);   else if ((i) == 93)    bitstack93 = (val); \
-	else if ((i) == 94)   bitstack94 = (val);   else if ((i) == 95)   bitstack95 = (val); \
-	else if ((i) == 96)   bitstack96 = (val);   else if ((i) == 97)   bitstack97 = (val); \
-	else if ((i) == 98)   bitstack98 = (val);   else if ((i) == 99)   bitstack99 = (val); \
+	else if ((i) == 94)  bitstack94 = (val);   else if ((i) == 95)    bitstack95 = (val); \
+	else if ((i) == 96)  bitstack96 = (val);   else if ((i) == 97)    bitstack97 = (val); \
+	else if ((i) == 98)  bitstack98 = (val);   else if ((i) == 99)    bitstack99 = (val); \
 	else if ((i) == 100) bitstack100 = (val);  else if ((i) == 101)  bitstack101 = (val); \
 	else if ((i) == 102) bitstack102 = (val);  else if ((i) == 103)  bitstack103 = (val); \
 	else if ((i) == 104) bitstack104 = (val);  else if ((i) == 105)  bitstack105 = (val); \
@@ -236,13 +236,6 @@ Used for overflow prevention
 	else if ((i) == 126) bitstack126 = (val); \
 	else bitstack127 = (val); \
 } while (0)
-
-/*
-Task 3
-TODO: NOTE
-Used for overflow prevention
-*/
-static int recursion_count = 0;
 
 /*
 Task 3
@@ -278,10 +271,17 @@ static unsigned long long
 	bitstack125 = 0LLU, bitstack126   = 0LLU, bitstack127 = 0LLU;
 
 /*
-Task 4
-Minimum ASCII for zone ID
+Task 3
+TODO: NOTE
+Used for overflow prevention
 */
-#define ASCII_MIN 33
+static int recursion_count = 0;
+
+/*
+Task 4
+Maximum legal grid dimension
+*/
+#define MAX 20
 
 /*
 Task 4
@@ -291,9 +291,9 @@ Indicates a row currently has no queen placed in any column
 
 /*
 Task 4
-Maximum legal grid dimension
+Minimum ASCII for zone ID
 */
-#define MAX 20
+#define ASCII_MIN 33
 
 
 ////////////////////////////////////////////
@@ -367,9 +367,9 @@ void displayWeight(
 
 /*
 Task 2
-Compute the overhead weight supported by a cheerleader
+Compute the total weight a cheerleader supports
 */
-float computeWeightOverhead(
+float computeWeightTotal(
 	int row,
 	int col,
 	double selfWeight[MAX_HEIGHT][MAX_LENGTH]
@@ -377,9 +377,9 @@ float computeWeightOverhead(
 
 /*
 Task 2
-Compute the total weight a cheerleader supports
+Compute the overhead weight supported by a cheerleader
 */
-float computeWeightTotal(
+float computeWeightOverhead(
 	int row,
 	int col,
 	double selfWeight[MAX_HEIGHT][MAX_LENGTH]
@@ -399,23 +399,22 @@ void parenthesisValidator();
 
 /*
 Task 3
-Assign binary id to legal characters
-Legal: ( ), [ ], { }, < >
+TODO: NOTE
 */
-unsigned int encodeLegalCharacters(char c);
+void overflowProtection();
 
 /*
 Task 3
 Check if all parentheses have been closed
 */
 int closedAllParentheses(int depth);
-// int closedAllParentheses(int depth, unsigned long long bitstack);
 
 /*
 Task 3
-TODO: NOTE
+Assign binary id to legal characters
+Legal: ( ), [ ], { }, < >
 */
-void resetOverflowProtection();
+unsigned int encodeLegalCharacters(char c);
 
 
 /////////////////////////////////////
@@ -444,15 +443,36 @@ void initQueenTracker(
 
 /*
 Task 4
-Compute the absolute difference between coodinates
-*/
-int computeDistanceBetweenCells(int a, int b);
-
-/*
-Task 4
 Check if the puzzle has a solution
 */
 int isPuzzleSolvable(
+	int dimension,
+	int queenTracker[MAX],
+	unsigned long long *colMask,
+	unsigned long long *zoneMask,
+	char zones[MAX][MAX]
+);
+
+/*
+Task 4
+Attempt each row for legal queen placement
+*/
+int tryPlacingQueenInRow(
+	int currentRow,
+	int dimension,
+	int queenTracker[MAX],
+	unsigned long long *colMask,
+	unsigned long long *zoneMask,
+	char zones[MAX][MAX]
+);
+
+/*
+Task 4
+Attempt each column in a row for legal queen placement
+*/
+int tryPlacingQueenInColumn(
+	int col,
+	int currentRow,
 	int dimension,
 	int queenTracker[MAX],
 	unsigned long long *colMask,
@@ -474,30 +494,9 @@ int isCellAdjacentToExistingQueen(
 
 /*
 Task 4
-Attempt each column in a row for legal queen placement
+Compute the absolute difference between coodinates
 */
-int tryPlacingQueenInColumn(
-	int col,
-	int currentRow,
-	int dimension,
-	int queenTracker[MAX],
-	unsigned long long *colMask,
-	unsigned long long *zoneMask,
-	char zones[MAX][MAX]
-);
-
-/*
-Task 4
-Attempt each row for legal queen placement
-*/
-int tryPlacingQueenInRow(
-	int currentRow,
-	int dimension,
-	int queenTracker[MAX],
-	unsigned long long *colMask,
-	unsigned long long *zoneMask,
-	char zones[MAX][MAX]
-);
+int computeDistanceBetweenCells(int a, int b);
 
 
 //////////////////////////////////
@@ -634,25 +633,25 @@ float computeWeightOverhead(
 //////////////////////////////////
 
 void parenthesisValidator() {
-	resetOverflowProtection();
 	int depth = 0, balance = EOF;
 	// clear residual newline
 	scanf("%*c");
 	printf("Please enter a term for validation:\n");
+	overflowProtection();
 	balance = closedAllParentheses(depth);
 	if (balance == EOF){
 		selectedTask = EXIT_PROGRAM;
 		return;
 	}
+	overflowProtection();
 	printf("The parentheses are%sbalanced correctly.\n",
 		balance
 			? " "
 			: " not "
 	);
-	resetOverflowProtection();
 }
 
-void resetOverflowProtection() {
+void overflowProtection() {
 	bitstack0 = bitstack1 = bitstack2 = bitstack3 = bitstack4 = bitstack5 = bitstack6 = bitstack7
 	= bitstack8 = bitstack9 = bitstack10 = bitstack11 = bitstack12 = bitstack13 = bitstack14 = bitstack15
 	= bitstack16 = bitstack17 = bitstack18 = bitstack19 = bitstack20 = bitstack21 = bitstack22 = bitstack23
@@ -696,7 +695,7 @@ int closedAllParentheses(int depth) {
 		return closedAllParentheses(depth);
 	}
 	int index = depth / LEVELS_PER_BITSTACK;
-	int shift = (depth % LEVELS_PER_BITSTACK) * BITS__PER_LEVEL;
+	int shift = (depth % LEVELS_PER_BITSTACK) * BITS_PER_LEVEL;
 	if (c == '(' || c == '[' || c == '{' || c == '<') {
 		if (depth >= MAX_NESTING_DEPTH) {
 			selectedTask = EXIT_PROGRAM;
@@ -713,7 +712,7 @@ int closedAllParentheses(int depth) {
 			return 0;
 		}
 		index = (--depth) / LEVELS_PER_BITSTACK;
-		shift = (depth % LEVELS_PER_BITSTACK) * BITS__PER_LEVEL;
+		shift = (depth % LEVELS_PER_BITSTACK) * BITS_PER_LEVEL;
 		unsigned long long bitstack = GET_BITSTACK(index);
 		unsigned int top = (bitstack >> shift) & 3LLU;
 		if (top != code) {
@@ -843,28 +842,25 @@ int isPuzzleSolvable(
 	);
 }
 
-int computeDistanceBetweenCells(int a, int b) {
-	return a > b ? a - b : b - a;
-}
-
-int isCellAdjacentToExistingQueen(
-	int queenTracker[MAX],
-	int row,
-	int col,
+int tryPlacingQueenInRow(
 	int currentRow,
-	int dimension
+	int dimension,
+	int queenTracker[MAX],
+	unsigned long long *colMask,
+	unsigned long long *zoneMask,
+	char zones[MAX][MAX]
 ) {
 	return (
-		row < 0 || row == currentRow || row >= dimension
-			? 0 : queenTracker[row] >= 0
-				&& computeDistanceBetweenCells(queenTracker[row], col) <= 1
-				&& computeDistanceBetweenCells(row, currentRow) <= 1
-			? 1 : isCellAdjacentToExistingQueen(
-						queenTracker,
-						row + 1,
-						col,
-						currentRow,
-						dimension
+		currentRow == dimension
+			? 1
+			: tryPlacingQueenInColumn(
+				0,
+				currentRow,
+				dimension,
+				queenTracker,
+				colMask,
+				zoneMask,
+				zones
 			)
 	);
 }
@@ -939,27 +935,30 @@ int tryPlacingQueenInColumn(
 	return 0;
 }
 
-int tryPlacingQueenInRow(
-	int currentRow,
-	int dimension,
+int isCellAdjacentToExistingQueen(
 	int queenTracker[MAX],
-	unsigned long long *colMask,
-	unsigned long long *zoneMask,
-	char zones[MAX][MAX]
+	int row,
+	int col,
+	int currentRow,
+	int dimension
 ) {
 	return (
-		currentRow == dimension
-			? 1
-			: tryPlacingQueenInColumn(
-				0,
-				currentRow,
-				dimension,
-				queenTracker,
-				colMask,
-				zoneMask,
-				zones
+		row < 0 || row == currentRow || row >= dimension
+			? 0 : queenTracker[row] >= 0
+				&& computeDistanceBetweenCells(queenTracker[row], col) <= 1
+				&& computeDistanceBetweenCells(row, currentRow) <= 1
+			? 1 : isCellAdjacentToExistingQueen(
+						queenTracker,
+						row + 1,
+						col,
+						currentRow,
+						dimension
 			)
 	);
+}
+
+int computeDistanceBetweenCells(int a, int b) {
+	return a > b ? a - b : b - a;
 }
 
 
@@ -975,24 +974,6 @@ void displayMenu() {
 		"4. Queens Battle\n"
 		"5. Exit\n"
 	);
-}
-
-void menuSelect() {
-	selectedTask = UNSELECTED;
-	int input = UNSELECTED, temp = UNSELECTED;
-	while (
-		displayMenu(),
-		(input = scanf(" %d",&temp)) != 1
-		|| temp < 1 || temp > EXIT_PROGRAM
-	) {
-		if (input == EOF) {
-			selectedTask = EXIT_PROGRAM;
-			return;
-		}
-		scanf("%*[^\n]");
-		printf("Please choose a task number from the list.\n");
-	}
-	selectedTask = temp;
 }
 
 void menuNavigate() {
@@ -1014,6 +995,24 @@ void menuNavigate() {
 		default:
 			printf("Please choose a task number from the list.\n");
 	}
+}
+
+void menuSelect() {
+	selectedTask = UNSELECTED;
+	int input = UNSELECTED, temp = UNSELECTED;
+	while (
+		displayMenu(),
+		(input = scanf(" %d",&temp)) != 1
+		|| temp < 1 || temp > EXIT_PROGRAM
+	) {
+		if (input == EOF) {
+			selectedTask = EXIT_PROGRAM;
+			return;
+		}
+		scanf("%*[^\n]");
+		printf("Please choose a task number from the list.\n");
+	}
+	selectedTask = temp;
 }
 
 int main() {
