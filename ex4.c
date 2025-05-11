@@ -465,10 +465,12 @@ int tryPlacingQueenInRow(
 // TASK 1 FUNCTIONS
 //////////////////////////////////
 
+
 void robotPaths() {
-	int input = 0, x = 0, y = 0;
+	int input = 0;
+	long long x = 0, y = 0;
 	printf("Please enter the coordinates of the robot (column, row):\n");
-	while ((input = scanf(" %d %d", &x, &y)) != 2) {
+	while ((input = scanf(" %lld %lld", &x, &y)) != 2) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
 			return;
