@@ -832,17 +832,8 @@ int tryPlacingQueenInRow(int currentRow, int dimension, int queenTracker[MAX],
 	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
 ) {
 	return (
-		currentRow == dimension
-			? 1
-			: tryPlacingQueenInColumn(
-				0,
-				currentRow,
-				dimension,
-				queenTracker,
-				colMask,
-				zoneMask,
-				zones
-			)
+		currentRow == dimension ? 1
+			: tryPlacingQueenInColumn(0, currentRow, dimension, queenTracker, colMask, zoneMask, zones)
 	);
 }
 
