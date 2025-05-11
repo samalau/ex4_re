@@ -525,7 +525,8 @@ void robotPaths() {
 	} else if (!(x && y)) {
 		paths[0] = 1LLU;
 	} else {
-		unsigned long long k = (
+		unsigned long long k =0LLU;
+		k = (
 			x > y
 				? (unsigned long long)y
 			: (unsigned long long)x
@@ -546,16 +547,15 @@ void robotPathCount(
 	unsigned long long n,
 	unsigned long long k
 ) {
-	if (i > k) {
-		return;
-	}
-	paths[0] = paths[0]* (n - k + i) / i;
-	robotPathCount(
-		i + 1,
-		paths,
-		n,
-		k
-	);
+	if (i <= k) {
+		paths[0] = paths[0] * (n - k + i) / i;
+		robotPathCount(
+			i + 1,
+			paths,
+			n,
+			k
+		);
+	}	
 }
 
 
