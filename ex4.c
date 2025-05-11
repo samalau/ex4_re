@@ -44,6 +44,18 @@ Goodbye!
 #define EXIT_PROGRAM 5
 
 /*
+Task 2
+The longest height of the pyramid
+*/
+#define MAX_HEIGHT 5
+
+/*
+Task 2
+The longest length of the pyramid
+*/
+#define MAX_LENGTH 5
+
+/*
 0b0000
 Task 3
 Bitmask ( )
@@ -512,8 +524,7 @@ void robotPathCount(
 
 void humanPyramid() {
 
-	// CRITICAL TODO: MAGIC
-	double selfWeight[5][5] = {0};
+	double selfWeight[MAX_HEIGHT][MAX_LENGTH] = {0};
 	
 	printf("Please enter the weights of the cheerleaders:\n");
 	
@@ -748,7 +759,6 @@ void QueensBattle() {
 	initQueenTracker(0, dimension, queenTracker);
 	unsigned long long colMask = 0LLU, zoneMask = 0LLU;
 	if (isPuzzleSolvable(dimension, queenTracker, &colMask, &zoneMask, zones)) {
-	// if (isPuzzleSolvable(0, dimension, queenTracker, &colMask, &zoneMask, zones)) {
 		printf("Solution:\n");
 		for (int i = 0; i < dimension; i++) {
 			for (int j = 0; j < dimension; j++) {
@@ -774,25 +784,20 @@ void initQueenTracker(int index, int dimension, int queenTracker[MAX]) {
 int isPuzzleSolvable(int dimension, int queenTracker[MAX],
 	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
 ) {
-	return (
-		tryPlacingQueenInRow(0, dimension, queenTracker, colMask, zoneMask, zones)
-			? 1
-			: 0
-	);
+	return tryPlacingQueenInRow(0, dimension, queenTracker, colMask, zoneMask, zones) ? 1 : 0;
 }
 
 int computeDistanceBetweenCells(int a, int b) {
-	return (a > b) ? (a - b) : (b - a);
+	return a > b ? a - b : b - a;
 }
 
 int isCellAdjacentToExistingQueen(int queenTracker[MAX], int row, int col, int currentRow, int dimension) {
-	return (
-		row < 0 || row == currentRow || row >= dimension
-			? 0
-			: (queenTracker[row] >= 0 && computeDistanceBetweenCells(queenTracker[row], col) <= 1
-					&& computeDistanceBetweenCells(row, currentRow) <= 1
-				? 1 : isCellAdjacentToExistingQueen(queenTracker, row + 1, col, currentRow, dimension))
-	);
+	return (row < 0 || row == currentRow || row >= dimension
+					? 0 : queenTracker[row] >= 0
+						&& computeDistanceBetweenCells(queenTracker[row], col) <= 1
+						&& computeDistanceBetweenCells(row, currentRow) <= 1
+					? 1 : isCellAdjacentToExistingQueen(queenTracker, row + 1, col, currentRow, dimension)
+				);
 }
 
 int tryPlacingQueenInColumn(int col, int currentRow, int dimension, int queenTracker[MAX],
