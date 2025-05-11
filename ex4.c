@@ -338,10 +338,10 @@ Task 1
 Count total legal paths from (x, y) to (0, 0)
 */
 void robotPathCount(
-	unsigned long long e,
+	unsigned long long i,
 	unsigned long long paths[ALL],
-	unsigned long long d,
-	unsigned long long i
+	unsigned long long n,
+	unsigned long long k
 );
 
 
@@ -536,18 +536,18 @@ void robotPaths() {
 }
 
 void robotPathCount(
-	unsigned long long e,
+	unsigned long long i,
 	unsigned long long paths[ALL],
-	unsigned long long d,
-	unsigned long long i
+	unsigned long long n,
+	unsigned long long k
 ) {
-	if (e <= i) {
-		paths[0] = paths[0]* (d - i + e) / e;
+	if (i <= k) {
+		paths[0] = paths[0]* (n - k + i) / i;
 		robotPathCount(
-			e + 1LLU,
+			i + 1LLU,
 			paths,
-			d,
-			i
+			n,
+			k
 		);
 	}
 }
@@ -675,7 +675,10 @@ void resetOverflowProtection() {
 }
 
 int closedAllParentheses(int depth) {
-	if (++recursion_count > MAX_TOTAL_CALLS || depth < 0 || depth > MAX_NESTING_DEPTH) {
+	if (
+		++recursion_count > MAX_TOTAL_CALLS
+		|| depth < 0 || depth > MAX_NESTING_DEPTH
+	) {
 		scanf("%*[^\n]");
 		return 0;
 	}
@@ -721,9 +724,10 @@ int closedAllParentheses(int depth) {
 		SET_BITSTACK(index, bitstack);
 		return closedAllParentheses(depth);
 	}
-	selectedTask=EXIT_PROGRAM;
+	selectedTask = EXIT_PROGRAM;
 	return EOF;
 }
+
 unsigned int encodeLegalCharacters(char c) {
 	switch(c) {
 		case '(': case ')': return BITS_00;
@@ -735,6 +739,7 @@ unsigned int encodeLegalCharacters(char c) {
 	return (unsigned int)-1;
 }
 
+
 //////////////////////////////////
 // TASK 4 FUNCTIONS
 //////////////////////////////////
@@ -742,8 +747,9 @@ unsigned int encodeLegalCharacters(char c) {
 void QueensBattle() {
 	int input = 0, dimension = 0;
 	printf("Please enter the board dimensions:\n");
-	while ((input = scanf(" %d", &dimension)) != 1
-				|| dimension <= 0 || dimension > MAX
+	while (
+		(input = scanf(" %d", &dimension)) != 1
+		|| dimension <= 0 || dimension > MAX
 	) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
