@@ -799,16 +799,6 @@ int isCellAdjacentToExistingQueen(int queenTracker[MAX], int row, int col, int c
 					&& computeDistanceBetweenCells(row, currentRow) <= 1
 				? 1 : isCellAdjacentToExistingQueen(queenTracker, row + 1, col, currentRow, dimension))
 	);
-	// if (row < 0 || row == currentRow || row >= dimension) {
-	// 	return 0;
-	// }
-	// int c = queenTracker[row];
-	// return (
-	// 	c >= 0
-	// 	&& computeDistanceBetweenCells(c, col) <= 1
-	// 	&& computeDistanceBetweenCells(row, currentRow) <= 1
-	// 		? 1 : isCellAdjacentToExistingQueen(queenTracker, row + 1, col, currentRow, dimension)
-	// );
 }
 
 int tryPlacingQueenInColumn(int col, int currentRow, int dimension, int queenTracker[MAX],
