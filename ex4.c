@@ -337,12 +337,18 @@ void robotPaths();
 Task 1
 Count total legal paths from (x, y) to (0, 0)
 */
-void robotPathCount(
-	unsigned long long i,
-	unsigned long long paths[ALL],
+unsigned long long robotPathCount(
+	unsigned long long a,
 	unsigned long long n,
-	unsigned long long k
+	unsigned long long k,
+	unsigned long long i
 );
+// void robotPathCount(
+// 	unsigned long long i,
+// 	unsigned long long paths[ALL],
+// 	unsigned long long n,
+// 	unsigned long long k
+// );
 
 
 /////////////////////////////////////
@@ -506,58 +512,104 @@ int computeDistanceBetweenCells(int a, int b);
 void robotPaths() {
 	int input = 0;
 	long long x = 0LL, y = 0LL;
-
 	printf("Please enter the coordinates of the robot (column, row):\n");
-
 	while ((input = scanf(" %lld %lld", &x, &y)) != 2) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
 			return;
 		}
 		scanf("%*[^\n]");
+		// scanf("%*[^1234567890 \t\n]");
 		continue;
 	}
-	scanf("%*[^\n]");
-
-	unsigned long long paths[ALL] = {0LLU};
-	if (x < 0 || y < 0) {
-		paths[0] = 0LLU;
+	unsigned long long paths = 0LLU;
+	if (x < 0LL || y < 0LL) {
+		paths = 0LLU;
 	} else if (!(x && y)) {
-		paths[0] = 1LLU;
+		paths = 1LLU;
 	} else {
-		unsigned long long k =0LLU;
-		k = (
-			x > y
-				? (unsigned long long)y
-			: (unsigned long long)x
-		);
-		robotPathCount(
-			1LLU,
-			paths,
-			(unsigned long long)(x + y),
-			k
-		);
+		unsigned long long unsignedX = 0LLU, unsignedY = 0LLU, coordinateSum = 0LLU, difference = 0LLU;
+		unsignedX = (unsigned long long)x;
+		unsignedY = (unsigned long long)y;
+		coordinateSum = unsignedX + unsignedY;
+		difference = coordinateSum - unsignedX;
+		paths = robotPathCount(1LLU, coordinateSum, ((unsignedX > difference) ? difference : unsignedX), unsignedX);
 	}
-	printf("The total number of paths the robot can take to reach home is: %llu\n", paths[0]);
+	printf("The total number of paths the robot can take to reach home is: %llu\n", paths);
 }
 
-void robotPathCount(
-	unsigned long long i,
-	unsigned long long paths[ALL],
+unsigned long long robotPathCount(
+	unsigned long long a,
 	unsigned long long n,
-	unsigned long long k
+	unsigned long long k,
+	unsigned long long i
 ) {
-	if (i <= k) {
-		paths[0] = paths[0] * (n - k + i) / i;
-		robotPathCount(
-			i + 1,
-			paths,
-			n,
-			k
-		);
-	}	
+	if (i < 1LLU || i > k) {
+		return 0LLU;
+	}
+	if (i == 1LLU) {
+		return a * ((n - k + i) / i);
+	}
+	if (i > 1LLU && i <= k) {
+		return a * robotPathCount((n - k + i) / i, n, k, i - 1LLU);
+	}
+	return 0LLU;
 }
 
+// void robotPaths() {
+// 	int input = 0;
+// 	long long x = 0LL, y = 0LL;
+
+// 	printf("Please enter the coordinates of the robot (column, row):\n");
+
+// 	while ((input = scanf(" %lld %lld", &x, &y)) != 2) {
+// 		if (input == EOF) {
+// 			selectedTask = EXIT_PROGRAM;
+// 			return;
+// 		}
+// 		scanf("%*[^\n]");
+// 		continue;
+// 	}
+// 	scanf("%*[^\n]");
+
+// 	unsigned long long paths[ALL] = {0LLU};
+// 	if (x < 0 || y < 0) {
+// 		paths[0] = 0LLU;
+// 	} else if (!(x && y)) {
+// 		paths[0] = 1LLU;
+// 	} else {
+// 		unsigned long long k =0LLU;
+// 		k = (
+// 			x > y
+// 				? (unsigned long long)y
+// 			: (unsigned long long)x
+// 		);
+// 		robotPathCount(
+// 			1LLU,
+// 			paths,
+// 			(unsigned long long)(x + y),
+// 			k
+// 		);
+// 	}
+// 	printf("The total number of paths the robot can take to reach home is: %llu\n", paths[0]);
+// }
+
+// void robotPathCount(
+// 	unsigned long long i,
+// 	unsigned long long paths[ALL],
+// 	unsigned long long n,
+// 	unsigned long long k
+// ) {
+// 	if (i <= k) {
+// 		paths[0] = paths[0] * (n - k + i) / i;
+// 		robotPathCount(
+// 			i + 1,
+// 			paths,
+// 			n,
+// 			k
+// 		);
+// 	}
+// }
 
 //////////////////////////////////
 // TASK 2 FUNCTIONS
