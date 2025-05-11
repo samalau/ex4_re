@@ -506,7 +506,9 @@ int computeDistanceBetweenCells(int a, int b);
 void robotPaths() {
 	int input = 0;
 	long long x = 0LL, y = 0LL;
+
 	printf("Please enter the coordinates of the robot (column, row):\n");
+
 	while ((input = scanf(" %lld %lld", &x, &y)) != 2) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
@@ -516,6 +518,7 @@ void robotPaths() {
 		continue;
 	}
 	scanf("%*[^\n]");
+
 	unsigned long long paths[ALL] = {0LLU};
 	if (x < 0 || y < 0) {
 		paths[0] = 0LLU;
@@ -558,24 +561,33 @@ void robotPathCount(
 
 void humanPyramid() {
 	double selfWeight[MAX_HEIGHT][MAX_LENGTH] = {0};
+
 	printf("Please enter the weights of the cheerleaders:\n");
+
 	for (int row = 0; row < MAX_HEIGHT; row++) {
 		for (int col = 0; col <= row; col++) {
+
 			double nextWeight = -1.00;
 			int input = 0;
+
 			if ((input = scanf(" %lf", &nextWeight)) != 1 || nextWeight < 0.00) {
 				if (input == EOF) {
 					selectedTask = EXIT_PROGRAM;
 					return;
 				}
 				scanf("%*[^\n]");
+
 				printf("Negative weights are not supported.\n");
+
 				return;
 			}
+
 			selfWeight[row][col] = nextWeight;
 		}
 	}
+
 	printf("The total weight on each cheerleader is:\n");
+
 	for (int row = 0; row < MAX_HEIGHT; row++) {
 		for (int col = 0; col <= row; col++) {
 			displayWeight(row, col, selfWeight);
@@ -606,7 +618,11 @@ float computeWeightTotal(
 	return (
 		row < 0 || col < 0 || col > row
 			? 0.0f
-			: (float)selfWeight[row][col] + computeWeightOverhead(row, col, selfWeight)
+			: (float)selfWeight[row][col] + computeWeightOverhead(
+																row,
+																col,
+																selfWeight
+															)
 	);
 }
 
@@ -618,12 +634,15 @@ float computeWeightOverhead(
 	if (row <= 0) {
 		return 0.0f;
 	}
+
 	float weightUpLeft = (col <= 0)
 		? 0.0f
 		: computeWeightTotal(row - 1, col - 1, selfWeight) / 2.0f;
+
 	float weightUpRight = (col >= row)
 		? 0.0f
 		: computeWeightTotal(row - 1, col, selfWeight) / 2.0f;
+
 	return weightUpLeft + weightUpRight;
 }
 
@@ -634,16 +653,23 @@ float computeWeightOverhead(
 
 void parenthesisValidator() {
 	int depth = 0, balance = EOF;
+
 	// clear residual newline
 	scanf("%*c");
+
 	printf("Please enter a term for validation:\n");
+
 	overflowProtection();
+
 	balance = closedAllParentheses(depth);
+
 	if (balance == EOF){
 		selectedTask = EXIT_PROGRAM;
 		return;
 	}
+
 	overflowProtection();
+
 	printf("The parentheses are%sbalanced correctly.\n",
 		balance
 			? " "
@@ -681,48 +707,68 @@ int closedAllParentheses(int depth) {
 		scanf("%*[^\n]");
 		return 0;
 	}
+
 	int input = 0;
 	char c = 0;
+
 	if ((input = scanf("%c", &c)) != 1) {
 		selectedTask = EXIT_PROGRAM;
 		return EOF;
 	}
+
 	if (c == '\n') {
 		return !depth;
 	}
+
 	unsigned int code = encodeLegalCharacters(c);
+
 	if (code == (unsigned int)-1) {
 		return closedAllParentheses(depth);
 	}
+
 	int index = depth / LEVELS_PER_BITSTACK;
 	int shift = (depth % LEVELS_PER_BITSTACK) * BITS_PER_LEVEL;
+
 	if (c == '(' || c == '[' || c == '{' || c == '<') {
+
 		if (depth >= MAX_NESTING_DEPTH) {
 			selectedTask = EXIT_PROGRAM;
 			return 0;
 		}
+
 		unsigned long long bitstack = GET_BITSTACK(index);
 		bitstack |= ((unsigned long long)code << shift);
+
 		SET_BITSTACK(index, bitstack);
+
 		return closedAllParentheses(depth + 1);
 	}
+
 	if (c == ')' || c == ']' || c == '}' || c == '>') {
+		
 		if (depth <= 0) {
 			scanf("%*[^\n]");
 			return 0;
 		}
+
 		index = (--depth) / LEVELS_PER_BITSTACK;
 		shift = (depth % LEVELS_PER_BITSTACK) * BITS_PER_LEVEL;
+
 		unsigned long long bitstack = GET_BITSTACK(index);
 		unsigned int top = (bitstack >> shift) & 3LLU;
+
 		if (top != code) {
 			scanf("%*[^\n]");
 			return 0;
 		}
+
 		bitstack &= ~(3LLU << shift);
+
 		SET_BITSTACK(index, bitstack);
+		
 		return closedAllParentheses(depth);
 	}
+
 	selectedTask = EXIT_PROGRAM;
 	return EOF;
 }
@@ -745,7 +791,9 @@ unsigned int encodeLegalCharacters(char c) {
 
 void QueensBattle() {
 	int input = 0, dimension = 0;
+
 	printf("Please enter the board dimensions:\n");
+	
 	while (
 		(input = scanf(" %d", &dimension)) != 1
 		|| dimension <= 0 || dimension > MAX
@@ -757,10 +805,13 @@ void QueensBattle() {
 		scanf("%*[^ \t\n]");
 		continue;
 	}
+	
 	int filled = 0, row = 0, col = 0;
 	char zones[MAX][MAX] = {{0}};
 	char zoneChar = 0;
+	
 	printf("Please enter a %d*%d puzzle board:\n", dimension, dimension);
+	
 	while (filled < dimension*dimension) {
 		if ((input = scanf("%c", &zoneChar)) != 1
 			|| zoneChar == ' ' || zoneChar == '\n' || zoneChar == '\t'
@@ -771,6 +822,7 @@ void QueensBattle() {
 			}
 			continue;
 		}
+
 		zones[row][col++] = zoneChar;
 		if (col == dimension) {
 			col = 0;
