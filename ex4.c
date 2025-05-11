@@ -318,10 +318,12 @@ void robotPaths();
 Task 1
 Count total legal paths from (x, y) to (0, 0)
 */
-// CRITICAL TODO: RECURSIVE
-unsigned long long robotPathCount(unsigned long long n, unsigned long long k);
-
-
+void robotPathCount(
+	unsigned long long paths[1],
+	unsigned long long d,
+	unsigned long long i,
+	unsigned long long e
+);
 /////////////////////////////////////
 // TASK 2 PROTOTYPES
 /////////////////////////////////////
@@ -467,9 +469,9 @@ int tryPlacingQueenInRow(
 
 void robotPaths() {
 	int input = 0;
-	long long x = 0, y = 0;
+	long long xTmp = 0LL, yTmp = 0LL;
 	printf("Please enter the coordinates of the robot (column, row):\n");
-	while ((input = scanf(" %lld %lld", &x, &y)) != 2) {
+	while ((input = scanf(" %lld %lld", &xTmp, &yTmp)) != 2) {
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
 			return;
@@ -478,25 +480,36 @@ void robotPaths() {
 		// scanf("%*[^1234567890 \t\n]");
 		continue;
 	}
-	printf("The total number of paths the robot can take to reach home is: %llu\n",
-				(x < 0 || y < 0) ? 0
-					: ! (x && y) ? 1
-						: robotPathCount((unsigned long long)(x + y), (unsigned long long)x)
-	);
+	scanf("%*[^\n]");
+	unsigned long long paths = 0LLU;
+	unsigned long long pTmp[1] = {1LLU};
+	unsigned long long x = 0LLU, y = 0LLU;
+	if (xTmp < 0LLU || yTmp < 0LLU) {
+		paths = 0LLU;
+	} else if (!(xTmp && yTmp)) {
+		paths = 1LLU;
+	} else {
+		x = (unsigned long long)xTmp;
+		y = (unsigned long long)yTmp;
+		unsigned long long k = 0LLU;
+		k = (x > y) ? y : x;
+		robotPathCount(pTmp, x + y, k, 1LLU);
+		paths = pTmp[0];
+	}
+	printf("The total number of paths the robot can take to reach home is: %llu\n", paths);
 }
 
-unsigned long long robotPathCount(unsigned long long n, unsigned long long k) {
-	if (k > n) {
-		return 0;
+void robotPathCount(
+	unsigned long long p[1],
+	unsigned long long d,
+	unsigned long long i,
+	unsigned long long e
+) {
+	if (e > i) {
+		return;
 	}
-	if (k > n - k) {
-		k = n - k;
-	}
-	unsigned long long r = 1;
-	for (unsigned long long i = 1; i <= k; i++) {
-		r = r * (n - k + i) / i;
-	}
-	return r;
+	p[0] = p[0]* (d - i + e) / e;
+	robotPathCount(p, d, i, e + 1);
 }
 
 
