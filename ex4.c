@@ -543,15 +543,16 @@ void robotPathCount(
 	unsigned long long n,
 	unsigned long long k
 ) {
-	if (i <= k) {
-		paths[0] = paths[0]* (n - k + i) / i;
-		robotPathCount(
-			i + 1LLU,
-			paths,
-			n,
-			k
-		);
+	if (i > k) {
+		return;
 	}
+	paths[0] = paths[0]* (n - k + i) / i;
+	robotPathCount(
+		i + 1LLU,
+		paths,
+		n,
+		k
+	);
 }
 
 
