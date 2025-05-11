@@ -44,6 +44,12 @@ Goodbye!
 #define EXIT_PROGRAM 5
 
 /*
+Task 1
+Number of sets with all paths
+*/
+#define ALL 1
+
+/*
 Task 2
 The longest height of the pyramid
 */
@@ -332,7 +338,7 @@ Count total legal paths from (x, y) to (0, 0)
 */
 void robotPathCount(
 	unsigned long long e,
-	unsigned long long paths[1],
+	unsigned long long paths[ALL],
 	unsigned long long d,
 	unsigned long long i
 );
@@ -352,19 +358,31 @@ void humanPyramid();
 Task 2
 Display the output of the computeWeightTotal recursive function
 */
-void displayWeight(int row, int col, double selfWeight[5][5]);
+void displayWeight(
+	int row,
+	int col,
+	double selfWeight[MAX_HEIGHT][MAX_LENGTH]
+);
 
 /*
 Task 2
 Compute the overhead weight supported by a cheerleader
 */
-float computeWeightOverhead(int row, int col, double selfWeight[5][5]);
+float computeWeightOverhead(
+	int row,
+	int col,
+	double selfWeight[MAX_HEIGHT][MAX_LENGTH]
+);
 
 /*
 Task 2
 Compute the total weight a cheerleader supports
 */
-float computeWeightTotal(int row, int col, double selfWeight[5][5]);
+float computeWeightTotal(
+	int row,
+	int col,
+	double selfWeight[MAX_HEIGHT][MAX_LENGTH]
+);
 
  
 /////////////////////////////////////
@@ -417,7 +435,11 @@ void QueensBattle();
 Task 4
 Prepare the queen position tracker
 */
-void initQueenTracker(int index, int dimension, int queenTracker[MAX]);
+void initQueenTracker(
+	int index,
+	int dimension,
+	int queenTracker[MAX]
+);
 
 /*
 Task 4
@@ -494,7 +516,7 @@ void robotPaths() {
 		continue;
 	}
 	scanf("%*[^\n]");
-	unsigned long long paths[1] = {0LLU};
+	unsigned long long paths[ALL] = {0LLU};
 	if (x < 0 || y < 0) {
 		paths[0] = 0LLU;
 	} else if (!(x && y)) {
@@ -514,13 +536,18 @@ void robotPaths() {
 
 void robotPathCount(
 	unsigned long long e,
-	unsigned long long p[1],
+	unsigned long long paths[ALL],
 	unsigned long long d,
 	unsigned long long i
 ) {
 	if (e <= i) {
-		p[0] = p[0]* (d - i + e) / e;
-		robotPathCount(p, d, i, e + 1LLU);
+		paths[0] = paths[0]* (d - i + e) / e;
+		robotPathCount(
+			e + 1LLU,
+			paths,
+			d,
+			i
+		);
 	}
 }
 
@@ -549,7 +576,7 @@ void humanPyramid() {
 		}
 	}
 	printf("The total weight on each cheerleader is:\n");
-	for (int row = 0; row < 5; row++) {
+	for (int row = 0; row < MAX_HEIGHT; row++) {
 		for (int col = 0; col <= row; col++) {
 			displayWeight(row, col, selfWeight);
 		}
@@ -557,11 +584,11 @@ void humanPyramid() {
 	}
 }
 
-void displayWeight(int row, int col, double selfWeight[5][5]) {
+void displayWeight(int row, int col, double selfWeight[MAX_HEIGHT][MAX_LENGTH]) {
 	printf("%.2f ", computeWeightTotal(row, col, selfWeight));
 }
 
-float computeWeightOverhead(int row, int col, double selfWeight[5][5]) {
+float computeWeightOverhead(int row, int col, double selfWeight[MAX_HEIGHT][MAX_LENGTH]) {
 	if (row <= 0) {
 		return 0.0f;
 	}
@@ -570,7 +597,7 @@ float computeWeightOverhead(int row, int col, double selfWeight[5][5]) {
 	return weightUpLeft + weightUpRight;
 }
 
-float computeWeightTotal(int row, int col, double selfWeight[5][5]) {
+float computeWeightTotal(int row, int col, double selfWeight[MAX_HEIGHT][MAX_LENGTH]) {
 	return (
 		row < 0 || col < 0 || col > row
 			? 0.0f
@@ -595,7 +622,8 @@ void parenthesisValidator() {
 		return;
 	}
 	printf("The parentheses are%sbalanced correctly.\n",
-		balance ? " "
+		balance
+			? " "
 			: " not "
 	);
 	resetOverflowProtection();
@@ -761,11 +789,17 @@ void QueensBattle() {
 	int queenTracker[MAX] = {0};
 	initQueenTracker(0, dimension, queenTracker);
 	unsigned long long colMask = 0LLU, zoneMask = 0LLU;
-	if (isPuzzleSolvable(dimension, queenTracker, &colMask, &zoneMask, zones)) {
+	if (isPuzzleSolvable(
+			dimension,
+			queenTracker,
+			&colMask,
+			&zoneMask,
+			zones
+	)) {
 		printf("Solution:\n");
-		for (int i = 0; i < dimension; i++) {
-			for (int j = 0; j < dimension; j++) {
-				queenTracker[i] == j
+		for (int row = 0; row < dimension; row++) {
+			for (int col = 0; col < dimension; col++) {
+				queenTracker[row] == col
 					? printf("X ")
 					: printf("* ");
 			}
@@ -787,24 +821,52 @@ void initQueenTracker(int index, int dimension, int queenTracker[MAX]) {
 int isPuzzleSolvable(int dimension, int queenTracker[MAX],
 	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
 ) {
-	return tryPlacingQueenInRow(0, dimension, queenTracker, colMask, zoneMask, zones) ? 1 : 0;
+	return (
+		tryPlacingQueenInRow(
+			0,
+			dimension,
+			queenTracker,
+			colMask,
+			zoneMask,
+			zones
+		) ? 1 : 0
+	);
 }
 
 int computeDistanceBetweenCells(int a, int b) {
 	return a > b ? a - b : b - a;
 }
 
-int isCellAdjacentToExistingQueen(int queenTracker[MAX], int row, int col, int currentRow, int dimension) {
-	return (row < 0 || row == currentRow || row >= dimension
-					? 0 : queenTracker[row] >= 0
-						&& computeDistanceBetweenCells(queenTracker[row], col) <= 1
-						&& computeDistanceBetweenCells(row, currentRow) <= 1
-					? 1 : isCellAdjacentToExistingQueen(queenTracker, row + 1, col, currentRow, dimension)
-				);
+int isCellAdjacentToExistingQueen(
+	int queenTracker[MAX],
+	int row,
+	int col,
+	int currentRow,
+	int dimension
+) {
+	return (
+		row < 0 || row == currentRow || row >= dimension
+			? 0 : queenTracker[row] >= 0
+				&& computeDistanceBetweenCells(queenTracker[row], col) <= 1
+				&& computeDistanceBetweenCells(row, currentRow) <= 1
+			? 1 : isCellAdjacentToExistingQueen(
+						queenTracker,
+						row + 1,
+						col,
+						currentRow,
+						dimension
+			)
+	);
 }
 
-int tryPlacingQueenInColumn(int col, int currentRow, int dimension, int queenTracker[MAX],
-	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
+int tryPlacingQueenInColumn(
+	int col,
+	int currentRow,
+	int dimension,
+	int queenTracker[MAX],
+	unsigned long long *colMask,
+	unsigned long long *zoneMask,
+	char zones[MAX][MAX]
 ) {
 	if (col != dimension) {
 		unsigned long long colBit = 1LLU << col;
@@ -821,7 +883,13 @@ int tryPlacingQueenInColumn(int col, int currentRow, int dimension, int queenTra
 				zones
 			);
 		}
-		if (isCellAdjacentToExistingQueen(queenTracker, 0, col, currentRow, dimension)) {
+		if (isCellAdjacentToExistingQueen(
+				queenTracker,
+				0,
+				col,
+				currentRow,
+				dimension
+		)) {
 			return tryPlacingQueenInColumn(
 				col + 1,
 				currentRow,
