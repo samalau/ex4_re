@@ -531,7 +531,7 @@ void robotPaths() {
 			(unsigned long long)(x + y),
 			x > y
 				? (unsigned long long)y
-				: (unsigned long long)x
+			: (unsigned long long)x
 		);
 	}
 	printf("The total number of paths the robot can take to reach home is: %llu\n", paths[0]);
@@ -602,11 +602,7 @@ void displayWeight(
 	double selfWeight[MAX_HEIGHT][MAX_LENGTH]
 ) {
 	printf("%.2f ",
-		computeWeightTotal(
-			row,
-			col,
-			selfWeight
-		)
+		computeWeightTotal(row, col, selfWeight)
 	);
 }
 
@@ -618,11 +614,7 @@ float computeWeightTotal(
 	return (
 		row < 0 || col < 0 || col > row
 			? 0.0f
-			: (float)selfWeight[row][col] + computeWeightOverhead(
-																row,
-																col,
-																selfWeight
-															)
+		: (float)selfWeight[row][col] + computeWeightOverhead(row, col, selfWeight)
 	);
 }
 
@@ -635,13 +627,16 @@ float computeWeightOverhead(
 		return 0.0f;
 	}
 
-	float weightUpLeft = (col <= 0)
-		? 0.0f
-		: computeWeightTotal(row - 1, col - 1, selfWeight) / 2.0f;
+	float weightUpLeft = (
+		col <= 0
+			? 0.0f
+		: computeWeightTotal(row - 1, col - 1, selfWeight) / 2.0f
+	);
 
-	float weightUpRight = (col >= row)
-		? 0.0f
-		: computeWeightTotal(row - 1, col, selfWeight) / 2.0f;
+	float weightUpRight = (
+		col >= row
+			? 0.0f
+		: computeWeightTotal(row - 1, col, selfWeight) / 2.0f);
 
 	return weightUpLeft + weightUpRight;
 }
@@ -813,9 +808,7 @@ void QueensBattle() {
 	printf("Please enter a %d*%d puzzle board:\n", dimension, dimension);
 	
 	while (filled < dimension*dimension) {
-		if ((input = scanf("%c", &zoneChar)) != 1
-			|| zoneChar == ' ' || zoneChar == '\n' || zoneChar == '\t'
-		) {
+		if ((input = scanf("%c", &zoneChar)) != 1 || zoneChar == ' ' || zoneChar == '\n' || zoneChar == '\t') {
 			if (input == EOF) {
 				selectedTask = EXIT_PROGRAM;
 				return;
@@ -830,14 +823,18 @@ void QueensBattle() {
 		}
 		++filled;
 	}
+
 	/*
 	- Track the locations of the queens
 	- The index represents the row of a queen
 	- The stored value at that index is its column
 	*/
 	int queenTracker[MAX] = {0};
+
 	initQueenTracker(0, dimension, queenTracker);
+
 	unsigned long long colMask = 0LLU, zoneMask = 0LLU;
+
 	if (isPuzzleSolvable(
 			dimension,
 			queenTracker,
@@ -866,7 +863,9 @@ void initQueenTracker(
 	int queenTracker[MAX]
 ) {
 	if (index >= 0 && index < dimension) {
+
 		queenTracker[index] = NONE_PLACED;
+
 		initQueenTracker(
 			index + 1,
 			dimension,
@@ -927,9 +926,11 @@ int tryPlacingQueenInColumn(
 	char zones[MAX][MAX]
 ) {
 	if (col != dimension) {
+
 		unsigned long long colBit = 1LLU << col;
 		int zid = zones[currentRow][col] - ASCII_MIN;
 		unsigned long long zidBit = 1LLU << zid;
+
 		if ((*colMask&colBit) || (*zoneMask & zidBit)) {
 			return tryPlacingQueenInColumn(
 				col + 1,
@@ -941,6 +942,7 @@ int tryPlacingQueenInColumn(
 				zones
 			);
 		}
+
 		if (isCellAdjacentToExistingQueen(
 				queenTracker,
 				0,
@@ -958,9 +960,11 @@ int tryPlacingQueenInColumn(
 				zones
 			);
 		}
+
 		queenTracker[currentRow] = col;
 		*colMask |= colBit;
 		*zoneMask |= zidBit;
+
 		if (tryPlacingQueenInRow(
 			currentRow + 1,
 			dimension,
@@ -971,9 +975,11 @@ int tryPlacingQueenInColumn(
 		)) {
 			return 1;
 		}
+
 		*colMask &= ~ colBit;
 		*zoneMask &= ~ zidBit;
 		queenTracker[currentRow] = NONE_PLACED;
+		
 		return (tryPlacingQueenInColumn(
 			col + 1,
 			currentRow,
@@ -996,15 +1002,21 @@ int isCellAdjacentToExistingQueen(
 ) {
 	return (
 		row < 0 || row == currentRow || row >= dimension
-			? 0 : queenTracker[row] >= 0
-				&& computeDistanceBetweenCells(queenTracker[row], col) <= 1
-				&& computeDistanceBetweenCells(row, currentRow) <= 1
-			? 1 : isCellAdjacentToExistingQueen(
-						queenTracker,
-						row + 1,
-						col,
-						currentRow,
-						dimension
+
+		? 0
+
+		: queenTracker[row] >= 0
+		&& computeDistanceBetweenCells(queenTracker[row], col) <= 1
+		&& computeDistanceBetweenCells(row, currentRow) <= 1
+
+			? 1
+
+			: isCellAdjacentToExistingQueen(
+				queenTracker,
+				row + 1,
+				col,
+				currentRow,
+				dimension
 			)
 	);
 }
@@ -1030,37 +1042,30 @@ void displayMenu() {
 
 void menuNavigate() {
 	switch (selectedTask) {
-		case EXIT_PROGRAM:
-			break;
-		case ROBOT_PATHS:
-			robotPaths();
-			break;
-		case HUMAN_PYRAMID:
-			humanPyramid();
-			break;
-		case PARENTHESES_VALIDATOR:
-			parenthesisValidator();
-			break;
-		case QUEENS_BATTLE:
-			QueensBattle();
-			break;
-		default:
-			printf("Please choose a task number from the list.\n");
+		case EXIT_PROGRAM: break;
+		case ROBOT_PATHS: robotPaths(); break;
+		case HUMAN_PYRAMID: humanPyramid(); break;
+		case PARENTHESES_VALIDATOR: parenthesisValidator(); break;
+		case QUEENS_BATTLE: QueensBattle(); break;
+		default: printf("Please choose a task number from the list.\n");
 	}
 }
 
 void menuSelect() {
 	selectedTask = UNSELECTED;
 	int input = UNSELECTED, temp = UNSELECTED;
+
 	while (
 		displayMenu(),
 		(input = scanf(" %d",&temp)) != 1
 		|| temp < 1 || temp > EXIT_PROGRAM
 	) {
+
 		if (input == EOF) {
 			selectedTask = EXIT_PROGRAM;
 			return;
 		}
+
 		scanf("%*[^\n]");
 		printf("Please choose a task number from the list.\n");
 	}
