@@ -324,6 +324,8 @@ void robotPathCount(
 	unsigned long long i,
 	unsigned long long e
 );
+
+
 /////////////////////////////////////
 // TASK 2 PROTOTYPES
 /////////////////////////////////////
@@ -352,7 +354,7 @@ Compute the total weight a cheerleader supports
 */
 float computeWeightTotal(int row, int col, double selfWeight[5][5]);
 
-
+ 
 /////////////////////////////////////
 // TASK 3 PROTOTYPES
 /////////////////////////////////////
