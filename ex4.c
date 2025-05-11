@@ -500,7 +500,14 @@ void robotPaths() {
 	} else if (!(x && y)) {
 		paths[0] = 1LLU;
 	} else {
-		robotPathCount(1LLU, paths, (unsigned long long)(x+y), (x>y)?(unsigned long long)y:(unsigned long long)x);
+		robotPathCount(
+			1LLU,
+			paths,
+			(unsigned long long)(x + y),
+			x > y
+				? (unsigned long long)y
+				: (unsigned long long)x
+		);
 	}
 	printf("The total number of paths the robot can take to reach home is: %llu\n", paths[0]);
 }
@@ -523,14 +530,10 @@ void robotPathCount(
 //////////////////////////////////
 
 void humanPyramid() {
-
 	double selfWeight[MAX_HEIGHT][MAX_LENGTH] = {0};
-	
 	printf("Please enter the weights of the cheerleaders:\n");
-	
-	// CRITICAL TODO: MAGIC
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j <= i; j++) {
+	for (int row = 0; row < MAX_HEIGHT; row++) {
+		for (int col = 0; col <= row; col++) {
 			double nextWeight = -1.00;
 			int input = 0;
 			if ((input = scanf(" %lf", &nextWeight)) != 1 || nextWeight < 0.00) {
@@ -542,7 +545,7 @@ void humanPyramid() {
 				printf("Negative weights are not supported.\n");
 				return;
 			}
-			selfWeight[i][j] = nextWeight;
+			selfWeight[row][col] = nextWeight;
 		}
 	}
 	printf("The total weight on each cheerleader is:\n");
@@ -559,13 +562,11 @@ void displayWeight(int row, int col, double selfWeight[5][5]) {
 }
 
 float computeWeightOverhead(int row, int col, double selfWeight[5][5]) {
-	if (row == 0) {
+	if (row <= 0) {
 		return 0.0f;
 	}
-
 	float weightUpLeft = (col > 0) ? computeWeightTotal(row - 1, col - 1, selfWeight) / 2.0f : 0.0f;
 	float weightUpRight = (col < row) ? computeWeightTotal(row - 1, col, selfWeight) / 2.0f : 0.0f;
-
 	return weightUpLeft + weightUpRight;
 }
 
@@ -573,8 +574,7 @@ float computeWeightTotal(int row, int col, double selfWeight[5][5]) {
 	return (
 		row < 0 || col < 0 || col > row
 			? 0.0f
-			: (float)selfWeight[row][col]
-				+ computeWeightOverhead(row, col, selfWeight)
+			: (float)selfWeight[row][col] + computeWeightOverhead(row, col, selfWeight)
 	);
 }
 
@@ -594,16 +594,19 @@ void parenthesisValidator() {
 		selectedTask = EXIT_PROGRAM;
 		return;
 	}
-	printf("The parentheses are%sbalanced correctly.\n", balance ? " " : " not ");
+	printf("The parentheses are%sbalanced correctly.\n",
+		balance ? " "
+			: " not "
+	);
 	resetOverflowProtection();
 }
 
 unsigned int encodeLegalCharacters(char c) {
 	switch(c) {
-		case'(': case')': return BITS_00;
-		case'[': case']': return BITS_01;
-		case'{': case'}': return BITS_10;
-		case'<': case'>': return BITS_11;
+		case '(': case ')': return BITS_00;
+		case '[': case ']': return BITS_01;
+		case '{': case '}': return BITS_10;
+		case '<': case '>': return BITS_11;
 		default: return (unsigned int)-1;
 	}
 	return (unsigned int)-1;
@@ -617,7 +620,7 @@ int closedAllParentheses(int depth) {
 	int input = 0;
 	char c = 0;
 	if ((input = scanf("%c", &c)) != 1) {
-		selectedTask=EXIT_PROGRAM;
+		selectedTask = EXIT_PROGRAM;
 		return EOF;
 	}
 	if (c == '\n') {
@@ -631,7 +634,7 @@ int closedAllParentheses(int depth) {
 	int shift = (depth % LEVELS_PER_BITSTACK) * BITS__PER_LEVEL;
 	if (c == '(' || c == '[' || c == '{' || c == '<') {
 		if (depth >= MAX_NESTING_DEPTH) {
-			selectedTask=EXIT_PROGRAM;
+			selectedTask = EXIT_PROGRAM;
 			return 0;
 		}
 		unsigned long long bitstack = GET_BITSTACK(index);
@@ -803,36 +806,74 @@ int isCellAdjacentToExistingQueen(int queenTracker[MAX], int row, int col, int c
 int tryPlacingQueenInColumn(int col, int currentRow, int dimension, int queenTracker[MAX],
 	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
 ) {
-	if (col == dimension) {
-		return 0;
+	if (col != dimension) {
+		unsigned long long colBit = 1LLU << col;
+		int zid = zones[currentRow][col] - ASCII_MIN;
+		unsigned long long zidBit = 1LLU << zid;
+		if ((*colMask&colBit) || (*zoneMask & zidBit)) {
+			return tryPlacingQueenInColumn(
+				col + 1,
+				currentRow,
+				dimension,
+				queenTracker,
+				colMask,
+				zoneMask,
+				zones
+			);
+		}
+		if (isCellAdjacentToExistingQueen(queenTracker, 0, col, currentRow, dimension)) {
+			return tryPlacingQueenInColumn(
+				col + 1,
+				currentRow,
+				dimension,
+				queenTracker,
+				colMask,
+				zoneMask,
+				zones
+			);
+		}
+		queenTracker[currentRow] = col;
+		*colMask |= colBit;
+		*zoneMask |= zidBit;
+		if (tryPlacingQueenInRow(
+			currentRow + 1,
+			dimension,
+			queenTracker,
+			colMask,
+			zoneMask,
+			zones)) {
+			return 1;
+		}
+		*colMask &= ~ colBit;
+		*zoneMask &= ~ zidBit;
+		queenTracker[currentRow] = NONE_PLACED;
+		return (tryPlacingQueenInColumn(
+			col + 1,
+			currentRow,
+			dimension,
+			queenTracker,
+			colMask,
+			zoneMask,
+			zones
+		));
 	}
-	unsigned long long colBit = 1LLU << col;
-	int zid = zones[currentRow][col] - ASCII_MIN;
-	unsigned long long zidBit = 1LLU << zid;
-	if ((*colMask&colBit) || (*zoneMask & zidBit)) {
-		return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
-	}
-	if (isCellAdjacentToExistingQueen(queenTracker, 0, col, currentRow, dimension)) {
-		return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
-	}
-	queenTracker[currentRow] = col;
-	*colMask |= colBit;
-	*zoneMask |= zidBit;
-	if (tryPlacingQueenInRow(currentRow + 1, dimension, queenTracker, colMask, zoneMask, zones)) {
-		return 1;
-	}
-	*colMask &= ~ colBit;
-	*zoneMask &= ~ zidBit;
-	queenTracker[currentRow] = NONE_PLACED;
-	return tryPlacingQueenInColumn(col + 1, currentRow, dimension, queenTracker, colMask, zoneMask, zones);
+	return 0;
 }
 
 int tryPlacingQueenInRow(int currentRow, int dimension, int queenTracker[MAX],
 	unsigned long long *colMask, unsigned long long *zoneMask, char zones[MAX][MAX]
 ) {
-	return (
-		currentRow == dimension ? 1
-			: tryPlacingQueenInColumn(0, currentRow, dimension, queenTracker, colMask, zoneMask, zones)
+	return (currentRow == dimension
+		? 1
+		: tryPlacingQueenInColumn(
+			0,
+			currentRow,
+			dimension,
+			queenTracker,
+			colMask,
+			zoneMask,
+			zones
+		)
 	);
 }
 
