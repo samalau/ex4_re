@@ -465,7 +465,6 @@ int tryPlacingQueenInRow(
 // TASK 1 FUNCTIONS
 //////////////////////////////////
 
-
 void robotPaths() {
 	int input = 0;
 	long long x = 0, y = 0;
