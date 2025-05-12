@@ -1,1 +1,0 @@
-For these tests, you need to add the crossword generator to the menu as number 5, and then exit will be 6.
