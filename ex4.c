@@ -91,49 +91,42 @@ Bitmask < >
 
 /*
 Task 3
-TODO: NOTE
 Used for overflow prevention
 */
 #define MAX_TOTAL_CALLS 4096
 
 /*
 Task 3
-TODO: NOTE
 Used for overflow prevention
 */
 #define MAX_NESTING_DEPTH 4096
 
 /*
 Task 3
-TODO: NOTE
 Used for overflow prevention
 */
 #define BITS_PER_BITSTACK 64
 
 /*
 Task 3
-TODO: NOTE
 Used for overflow prevention
 */
 #define BITS_PER_LEVEL 2
 
 /*
 Task 3
-TODO: NOTE
 Used for overflow prevention
 */
 #define LEVELS_PER_BITSTACK (BITS_PER_BITSTACK / BITS_PER_LEVEL)
 
 /*
 Task 3
-TODO: NOTE
 Used for overflow prevention
 */
 #define BITSTACK_COUNT (MAX_NESTING_DEPTH / LEVELS_PER_BITSTACK)
 
 /*
 Task 3
-TODO: NOTE
 Used for overflow prevention
 */
 #define GET_BITSTACK(i) ( \
@@ -166,7 +159,6 @@ Used for overflow prevention
 
 /*
 Task 3
-TODO: NOTE
 Used for overflow prevention
 */
 #define SET_BITSTACK(i, val) do { \
@@ -239,7 +231,6 @@ Used for overflow prevention
 
 /*
 Task 3
-TODO: NOTE
 Used for overflow prevention
 */
 static unsigned long long
@@ -272,7 +263,6 @@ static unsigned long long
 
 /*
 Task 3
-TODO: NOTE
 Used for overflow prevention
 */
 static int recursion_count = 0;
@@ -399,7 +389,7 @@ void parenthesisValidator();
 
 /*
 Task 3
-TODO: NOTE
+Some defense against overflow from input
 */
 void overflowProtection();
 
