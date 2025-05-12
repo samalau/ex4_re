@@ -582,6 +582,7 @@ void humanPyramid() {
 			selfWeight[row][col] = nextWeight;
 		}
 	}
+	scanf("%*[^\n]");
 
 	printf("The total weight on each cheerleader is:\n");
 
